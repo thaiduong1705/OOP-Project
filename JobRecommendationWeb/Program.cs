@@ -1,4 +1,4 @@
-using JobRecommendationWeb.Models;
+global using JobRecommendationWeb.Models;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

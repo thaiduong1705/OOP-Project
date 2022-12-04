@@ -7,15 +7,18 @@ namespace JobRecommendationWeb.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly JobRecommendationContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, JobRecommendationContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
         {
-            return View();
+            List<Kinang> skillList = _context.Kinangs.ToList();
+            return View(skillList);
         }
 
         public IActionResult Privacy()
