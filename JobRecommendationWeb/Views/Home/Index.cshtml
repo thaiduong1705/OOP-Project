@@ -1,4 +1,4 @@
-﻿@model List<Kinang>
+﻿@model IEnumerable<JobRecommendationWeb.Models.Kinang>
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -20,6 +20,11 @@
             <tr>
                 <td width="20%">@p.MaKiNang</td>
                 <td width="80%">@p.TenKiNang</td>
+                <td>
+                    <a asp-action="KinangEdit" asp-route-id="@p.MaKiNang">Edit</a> |
+                    <a asp-action="KinangDetails" asp-route-id="@p.MaKiNang">Details</a> |
+                    <a asp-action="KinangDelete" asp-route-id="@p.MaKiNang">Delete</a>
+                </td>
             </tr>
         }
     </tbody>
