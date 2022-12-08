@@ -16,13 +16,26 @@ namespace JobRecommendationWeb.Controllers
             return View(kinangs);
         }
 
+        public IActionResult Create()
+        {
+            return View();
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(Kinang obj)
         {
-            _context.Kinangs.Add(obj);
-            _context.SaveChanges();
-            return RedirectToAction("Index", "Skill");
+            if (string.IsNullOrEmpty(obj.TenKiNang))
+            {
+                ModelState.AddModelError("tenkinang", "test");
+            }    
+            if (ModelState.IsValid)
+            {
+                _context.Kinangs.Add(obj);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(obj);
         }
 
         
