@@ -375,13 +375,23 @@ footer {
     align-items: center;
 }
 
-    footer .back-to-top {
-        width: 44px;
-        line-height: 44px;
-        position: fixed;
-        right: 42px;
-        bottom: 20px;
-        background-color: var(--third-color);
-        color: var(--second-color);
-        text-align: center;
-    }
+footer .back-to-top {
+    width: 44px;
+    line-height: 44px;
+    position: fixed;
+    right: 42px;
+    bottom: 20px;
+    background-color: var(--third-color);
+    color: var(--second-color);
+    text-align: center;
+}
+
+.card {
+    width: 250px;
+    height: 300px;
+}
+
+.card-header > img {
+    height: 75px;
+
+}
