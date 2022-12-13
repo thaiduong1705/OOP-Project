@@ -21,10 +21,31 @@ namespace JobRecommendationWeb.Controllers
             return View(skillList);
         }
 
-        public IActionResult Privacy()
+        public IActionResult IntroductionPartial()
         {
-            return View();
+            return PartialView("_Introduction");
         }
+
+        public IActionResult AboutParital()
+        {
+            return PartialView("_About");
+        }
+        public IActionResult ContactPartial()
+        {
+            return PartialView("_Contact");
+        }
+
+
+
+
+
+
+
+
+
+
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

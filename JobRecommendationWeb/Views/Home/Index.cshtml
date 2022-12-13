@@ -3,24 +3,31 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<partial name="_Introduction" />
+
+
+<div id="portfolio">
+    <table class="table table-bordered table-striped w-100">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Tên kĩ năng</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model)
+            {
+                <tr>
+                    <td width="20%">@p.MaKiNang</td>
+                    <td width="80%">@p.TenKiNang</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
 
-<table class="table table-bordered table-striped w-100">
-    <thead>
-        <tr>
-            <th>STT</th>
-            <th>Tên kĩ năng</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach(var p in Model) {
-            <tr>
-                <td width="20%">@p.MaKiNang</td>
-                <td width="80%">@p.TenKiNang</td>
-            </tr>
-        }
-    </tbody>
-</table>
+<!-- About -->
+<partial name="_About" />
+
+<!-- Contact -->
+<partial name="_Contact" />
