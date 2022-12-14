@@ -1,12 +1,4 @@
-﻿@model List<Kinang>
-@{
-    ViewData["Title"] = "Home Page";
-}
-
-<partial name="_Introduction" />
-
-
-<div id="portfolio" class="d-flex justify-content-center align-items-center">
+﻿<div class="d-flex justify-content-center align-items-center">
     <!-- chỗ này binding ra danh các việc làm nè-->
     <div class="row g-2">
         <div class="col-4">
@@ -26,7 +18,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="col-4">
             <div class="card position-relative ">
                 <a href="#" class=" position-absolute top-0 left-0 w-100 h-100"></a>
@@ -64,9 +56,3 @@
         </div>
     </div>
 </div>
-
-<!-- About -->
-<partial name="_About" />
-
-<!-- Contact -->
-<partial name="_Contact" />

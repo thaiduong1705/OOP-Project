@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "Đăng nhập";
+    Layout = "~/Views/Shared/_BlankLayout.cshtml";
+}
+<div class="login-form">
+    <h1>Login Form</h1>
+    <form class="container">
+        <div class="form-control">
+            <input id="username" type="text" placeholder="Username">
+            <span></span>
+            <small></small>
+        </div>
+
+        <div class="form-control">
+            <input id="email" type="text" placeholder="Email">
+            <span></span>
+            <small></small>
+        </div>
+
+        <div class="form-control">
+            <input id="password" type="password" placeholder="Password">
+            <span></span>
+            <small></small>
+        </div>
+
+        <div class="form-control">
+            <input id="repassword" type="password" placeholder="Confirm password">
+            <span></span>
+            <small></small>
+        </div>
+
+        <button class="btn-submit">Login</button>
+
+        <div class="signup">
+            Not a member? <a href="#">Sign up</a>
+        </div>
+    </form>
+</div>
