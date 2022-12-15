@@ -8,5 +8,10 @@ namespace JobRecommendationWeb.Controllers
         {
             return View();
         }
+
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
     }
 }
