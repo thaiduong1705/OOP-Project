@@ -424,5 +424,19 @@ footer .back-to-top {
 
 .card-header > img {
     height: 75px;
-
 }
+
+.dsnv, .dsnv th, .dsnv td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    
+}
+
+.dsnv {
+    width: 100%;
+    max-width: 1400px;
+}
+
+    .dsnv tbody tr:hover {
+        background-color: #1bbc9b;
+    }

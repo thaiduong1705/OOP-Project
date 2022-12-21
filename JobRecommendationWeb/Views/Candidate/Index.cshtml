@@ -1,18 +1,46 @@
-﻿<div class="d-flex justify-content-center align-items-center">
+﻿@{
+    ViewData["Title"] = "Danh sách ứng viên";
+}
+
+<div class="container mb-5">
+    <div class="row">
+        <div class="col-6">
+            <h3 class="text-dark">Danh sách ứng viên</h3>
+        </div>
+        <div class="col-6 text-end">
+            <a class="btn btn-primary" asp-action="Create" asp-controller="Candidate">Tạo hồ sơ mới</a>
+        </div>
+    </div>
+    <div class="search">
+        <form class="row my-2 my-lg-0">
+            <div class="col-lg-8">
+                <input class="form-control mr-sm-2 col-lg-8" type="text" placeholder="Search">
+            </div>
+			<div class="col-auto">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </div>
+			
+        </form>
+    </div>
+    
+</div>
+
+
+
+
+
+<div class="container me-auto">
     <!-- chỗ này binding ra danh các việc làm nè-->
-    <div class="row g-2">
+    <div class="row g-5">
         <div class="col-4">
             <div class="card position-relative ">
                 <a href="#" class=" position-absolute top-0 left-0 w-100 h-100"></a>
-                <div class="card-header d-flex justify-content-center align-items-center">
-                    <img alt="ảnh công ty" />
-                </div>
                 <div class="card-body">
-                    <h5 class="card-title fw-bolder">Tên công việc</h5>
+                    <h5 class="card-title fw-bolder">Họ tên</h5>
                     <div class="small-text mb-2">
-                        <p class="card-text m-0 small">Lương:........ Binding</p>
+                        <p class="card-text m-0 small"> Năm kinh nghiệm:........ Binding</p>
 
-                        <p class="card-text m-0 small"> Địa điểm...... binding</p>
+                        <p class="card-text m-0 small"> Kĩ năng...... binding</p>
                     </div>
                     <p class="card-text">Mô tả</p>
                 </div>
@@ -22,15 +50,12 @@
         <div class="col-4">
             <div class="card position-relative ">
                 <a href="#" class=" position-absolute top-0 left-0 w-100 h-100"></a>
-                <div class="card-header d-flex justify-content-center align-items-center">
-                    <img alt="ảnh công ty" />
-                </div>
                 <div class="card-body">
-                    <h5 class="card-title fw-bolder">Tên công việc</h5>
+                    <h5 class="card-title fw-bolder">Họ tên</h5>
                     <div class="small-text mb-2">
-                        <p class="card-text m-0 small">Lương:........ Binding</p>
+                        <p class="card-text m-0 small"> Năm kinh nghiệm:........ Binding</p>
 
-                        <p class="card-text m-0 small"> Địa điểm...... binding</p>
+                        <p class="card-text m-0 small"> Kĩ năng...... binding</p>
                     </div>
                     <p class="card-text">Mô tả</p>
                 </div>
@@ -40,19 +65,65 @@
         <div class="col-4">
             <div class="card position-relative">
                 <a href="#" class=" position-absolute top-0 left-0 w-100 h-100"></a>
-                <div class="card-header d-flex justify-content-center align-items-center">
-                    <img alt="ảnh công ty" />
-                </div>
                 <div class="card-body">
-                    <h5 class="card-title fw-bolder">Tên công việc</h5>
+                    <h5 class="card-title fw-bolder">Họ tên</h5>
                     <div class="small-text mb-2">
-                        <p class="card-text m-0 small">Lương:........ Binding</p>
+                        <p class="card-text m-0 small"> Năm kinh nghiệm:........ Binding</p>
 
-                        <p class="card-text m-0 small"> Địa điểm...... binding</p>
+                        <p class="card-text m-0 small"> Kĩ năng...... binding</p>
                     </div>
                     <p class="card-text">Mô tả</p>
                 </div>
             </div>
         </div>
+
+        <div class="col-4">
+            <div class="card position-relative ">
+                <a href="#" class=" position-absolute top-0 left-0 w-100 h-100"></a>
+                <div class="card-body">
+                    <h5 class="card-title fw-bolder">Họ tên</h5>
+                    <div class="small-text mb-2">
+                        <p class="card-text m-0 small"> Năm kinh nghiệm:........ Binding</p>
+
+                        <p class="card-text m-0 small"> Kĩ năng...... binding</p>
+                    </div>
+                    <p class="card-text">Mô tả</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <div class="card position-relative ">
+                <a href="#" class=" position-absolute top-0 left-0 w-100 h-100"></a>
+                <div class="card-body">
+                    <h5 class="card-title fw-bolder">Họ tên</h5>
+                    <div class="small-text mb-2">
+                        <p class="card-text m-0 small"> Năm kinh nghiệm:........ Binding</p>
+
+                        <p class="card-text m-0 small"> Kĩ năng...... binding</p>
+                    </div>
+                    <p class="card-text">Mô tả</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <div class="card position-relative">
+                <a href="#" class=" position-absolute top-0 left-0 w-100 h-100"></a>
+                <div class="card-body">
+                    <h5 class="card-title fw-bolder">Họ tên</h5>
+                    <div class="small-text mb-2">
+                        <p class="card-text m-0 small"> Năm kinh nghiệm:........ Binding</p>
+
+                        <p class="card-text m-0 small"> Kĩ năng...... binding</p>
+                    </div>
+                    <p class="card-text">Mô tả</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        
     </div>
 </div>
