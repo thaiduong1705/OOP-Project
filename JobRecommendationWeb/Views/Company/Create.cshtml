@@ -1,0 +1,136 @@
+﻿@{
+    ViewData["Title"] = "Tạo hồ sơ tuyển dụng";
+
+}
+@section Styles {
+	<link rel="stylesheet" href="@Url.Content("/css/FormStyle.css")"/>
+}
+<div class="container">
+		<form>
+			<div class="row-register">
+				<div class="col-register1">
+					<img src="/images/logo.jpg" alt="ảnh" style="width: 200px">
+				</div>
+				<div class="col-register2">
+					<h1>Thông tin nhà tuyển dụng</h1>
+					<hr>
+					<br>
+					<div class="row-register2">
+						<div class="col-register3">
+							<label for="company_name">Tên công ty</label>
+						</div>
+						<div class="col-register4">
+							<input type="text" name="company_name" id="company_name" required autofocus>
+						</div>
+					</div>
+					<br>
+					<div class="row-register2">
+						<div class="col-register3">
+							<label for="staff_name">Tên người đại diện</label>
+						</div>
+						<div class="col-register4">
+							<input type="text" name="staff_name" id="staff_name" required>
+						</div>
+					</div>
+					<br>
+					<div class="row-register2">
+						<div class="col-register3">
+							<label for="staff_phone">SĐT người đại diện</label>
+						</div>
+						<div class="col-register4">
+							<input type="text" name="staff_phone" id="staff_phone" required>
+						</div>
+					</div>
+					<br>
+					<div class="row-register2">
+						<div class="col-register3">
+							<label for="email">Email</label>
+						</div>
+						<div class="col-register4">
+							<input type="email" name="email" id="email" required>
+						</div>
+					</div>
+					<br>
+					<div class="row-register2">
+						<div class="col-register3">
+							<label for="logo">Logo</label>
+						</div>
+						<div class="col-register4">
+							<input type="file" name="logo" id="logo" accept="image/*" required>
+						</div>
+					</div>
+					<br>
+					<div class="row-register2">
+						<div class="col-register3">
+							<label for="business_license">Giấy phép kinh doanh</label>
+						</div>
+						<div class="col-register4">
+							<input type="file" name="business_license" id="business_license" accept="image/*" required>
+						</div>
+					</div>
+					<br>
+					<div class="row-register2">
+						<div class="col-register3">
+							<label for="location">Đại chỉ</label>
+						</div>
+						<div class="col-register4">
+							<input type="text" name="location" id="location" required>
+							<br>
+							<span>Ví dụ: 332, Cộng Hòa, 14, Tân Bình</span>
+						</div>
+					</div>
+					<br>
+					<div class="row-register2">
+						<div class="col-register3">
+							<label for="country">Quốc gia</label>
+						</div>
+						<div class="col-register4">
+							<select name="country" id="country" required>
+								<option value=""></option>
+								<option value="vn">Việt Nam</option>
+								<option value="lao">Lào</option>
+								<option value="cam">Campuchia</option>
+								<option value="kor">Hàn Quốc</option>
+								<option value="ger">Đức</option>
+								<option value="jap">Nhật Bản</option>
+								<option value="tha">Thái Lan</option>
+								<option value="USA">Mỹ</option>
+								<option value="sin">Singapore</option>
+							</select>
+						</div>
+					</div>
+					<br>
+					<!-- <div class="row2">
+						<div class="col3">
+							<label for="male">Giới tính: </label>
+
+						</div>
+						<div class="col4">
+							<label>
+								<input type="radio" name="gender" value="male" id="male" required checked> Male
+							</label>
+							<br>
+							<label>
+								<input type="radio" name="gender" value="female"> Female
+							</label>
+							<br>
+							<label>
+								<input type="radio" name="gender" value="undefined"> Undefined
+							</label>
+						</div>
+
+					</div>
+					<br> -->
+					<div class="row-register2">
+						<div class="col-register3">
+							<!-- <label for="firstname">Firstname</label> -->
+						</div>
+						<div class="col-register4">
+							<button>Đăng ký</button>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</form>
+</div>

@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/JobRecommendationWeb.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	@RenderSection("Styles", required: false)
 	<script src="https://kit.fontawesome.com/e7ec61a9d3.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -43,7 +44,7 @@
 							</li>
 
 							<li class="nav-item">
-								<a class="nav-link" href="#">Hồ sơ công ty</a>
+								<a class="nav-link" asp-action="Index" asp-controller="Company">Hồ sơ công ty</a>
 							</li>
 
 							<li class="nav-item">
@@ -60,10 +61,13 @@
 						</ul>
 					</li>
 
-					<li class="nav-item ">
+					<li class="nav-item">
 						<a class="nav-link" asp-action="Login" asp-controller="Login">Đăng nhập</a>
 					</li>
 				</ul>
+				<div class="ms-auto">
+					tewewtsts
+				</div>
 			</div>
 		</nav>
 	</header>

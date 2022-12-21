@@ -1,0 +1,59 @@
+﻿/*screen < 768px*/
+hr {
+    margin: 0 5%;
+}
+
+.col-register1 {
+    height: 400px;
+    position: relative;
+}
+
+button {
+    background-color: #1bbc9b;
+    height: 50px;
+    width: 130px;
+    border: none;
+    font-weight: bold;
+    position: absolute;
+}
+
+.col-register3 {
+    font-weight: bold;
+}
+
+ul li a {
+    text-decoration: none;
+    color: #000;
+}
+
+ul li:first-child a {
+    color: blue;
+}
+
+ul li {
+    list-style-type: none;
+}
+
+.row-register2 {
+    display: flex;
+}
+
+.col-register3, .col-register4 {
+    width: 50%;
+}
+
+/*screen >= 768px*/
+@media (min-width: 768px) {
+    .row-register .col-register1 {
+        height: 450px;
+        /*text-align: right;	*/
+    }
+
+    .row-register {
+        display: flex;
+    }
+
+        .row-register > * {
+            width: 50%;
+        }
+}

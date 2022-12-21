@@ -2,9 +2,14 @@
 
 namespace JobRecommendationWeb.Controllers
 {
-    public class CandidateController : Controller
+    public class CompanyController : Controller
     {
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        public IActionResult Detail()
         {
             return View();
         }
