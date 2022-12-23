@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobRecommendationWeb.Migrations
 {
     [DbContext(typeof(JobRecommendationContext))]
-    [Migration("20221221064037_AddDatabse")]
-    partial class AddDatabse
+    [Migration("20221223171448_InitialDB")]
+    partial class InitialDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -118,9 +118,9 @@ namespace JobRecommendationWeb.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaCv"));
 
-                    b.Property<string>("LinkCv")
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("LinkCV");
+                    b.Property<byte[]>("AnhCv")
+                        .HasColumnType("varbinary(max)")
+                        .HasColumnName("AnhCV");
 
                     b.Property<int?>("MaUngVien")
                         .HasColumnType("int");
@@ -140,6 +140,9 @@ namespace JobRecommendationWeb.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaCongTy"));
+
+                    b.Property<byte[]>("AnhCongTy")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("CheDoDaiNgo")
                         .HasColumnType("nvarchar(max)");
@@ -282,7 +285,7 @@ namespace JobRecommendationWeb.Migrations
                     b.Property<string>("LyDo")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("MaBaiDang")
+                    b.Property<int?>("MaBaiDang")
                         .HasColumnType("int");
 
                     b.Property<string>("MoTa")
@@ -542,7 +545,6 @@ namespace JobRecommendationWeb.Migrations
                     b.HasOne("JobRecommendationWeb.Models.Baidang", "MaBaiDangNavigation")
                         .WithMany("Phieutocaos")
                         .HasForeignKey("MaBaiDang")
-                        .IsRequired()
                         .HasConstraintName("FK_MaBaiDang_PTC");
 
                     b.Navigation("MaBaiDangNavigation");

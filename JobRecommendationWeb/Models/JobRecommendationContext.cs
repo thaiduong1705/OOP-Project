@@ -43,6 +43,8 @@ public partial class JobRecommendationContext : DbContext
 
     public virtual DbSet<Ungvien> Ungviens { get; set; }
 
+    
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Baidang>(entity =>
@@ -76,7 +78,7 @@ public partial class JobRecommendationContext : DbContext
             entity.ToTable("CV");
 
             entity.Property(e => e.MaCv).HasColumnName("MaCV");
-            entity.Property(e => e.LinkCv).HasColumnName("LinkCV");
+            entity.Property(e => e.AnhCv).HasColumnName("AnhCV");
 
             entity.HasOne(d => d.MaUngVienNavigation).WithMany(p => p.Cvs)
                 .HasForeignKey(d => d.MaUngVien)
@@ -202,7 +204,6 @@ public partial class JobRecommendationContext : DbContext
 
             entity.HasOne(d => d.MaBaiDangNavigation).WithMany(p => p.Phieutocaos)
                 .HasForeignKey(d => d.MaBaiDang)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_MaBaiDang_PTC");
         });
 

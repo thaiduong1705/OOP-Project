@@ -7,7 +7,7 @@ public partial class Phieutocao
 {
     public int MaPhieuToCao { get; set; }
 
-    public int MaBaiDang { get; set; }
+    public int? MaBaiDang { get; set; }
 
     public string? LyDo { get; set; }
 
@@ -15,7 +15,7 @@ public partial class Phieutocao
 
     public string? MoTa { get; set; }
 
-    public virtual Baidang MaBaiDangNavigation { get; set; } = null!;
+    public virtual Baidang? MaBaiDangNavigation { get; set; }
 
     public virtual ICollection<Phieuphat> Phieuphats { get; } = new List<Phieuphat>();
 }
