@@ -4,7 +4,7 @@ namespace JobRecommendationWeb.AddingClasses
 {
     public class Encryptor
     {
-        private static Encryptor _instance;
+        private static Encryptor? _instance;
         public static Encryptor Instance
         {
             get

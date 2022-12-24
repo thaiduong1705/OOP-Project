@@ -440,3 +440,8 @@ footer .back-to-top {
     .dsnv tbody tr:hover {
         background-color: #1bbc9b;
     }
+
+
+.displayCard {
+    list-style-type: none;
+}

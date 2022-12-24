@@ -1,4 +1,5 @@
-﻿@{
+﻿@model List<Hosocongty>
+@{
     ViewData["Title"] = "Danh sách nhà tuyển dụng";
 }
 
@@ -15,53 +16,25 @@
 
 <div class="container d-flex justify-content-center align-items-center">
     <!-- chỗ này binding ra danh các việc làm nè-->
-    <div class="row g-2">
-        <div class="col-4">
-            <div class="card position-relative">
-                <a href="#" class=" position-absolute top-0 left-0 w-100 h-100"></a>
-                <div class="card-header d-flex justify-content-center align-items-center">
-                    <img alt="ảnh công ty" />
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title fw-bolder">Tên công ty</h5>
-                    <div class="small-text mb-2">
-                        <p class="card-text m-0 small"> Địa điểm...... binding</p>
+    <ul class="displayCard w-100">
+        @foreach (var item in Model)
+        {
+            <li class="d-inline-block m-4">
+                <div class="card position-relative">
+                    <a href="#" class=" position-absolute top-0 left-0 w-100 h-100"></a>
+                    <div class="card-header d-flex justify-content-center align-items-center">
+                        <img alt="ảnh công ty" />
                     </div>
-                    <p class="card-text">Mô tả</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-4">
-            <div class="card position-relative ">
-                <a href="#" class=" position-absolute top-0 left-0 w-100 h-100"></a>
-                <div class="card-header d-flex justify-content-center align-items-center">
-                    <img alt="ảnh công ty" />
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title fw-bolder">Tên công ty</h5>
-                    <div class="small-text mb-2">
-                        <p class="card-text m-0 small"> Địa điểm...... binding</p>
+                    <div class="card-body">
+                        <h5 class="card-title fw-bolder">Tên: @item.TenCongTy</h5>
+                        <div class="small-text mb-2">
+                            <p class="card-text m-0 small"> Địa điểm: @item.DiaChi</p>
+                        </div>
+                        <p class="card-text">Mô tả</p>
+                        <p class="card-text">@item.MoTaThem</p>
                     </div>
-                    <p class="card-text">Mô tả</p>
                 </div>
-            </div>
-        </div>
-
-        <div class="col-4">
-            <div class="card position-relative">
-                <a href="#" class=" position-absolute top-0 left-0 w-100 h-100"></a>
-                <div class="card-header d-flex justify-content-center align-items-center">
-                    <img alt="ảnh công ty" />
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title fw-bolder">Tên công ty</h5>
-                    <div class="small-text mb-2">
-                        <p class="card-text m-0 small"> Địa điểm...... binding</p>
-                    </div>
-                    <p class="card-text">Mô tả</p>
-                </div>
-            </div>
-        </div>
-    </div>
+            </li>
+        }
+    </ul>
 </div>

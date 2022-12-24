@@ -1,4 +1,6 @@
-﻿@{
+﻿@model List<Baidang>
+
+@{
     ViewData["title"] = "Bài tuyển dụng";
 }
 
@@ -13,61 +15,29 @@
     </div>
 </div>
 
+
 <div class="container d-flex justify-content-center align-items-center">
     <!-- chỗ này binding ra danh các việc làm nè-->
-    <div class="row g-2">
-        <div class="col-4">
-            <div class="card position-relative">
-                <a href="#" class=" position-absolute top-0 left-0 w-100 h-100"></a>
-                <div class="card-header d-flex justify-content-center align-items-center">
-                    <img alt="ảnh công ty" />
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title fw-bolder">Tên công việc</h5>
-                    <div class="small-text mb-2">
-                        <p class="card-text m-0 small">Lương:........ Binding</p>
-
-                        <p class="card-text m-0 small"> Địa điểm...... binding</p>
+    <ul class="displayCard w-100">
+        @foreach (Baidang item in Model)
+        {
+            <li class="d-inline-block m-4">
+                <div class="card position-relative">
+                    <a href="#" class=" position-absolute top-0 left-0 w-100 h-100"></a>
+                    <div class="card-header d-flex justify-content-center align-items-center">
+                        <img alt="ảnh công ty" />
                     </div>
-                    <p class="card-text">Mô tả</p>
-                </div>
-            </div>
-        </div>
+                    <div class="card-body">
+                        <h5 class="card-title fw-bolder">@item.TieuDe</h5>
+                        <div class="small-text mb-2">
+                            <p class="card-text m-0 small">Từ @item.LuongMin đến @item.LuongMax</p>
 
-        <div class="col-4">
-            <div class="card position-relative ">
-                <a href="#" class=" position-absolute top-0 left-0 w-100 h-100"></a>
-                <div class="card-header d-flex justify-content-center align-items-center">
-                    <img alt="ảnh công ty" />
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title fw-bolder">Tên công việc</h5>
-                    <div class="small-text mb-2">
-                        <p class="card-text m-0 small">Lương:........ Binding</p>
-
-                        <p class="card-text m-0 small"> Địa điểm...... binding</p>
+                            <p class="card-text m-0 small"> Địa điểm: @if (@item.MaCongTyNavigation != null) { @item.MaCongTyNavigation.DiaChi }</p>
+                        </div>
+                        <p class="card-text">Mô tả</p>
                     </div>
-                    <p class="card-text">Mô tả</p>
                 </div>
-            </div>
-        </div>
-
-        <div class="col-4">
-            <div class="card position-relative">
-                <a href="#" class=" position-absolute top-0 left-0 w-100 h-100"></a>
-                <div class="card-header d-flex justify-content-center align-items-center">
-                    <img alt="ảnh công ty" />
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title fw-bolder">Tên công việc</h5>
-                    <div class="small-text mb-2">
-                        <p class="card-text m-0 small">Lương:........ Binding</p>
-
-                        <p class="card-text m-0 small"> Địa điểm...... binding</p>
-                    </div>
-                    <p class="card-text">Mô tả</p>
-                </div>
-            </div>
-        </div>
-    </div>
+            </li>
+        }
+    </ul>
 </div>

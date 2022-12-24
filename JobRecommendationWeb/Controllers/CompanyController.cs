@@ -4,9 +4,16 @@ namespace JobRecommendationWeb.Controllers
 {
     public class CompanyController : Controller
     {
+        private readonly JobRecommendationContext _context;
+        public CompanyController(JobRecommendationContext context)
+        {
+            _context = context;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            var listCongTy = _context.Hosocongties.ToList();
+            return View(listCongTy);
         }
 
         public IActionResult Detail()

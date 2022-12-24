@@ -5,9 +5,15 @@ namespace JobRecommendationWeb.Controllers
 {
     public class PostController : Controller
     {
+        private readonly JobRecommendationContext _context;
+        public PostController(JobRecommendationContext context)
+        {
+            _context = context;
+        }
         public IActionResult Index()
         {
-            return View();
+            var listBaiDang = _context.Baidangs.ToList();
+            return View(listBaiDang);
         }
 
         public IActionResult Create()
