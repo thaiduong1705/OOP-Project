@@ -21,15 +21,6 @@ namespace JobRecommendationWeb.Controllers
         public IActionResult Index()
         {
             var listUngVien = _context.Ungviens.ToList();
-            var kinangungvien = _context.Kinangs.ToList();
-            foreach (var ungvien in listUngVien)
-            {
-                CandidateViewModel candidateView = new CandidateViewModel();
-                candidateView.ungvien = ungvien;
-                
-
-            }
-            
             return View(listUngVien);
         }
 
