@@ -9,11 +9,9 @@ public partial class Baidang
 
     public int? MaCongTy { get; set; }
 
-    public string? TieuDe { get; set; }
+    public string? TenCongViec { get; set; }
 
     public string? MoTa { get; set; }
-
-    public string? ViecLam { get; set; }
 
     public int? LuongMin { get; set; }
 

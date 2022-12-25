@@ -1,5 +1,6 @@
 ﻿using JobRecommendationWeb.CustomViewModel;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace JobRecommendationWeb.Controllers
 {
@@ -20,7 +21,8 @@ namespace JobRecommendationWeb.Controllers
         }
         public IActionResult Index()
         {
-            var listUngVien = _context.Ungviens.ToList();
+            var listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).ToList();
+
             return View(listUngVien);
         }
 

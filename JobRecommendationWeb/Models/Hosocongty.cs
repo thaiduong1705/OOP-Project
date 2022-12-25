@@ -19,7 +19,5 @@ public partial class Hosocongty
 
     public string? MoTaThem { get; set; }
 
-    public byte[]? AnhCongTy { get; set; }
-
     public virtual ICollection<Baidang> Baidangs { get; } = new List<Baidang>();
 }

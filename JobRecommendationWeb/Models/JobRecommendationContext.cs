@@ -43,8 +43,6 @@ public partial class JobRecommendationContext : DbContext
 
     public virtual DbSet<Ungvien> Ungviens { get; set; }
 
-    
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Baidang>(entity =>
