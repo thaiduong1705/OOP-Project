@@ -97,8 +97,8 @@ INSERT INTO [dbo].[HOSOCONGTY]
            ,'https://www.microsoft.com/vi-vn'
            ,'Redmond, Washington, Mỹ'
            ,'Mỹ'
-           ,'Thuong luong thang 13'
-           ,'Công ty được sáng lập bởi Bill Gates và Paul Allen vào ngày 4 tháng 4 năm 1975. Nếu tính theo doanh thu thì Microsoft là hãng sản xuất phần mềm lớn nhất thế giới.')
+           ,N'Thuong luong thang 13'
+           ,N'Công ty được sáng lập bởi Bill Gates và Paul Allen vào ngày 4 tháng 4 năm 1975. Nếu tính theo doanh thu thì Microsoft là hãng sản xuất phần mềm lớn nhất thế giới.')
 
 INSERT INTO [dbo].[HOSOCONGTY]
            ([TenCongTy]
