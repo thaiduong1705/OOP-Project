@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace JobRecommendationWeb.Models;
 
@@ -9,6 +11,9 @@ public partial class Ungvien
 
     public string? Ten { get; set; }
 
+    [DisplayName("Tuổi")]
+    [Range(18, 65,
+        ErrorMessage = "{0} phải nằm trong khoảng từ {1} tới {2}.")]
     public int? Tuoi { get; set; }
 
     public string? DiaChi { get; set; }
@@ -23,5 +28,5 @@ public partial class Ungvien
 
     public virtual ICollection<Ungtuyen> Ungtuyens { get; } = new List<Ungtuyen>();
 
-    public virtual ICollection<Kinang> MaKiNangs { get; } = new List<Kinang>();
+    public virtual ICollection<Kinang> MaKiNangs { get; set; } = new List<Kinang>();
 }

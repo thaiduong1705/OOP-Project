@@ -7,16 +7,9 @@ namespace JobRecommendationWeb.Controllers
     public class CandidateController : Controller
     {
         private readonly JobRecommendationContext _context;
-        private List<CandidateViewModel> _customCandidate;
-        public List<CandidateViewModel> CustomCandidate
-        {
-            get { return _customCandidate; }
-            set { _customCandidate = value; }
-        }
 
         public CandidateController(JobRecommendationContext context)
         {
-            CustomCandidate = new List<CandidateViewModel>();
             _context = context;
         }
         public IActionResult Index()
@@ -28,7 +21,8 @@ namespace JobRecommendationWeb.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            var listkinang = _context.Kinangs.ToList();
+            return View(listkinang);
         }
 
         [HttpPost]
@@ -45,10 +39,24 @@ namespace JobRecommendationWeb.Controllers
                 value.Sdt = form["Sdt"];
                 value.Tuoi = Convert.ToInt32(form["Tuoi"]);
 
+                List<Kinang> listkinang = new List<Kinang>();
+                foreach(var k in form["Kinang"])
+                {
+                    var kinang = _context.Kinangs.FirstOrDefault(x => x.MaKiNang == int.Parse(k));
+                    if (kinang != null)
+                    {
+                        listkinang.Add(kinang);
+                    }
+                }
+                value.MaKiNangs = listkinang;
 
                 _context.Ungviens.Add(value);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                
             }
             return View(form);
         }
