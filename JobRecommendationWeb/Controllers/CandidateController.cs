@@ -7,7 +7,7 @@ namespace JobRecommendationWeb.Controllers
     public class CandidateController : Controller
     {
         private readonly JobRecommendationContext _context;
-        private List<CandidateViewModel> _customCandidate;
+        private List<CandidateViewModel>? _customCandidate;
         public List<CandidateViewModel> CustomCandidate
         {
             get { return _customCandidate; }
