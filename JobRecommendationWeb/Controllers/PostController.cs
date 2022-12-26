@@ -31,8 +31,8 @@ namespace JobRecommendationWeb.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(AddPostViewModel viewModel)
         {
-
-            return RedirectToAction("Index");
+            
+            return RedirectToAction("Create");
         }
 
 

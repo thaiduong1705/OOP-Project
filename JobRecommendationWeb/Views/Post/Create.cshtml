@@ -4,6 +4,10 @@
     ViewData["Title"] = "Tạo bài tuyển dụng";
 }
 
+@section Styles {
+    <link rel="stylesheet" href="~/css/MultiSelectStyle.css" />
+}
+
 <div class="container">
     <form method="post" autocomplete="off">
         <div class="mb-3">
@@ -38,7 +42,7 @@
                     </div>
                 </div>
                 <div class="col">
-                    <label class="form-label ">Địa chỉ</label>
+                    <label class="form-label ">Năm kinh nghiệm</label>
                     <input type="text" class="form-control py-2" style="background-color: #eee" />
                 </div>
                 <div class="col">
@@ -49,8 +53,21 @@
         </div>
 
         <div class="mb-3">
+            <div class="row">
+                <div class="col">
+                    <label class="form-label ">Địa chỉ</label>
+                    <input type="text" class="form-control py-2" style="background-color: #eee" />
+                </div>
+                <div class="col">
+                    <label class="form-label ">Link bài gốc</label>
+                    <input type="text" class="form-control py-2" style="background-color: #eee" />
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-3">
             <label class="form-label">Kĩ năng</label>
-            <select asp-for="listKiNangIdBinding" class="form-select chosen-default" multiple>
+            <select class="chosen-default form-select" multiple>
                 @foreach (var item in Model.listKiNang)
                 {
                     <option value="@item.MaKiNang">@item.TenKiNang</option>

@@ -8,8 +8,8 @@
 
 	<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
 	<link rel="stylesheet" href="~/lib/font-awesome/css/all.css" />
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
 	<link rel="stylesheet" href="~/lib/chosen/chosen.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/JobRecommendationWeb.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 	@RenderSection("Styles", required: false)
@@ -79,9 +79,9 @@
 	<partial name="_Footer" />
 
     <script src="~/lib/jquery/dist/jquery.js"></script>
+	<script src="~/lib/chosen/chosen.jquery.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-	<script src="~/lib/chosen/chosen.jquery.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
