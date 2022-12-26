@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http.Metadata;
+﻿using JobRecommendationWeb.CustomViewModel;
+using Microsoft.AspNetCore.Http.Metadata;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JobRecommendationWeb.Controllers
@@ -18,8 +19,22 @@ namespace JobRecommendationWeb.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            AddPostViewModel viewModel = new AddPostViewModel()
+            {
+                listKiNang = _context.Kinangs.ToList(),
+            };
+
+            return View(viewModel);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(AddPostViewModel viewModel)
+        {
+
+            return RedirectToAction("Index");
+        }
+
 
         public IActionResult Detail()
         {

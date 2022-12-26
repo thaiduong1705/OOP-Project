@@ -1,4 +1,6 @@
-﻿@{
+﻿@model JobRecommendationWeb.CustomViewModel.AddPostViewModel
+
+@{
     ViewData["Title"] = "Tạo bài tuyển dụng";
 }
 
@@ -6,7 +8,7 @@
     <form method="post" autocomplete="off">
         <div class="mb-3">
             <label class="form-label">Tên công ty</label>
-            <input type="text" class="form-control" style="background-color: #eee"/>
+            <input type="text" class="form-control" style="background-color: #eee" asp-for="baidang.TenCongViec"/>
         </div>
 
         <div class="mb-3">
@@ -48,7 +50,12 @@
 
         <div class="mb-3">
             <label class="form-label">Kĩ năng</label>
-            <input type="text" class="form-control" style="background-color: #eee" />
+            <select asp-for="listKiNangIdBinding" class="form-select chosen-default" multiple>
+                @foreach (var item in Model.listKiNang)
+                {
+                    <option value="@item.MaKiNang">@item.TenKiNang</option>
+                }
+            </select>
         </div>
         
         <div class="mb-3">
@@ -59,7 +66,15 @@
         <div class="d-flex justify-content-center align-items-center p-2">
             <button type="submit" class="btn btn-danger px-4" asp-action="Index" asp-controller="Post">Huỷ bỏ</button>
             <div class="px-5"></div>
-            <button type="button" class="btn btn-primary px-4">Đăng bài</button>
+            <button type="submit" class="btn btn-primary px-4">Đăng bài</button>
         </div>
     </form>
 </div>
+
+@section Scripts {
+    <script>
+        $(function () {
+            $(".chosen-default").chosen();
+        });
+    </script>
+}
