@@ -9,7 +9,7 @@
             <h3 class="text-dark">Danh sách bài tuyển dụng</h3>
         </div>
         <div class="col-6 text-end">
-            <a class="btn btn-primary" asp-action="Create" asp-controller="Company">Tạo hồ sơ tuyển dụng</a>
+            <a class="btn btn-primary" asp-action="Create" asp-controller="Company">Tạo hồ sơ công ty</a>
         </div>
     </div>
 </div>
@@ -21,7 +21,7 @@
         {
             <li class="d-inline-block m-4">
                 <div class="card position-relative">
-                    <a href="#" class=" position-absolute top-0 left-0 w-100 h-100"></a>
+                    <a asp-action="Detail" asp-controller="Company" asp-route-id="@item.MaCongTy" class=" position-absolute top-0 left-0 w-100 h-100"></a>
                     <div class="card-header d-flex justify-content-center align-items-center">
                         <img alt="ảnh công ty" />
                     </div>
@@ -30,8 +30,6 @@
                         <div class="small-text mb-2">
                             <p class="card-text m-0 small"> Địa điểm: @item.DiaChi</p>
                         </div>
-                        <p class="card-text">Mô tả</p>
-                        <p class="card-text">@item.MoTaThem</p>
                     </div>
                 </div>
             </li>

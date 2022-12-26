@@ -1,72 +1,75 @@
-﻿@model List<Kinang>
+
+@model List<Baidang>
 @{
     ViewData["Title"] = "Trang chủ";
 }
-
 <partial name="_Introduction" />
 
 
 <div id="portfolio" class="d-flex justify-content-center align-items-center">
     <!-- chỗ này binding ra danh các việc làm nè-->
     <div class="row g-2">
+        @{
+            var a = Model[0];
+            var b = Model[1];
+            var c = Model[2];
+        }
         <div class="col-4">
             <div class="card position-relative ">
-                <a href="#" class=" position-absolute top-0 left-0 w-100 h-100"></a>
+                <a asp-action="Detail" asp-controller="Post" asp-route-id="@a.MaBaiDang" class=" position-absolute top-0 left-0 w-100 h-100"></a>
                 <div class="card-header d-flex justify-content-center align-items-center">
                     <img alt="ảnh công ty" />
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title fw-bolder">Tên công việc</h5>
+                    <h5 class="card-title fw-bolder">@a.TenCongViec</h5>
                     <div class="small-text mb-2">
-                        <p class="card-text m-0 small">Lương:........ Binding</p>
+                        <p class="card-text m-0 small">@a.LuongMin - @a.LuongMax</p>
 
-                        <p class="card-text m-0 small"> Địa điểm...... binding</p>
+                        <p class="card-text m-0 small">Yêu cầu: @a.ThamNien</p>
                     </div>
-                    <p class="card-text">Mô tả</p>
+                    <p class="card-text">@a.NgayDangBai</p>
                 </div>
             </div>
         </div>
         
         <div class="col-4">
             <div class="card position-relative ">
-                <a href="#" class=" position-absolute top-0 left-0 w-100 h-100"></a>
+                <a asp-action="Detail" asp-controller="Post" asp-route-id="@b.MaBaiDang" class=" position-absolute top-0 left-0 w-100 h-100"></a>
                 <div class="card-header d-flex justify-content-center align-items-center">
                     <img alt="ảnh công ty" />
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title fw-bolder">Tên công việc</h5>
+                    <h5 class="card-title fw-bolder">@b.TenCongViec</h5>
                     <div class="small-text mb-2">
-                        <p class="card-text m-0 small">Lương:........ Binding</p>
+                        <p class="card-text m-0 small">@b.LuongMin - @b.LuongMax</p>
 
-                        <p class="card-text m-0 small">Địa điểm...... binding</p>
+                        <p class="card-text m-0 small">Yêu cầu: @b.ThamNien</p>
                     </div>
-                    <p class="card-text">Mô tả</p>
-                </div>
+                    <p class="card-text">@b.NgayDangBai</p>                </div>
             </div>
         </div>
 
         <div class="col-4">
             <div class="card position-relative">
-                <a href="#" class=" position-absolute top-0 left-0 w-100 h-100"></a>
+                <a asp-action="Detail" asp-controller="Post" asp-route-id="@c.MaBaiDang" class=" position-absolute top-0 left-0 w-100 h-100"></a>
                 <div class="card-header d-flex justify-content-center align-items-center">
                     <img alt="ảnh công ty" />
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title fw-bolder">Tên công việc</h5>
+                    <h5 class="card-title fw-bolder">@c.TenCongViec</h5>
                     <div class="small-text mb-2">
-                        <p class="card-text m-0 small">Lương:........ Binding</p>
+                        <p class="card-text m-0 small">@c.LuongMin - @c.LuongMax</p>
 
-                        <p class="card-text m-0 small">Địa điểm...... binding</p>
+                        <p class="card-text m-0 small">Yêu cầu: @c.ThamNien năm kinh nghiệm</p>
                     </div>
-                    <p class="card-text">Mô tả</p>
-                </div>
+                    <p class="card-text">@c.NgayDangBai</p>                </div>
             </div>
         </div>
     </div>
 </div>
-
 <!-- About -->
 <partial name="_About" />
 
 <!-- Contact -->
 <partial name="_Contact" />
+

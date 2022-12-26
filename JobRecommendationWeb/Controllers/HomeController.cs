@@ -1,5 +1,6 @@
 ﻿using JobRecommendationWeb.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace JobRecommendationWeb.Controllers
@@ -17,8 +18,8 @@ namespace JobRecommendationWeb.Controllers
 
         public IActionResult Index()
         {
-            List<Kinang> skillList = _context.Kinangs.ToList();
-            return View(skillList);
+            List<Baidang> postList = _context.Baidangs.ToList();
+            return View(postList);
         }
 
         public IActionResult IntroductionPartial()
@@ -34,23 +35,11 @@ namespace JobRecommendationWeb.Controllers
         {
             return PartialView("_Contact");
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
     }
 }

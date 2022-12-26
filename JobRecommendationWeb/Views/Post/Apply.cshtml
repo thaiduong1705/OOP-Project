@@ -1,0 +1,50 @@
+﻿@{
+    ViewData["Title"] = "Chọn ứng viên";
+    Baidang post = ViewBag.post;
+    List<Ungvien> candidates = ViewBag.candidates;
+}
+
+<div class="container mb-5">
+    <div class="row">
+        <div class="col-6">
+            <h3 class="text-dark">Danh sách ứng viên</h3>
+        </div>
+    </div>
+    <div class="search">
+        <form class="row my-2 my-lg-0">
+            <div class="col-lg-8">
+                <input class="form-control mr-sm-2 col-lg-8" type="text" placeholder="Search">
+            </div>
+			<div class="col-auto">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </div>
+			
+        </form>
+    </div>
+    
+</div>
+
+<div class="container me-auto">
+    <!-- chỗ này binding ra danh các việc làm nè-->
+    <ul class="displayCard w-100">
+        @foreach (var item in candidates)
+        {
+            <li class="d-inline-block m-4">
+                <div class="card position-relative">
+                    <a asp-action="CandidateApply" asp-controller="Post" asp-route-id="@item, @post" class=" position-absolute top-0 left-0 w-100 h-100">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bolder">@item.Ten </h5>
+                            <div class="small-text mb-2">
+                                <p class="card-text m-0 small"> @item.MaUngVien, @post.MaBaiDang</p>
+                                <p class="card-text m-0 small"> @item.Tuoi tuổi</p>
+                                <p class="card-text m-0 small"> Năm kinh nghiệm: @item.ThamNien</p>
+                                <p class="card-text m-0 small"> Kĩ năng:</p>
+                            </div>
+                            <p class="card-text">Mô tả</p>
+                        </div>
+                    </a>
+                </div>
+            </li>
+        }
+    </ul>
+</div>

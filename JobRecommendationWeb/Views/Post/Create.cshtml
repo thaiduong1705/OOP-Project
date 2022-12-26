@@ -1,28 +1,32 @@
-﻿@model JobRecommendationWeb.CustomViewModel.AddPostViewModel
-
+﻿@model Baidang
 @{
-    ViewData["Title"] = "Tạo bài tuyển dụng";
-}
+    ViewData["Title"] = "Chỉnh sửa hồ sơ tuyển dụng";
+    List<SelectListItem> items = new List<SelectListItem>();
 
-@section Styles {
-    <link rel="stylesheet" href="~/css/MultiSelectStyle.css" />
+    foreach (Hosocongty c in ViewBag.companylist)
+        items.Add(new SelectListItem { Text = c.TenCongTy, Value = c.MaCongTy.ToString()});
 }
 
 <div class="container">
-    <form method="post" autocomplete="off">
+	<form asp-action="Create" asp-controller="Post" method="POST" enctype="multipart/form-data">
         <div class="mb-3">
-            <label class="form-label">Tên công ty</label>
-            <input type="text" class="form-control" style="background-color: #eee" asp-for="baidang.TenCongViec"/>
+            <label class="form-label">Công ty:</label>
+            <select name="MaCongTy" id="MaCongTy">
+                @foreach (var item in items)
+                {
+                    <option value="@item.Value">@item.Text</option>
+                }
+            </select>
         </div>
 
         <div class="mb-3">
             <label class="form-label">Tên công việc</label>
-            <input type="text" class="form-control" style="background-color: #eee" />
+            <input type="text" name="TenCongViec" id="TenCongViec" required autofocus>
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Tên công việc</label>
-            <input type="text" class="form-control" style="background-color: #eee" />
+            <label class="form-label">Mô tả</label>
+            <input type="text" name="MoTa" id="MoTa" required autofocus>
         </div>
 
         <div class="mb-3">
@@ -32,66 +36,47 @@
                     <div class="d-flex justify-content-between">
                         <div class="d-flex justify-content-between">
                             <label class="form-label my-2 me-2">Từ</label>
-                            <input type="text" class="form-control py-2" style="background-color: #eee" />
+                            <input type="number" name="LuongMin" id="LuongMin" required autofocus>
                         </div>
                         <div class="px-4"></div>
                         <div class="d-flex justify-content-between">
                             <label class="form-label my-2 me-2">Đến</label>
-                            <input type="text" class="form-control" style="background-color: #eee" />
+                            <input type="number" name="LuongMax" id="LuongMax" required autofocus>
                         </div>
                     </div>
                 </div>
                 <div class="col">
-                    <label class="form-label ">Năm kinh nghiệm</label>
-                    <input type="text" class="form-control py-2" style="background-color: #eee" />
+                    <label class="form-label ">Thâm niên yêu cầu:</label>
+                    <input type="number" name="ThamNien" id="ThamNien" required autofocus>
                 </div>
                 <div class="col">
-                    <label class="form-label ">Cấp bậc</label>
-                    <input type="text" class="form-control py-2" style="background-color: #eee" />
+                    <label class="form-label ">Website bài gốc</label>
+                    <input type="url" name="WebsiteBaiGoc" id="WebsiteBaiGoc" required autofocus>
                 </div>
-            </div>
-        </div>
+                <div class="col">
+                    <label class="form-label ">Ghi chú</label>
+                    <input type="text" name="GhiChu" id="GhiChu" required autofocus>
+                </div>
 
-        <div class="mb-3">
-            <div class="row">
-                <div class="col">
-                    <label class="form-label ">Địa chỉ</label>
-                    <input type="text" class="form-control py-2" style="background-color: #eee" />
-                </div>
-                <div class="col">
-                    <label class="form-label ">Link bài gốc</label>
-                    <input type="text" class="form-control py-2" style="background-color: #eee" />
-                </div>
             </div>
         </div>
 
         <div class="mb-3">
             <label class="form-label">Kĩ năng</label>
-            <select class="chosen-default form-select" multiple>
-                @foreach (var item in Model.listKiNang)
-                {
-                    <option value="@item.MaKiNang">@item.TenKiNang</option>
-                }
-            </select>
-        </div>
-        
-        <div class="mb-3">
-            <label class="form-label">Mô tả thêm</label>
             <input type="text" class="form-control" style="background-color: #eee" />
         </div>
 
         <div class="d-flex justify-content-center align-items-center p-2">
             <button type="submit" class="btn btn-danger px-4" asp-action="Index" asp-controller="Post">Huỷ bỏ</button>
             <div class="px-5"></div>
-            <button type="submit" class="btn btn-primary px-4">Đăng bài</button>
+            <div class="row-register2">
+                <div class="col-register3">
+                    <!-- <label for="firstname">Firstname</label> -->
+                </div>
+                <div class="col-register4">
+                    <input type="submit" value="Đăng bài" />
+                </div>
+            </div>
         </div>
     </form>
 </div>
-
-@section Scripts {
-    <script>
-        $(function () {
-            $(".chosen-default").chosen();
-        });
-    </script>
-}

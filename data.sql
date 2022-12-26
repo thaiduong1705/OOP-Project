@@ -1,5 +1,5 @@
 ﻿USE [JOB_RECOMMENDATION]
-SET DATEFORMAT dmy; 
+SET DATEFORMAT dmy 
 GO
 
 ---CHUC VU---
@@ -165,9 +165,8 @@ GO
 ---BAI DANG---
 INSERT INTO [dbo].[BAIDANG]
            ([MaCongTy]
-           ,[TieuDe]
+           ,[TenCongViec]
            ,[MoTa]
-           ,[ViecLam]
            ,[LuongMin]
            ,[LuongMax]
            ,[ThamNien]
@@ -186,7 +185,6 @@ INSERT INTO [dbo].[BAIDANG]
 - Work with the Channel Market & Communication, Management System Information (MIS), Finance to ensure the timely delivery of contest memorandum/contest results, contest updates payment, promotion and trip execution.
 
 - Regularly analyze the effectiveness of contests proven by data, business insightand propose solution for improvements in Working committees/Steering committees with Bank Partners.'
-           ,'Incentive Planning & Management'
            ,10000
            ,30000
            ,4
@@ -197,9 +195,8 @@ INSERT INTO [dbo].[BAIDANG]
 
 INSERT INTO [dbo].[BAIDANG]
            ([MaCongTy]
-           ,[TieuDe]
+           ,[TenCongViec]
            ,[MoTa]
-           ,[ViecLam]
            ,[LuongMin]
            ,[LuongMax]
            ,[ThamNien]
@@ -213,7 +210,6 @@ INSERT INTO [dbo].[BAIDANG]
            ,'Responsibilities:
 ● Responsible for the search engine optimization of the company''s and client''s website.
 ● Maintain company''s and client''s website position as high as possible in competitive keywords.'
-		   ,'SEO Specialist'
            ,15000
            ,40000
            ,2
@@ -224,9 +220,8 @@ INSERT INTO [dbo].[BAIDANG]
 
 INSERT INTO [dbo].[BAIDANG]
            ([MaCongTy]
-           ,[TieuDe]
+           ,[TenCongViec]
            ,[MoTa]
-           ,[ViecLam]
            ,[LuongMin]
            ,[LuongMax]
            ,[ThamNien]
@@ -238,7 +233,6 @@ INSERT INTO [dbo].[BAIDANG]
            (2
            ,'.NET Software Engineer'
            ,'Design, implement, and maintain software components in complex, distributed systems. Work closely with other groups (QA, Tech Support) to effectively diagnose and resolve software defects.'
-		   ,'SEO Specialist'
            ,12000
            ,50000
            ,3

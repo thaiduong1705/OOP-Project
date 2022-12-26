@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Hosocongty
+@{
     ViewData["Title"] = "Chi tiết nhà tuyển dụng";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -12,13 +13,13 @@
                 </div>
 
                 <div class="col-8 d-flex align-items-center">
-                    <h2>Tên công ty</h2>
+                    <h2>@Model.TenCongTy</h2>
                 </div>
             </div>
         </div>
 
         <div class="col-4">
-            <button class="btn btn-info w-100 mb-5">Chỉnh sửa</button>
+            <a asp-action="Edit" asp-controller="Company" asp-route-id="@Model.MaCongTy" class="btn btn-info w-100 mb-5">Chỉnh sửa</a>
 
             <button class="btn btn-dark w-100 mt-5">Xoá</button>
         </div>
@@ -28,25 +29,25 @@
         <div class="col-8">
             <div class="row">
                 <label class="fw-bolder">Mô tả</label>
-                <p class="lh-base">dsadaddadadas</p>
+                <p class="lh-base">@Model.MoTaThem</p>
             </div>
         </div>
         <div class="col-4">
-            <label class="fw-bold mb-4">Website</label>
+            <label class="fw-bold mb-4">Website: @Model.Website</label>
 
             <div class="mb-4">
                 <label class="fw-bold mb-4">Địa điểm</label>
                 <p class="">
-                    abc
+                    @Model.DiaChi
                 </p>
             </div>
 
-            <label class="fw-bold mb-4">Quóc tịch</label>
+            <label class="fw-bold mb-4">Quóc tịch: @Model.QuocTich</label>
 
             <div class="mb-4">
                 <label class="fw-bold mb-4">Địa điểm</label>
                 <p class="">
-                    abc
+                    @Model.QuocTich
                 </p>
             </div>
         </div>

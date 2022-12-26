@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Hosocongty
+@{
     ViewData["Title"] = "Tạo hồ sơ tuyển dụng";
 
 }
@@ -6,7 +7,7 @@
 	<link rel="stylesheet" href="@Url.Content("/css/FormStyle.css")"/>
 }
 <div class="container">
-		<form>
+	<form asp-action="Create" asp-controller="Company" method="POST" enctype="multipart/form-data">
 			<div class="row-register">
 				<div class="col-register1">
 					<img src="/images/logo.jpg" alt="ảnh" style="width: 200px">
@@ -20,10 +21,10 @@
 							<label for="company_name">Tên công ty</label>
 						</div>
 						<div class="col-register4">
-							<input type="text" name="company_name" id="company_name" required autofocus>
+							<input type="text" name="TenCongTy" id="TenCongTy" required autofocus>
 						</div>
 					</div>
-					<br>
+					<!--<br>
 					<div class="row-register2">
 						<div class="col-register3">
 							<label for="staff_name">Tên người đại diện</label>
@@ -40,20 +41,50 @@
 						<div class="col-register4">
 							<input type="text" name="staff_phone" id="staff_phone" required>
 						</div>
-					</div>
+					</div>-->
 					<br>
 					<div class="row-register2">
 						<div class="col-register3">
-							<label for="email">Email</label>
+							<label for="staff_name">Website</label>
 						</div>
 						<div class="col-register4">
-							<input type="email" name="email" id="email" required>
+							<input type="url" name="Website" id="Website" required autofocus>
 						</div>
 					</div>
 					<br>
 					<div class="row-register2">
 						<div class="col-register3">
-							<label for="logo">Logo</label>
+							<label for="staff_phone">Địa chỉ</label>
+						</div>
+						<div class="col-register4">
+							<input type="text" name="DiaChi" id="DiaChi" required autofocus>
+						</div>
+					</div>
+					<br>
+					<div class="row-register2">
+						<div class="col-register3">
+							<label for="country">Quốc tịch</label>
+						</div>
+						<div class="col-register4">
+							<select name="country" id="country" required>
+								<option value=""></option>
+								<option value="Việt Nam">Việt Nam</option>
+								<option value="Lào">Lào</option>
+								<option value="Campuchia">Campuchia</option>
+								<option value="Hàn Quốc">Hàn Quốc</option>
+								<option value="Đức">Đức</option>
+								<option value="Nhật Bản">Nhật Bản</option>
+								<option value="Thái Lan">Thái Lan</option>
+								<option value="Mỹ">Mỹ</option>
+								<option value="Singapore">Singapore</option>
+							</select>
+
+						</div>
+					</div>
+					<br>
+					<div class="row-register2">
+						<div class="col-register3">
+							<label for="logo">Ảnh công ty</label>
 						</div>
 						<div class="col-register4">
 							<input type="file" name="logo" id="logo" accept="image/*" required>
@@ -62,41 +93,19 @@
 					<br>
 					<div class="row-register2">
 						<div class="col-register3">
-							<label for="business_license">Giấy phép kinh doanh</label>
+							<label for="staff_phone">Chế độ đãi ngộ:</label>
 						</div>
 						<div class="col-register4">
-							<input type="file" name="business_license" id="business_license" accept="image/*" required>
+							<input type="text" name="CheDoDaiNgo" id="CheDoDaiNgo" required autofocus>
 						</div>
 					</div>
 					<br>
 					<div class="row-register2">
 						<div class="col-register3">
-							<label for="location">Đại chỉ</label>
+							<label for="staff_phone">Mô tả thêm</label>
 						</div>
 						<div class="col-register4">
-							<input type="text" name="location" id="location" required>
-							<br>
-							<span>Ví dụ: 332, Cộng Hòa, 14, Tân Bình</span>
-						</div>
-					</div>
-					<br>
-					<div class="row-register2">
-						<div class="col-register3">
-							<label for="country">Quốc gia</label>
-						</div>
-						<div class="col-register4">
-							<select name="country" id="country" required>
-								<option value=""></option>
-								<option value="vn">Việt Nam</option>
-								<option value="lao">Lào</option>
-								<option value="cam">Campuchia</option>
-								<option value="kor">Hàn Quốc</option>
-								<option value="ger">Đức</option>
-								<option value="jap">Nhật Bản</option>
-								<option value="tha">Thái Lan</option>
-								<option value="USA">Mỹ</option>
-								<option value="sin">Singapore</option>
-							</select>
+							<input type="text" name="MoTaThem" id="MoTaThem" required autofocus>
 						</div>
 					</div>
 					<br>
@@ -126,11 +135,11 @@
 							<!-- <label for="firstname">Firstname</label> -->
 						</div>
 						<div class="col-register4">
-							<button>Đăng ký</button>
+							<input type="submit" value="Register" />
 						</div>
 					</div>
 
 				</div>
 			</div>
-		</form>
+	</form>
 </div>
