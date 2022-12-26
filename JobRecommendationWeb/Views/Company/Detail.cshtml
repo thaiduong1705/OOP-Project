@@ -1,0 +1,55 @@
+﻿@model Hosocongty
+@{
+    ViewData["Title"] = "Chi tiết nhà tuyển dụng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container border">
+    <div class="row">
+        <div class="col-8">
+            <div class="row h-100">
+                <div class="col-4">
+                    <img alt="ảnh ở đây" />
+                </div>
+
+                <div class="col-8 d-flex align-items-center">
+                    <h2>@Model.TenCongTy</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <a asp-action="Edit" asp-controller="Company" asp-route-id="@Model.MaCongTy" class="btn btn-info w-100 mb-5">Chỉnh sửa</a>
+
+            <button class="btn btn-dark w-100 mt-5">Xoá</button>
+        </div>
+    </div>
+    <div class="py-5"></div>
+    <div class="row">
+        <div class="col-8">
+            <div class="row">
+                <label class="fw-bolder">Mô tả</label>
+                <p class="lh-base">@Model.MoTaThem</p>
+            </div>
+        </div>
+        <div class="col-4">
+            <label class="fw-bold mb-4">Website: @Model.Website</label>
+
+            <div class="mb-4">
+                <label class="fw-bold mb-4">Địa điểm</label>
+                <p class="">
+                    @Model.DiaChi
+                </p>
+            </div>
+
+            <label class="fw-bold mb-4">Quóc tịch: @Model.QuocTich</label>
+
+            <div class="mb-4">
+                <label class="fw-bold mb-4">Địa điểm</label>
+                <p class="">
+                    @Model.QuocTich
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

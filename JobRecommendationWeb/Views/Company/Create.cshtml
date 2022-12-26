@@ -1,0 +1,145 @@
+﻿@model Hosocongty
+@{
+    ViewData["Title"] = "Tạo hồ sơ tuyển dụng";
+
+}
+@section Styles {
+	<link rel="stylesheet" href="@Url.Content("/css/FormStyle.css")"/>
+}
+<div class="container">
+	<form asp-action="Create" asp-controller="Company" method="POST" enctype="multipart/form-data">
+			<div class="row-register">
+				<div class="col-register1">
+					<img src="/images/logo.jpg" alt="ảnh" style="width: 200px">
+				</div>
+				<div class="col-register2">
+					<h1>Thông tin nhà tuyển dụng</h1>
+					<hr>
+					<br>
+					<div class="row-register2">
+						<div class="col-register3">
+							<label for="company_name">Tên công ty</label>
+						</div>
+						<div class="col-register4">
+							<input type="text" name="TenCongTy" id="TenCongTy" required autofocus>
+						</div>
+					</div>
+					<!--<br>
+					<div class="row-register2">
+						<div class="col-register3">
+							<label for="staff_name">Tên người đại diện</label>
+						</div>
+						<div class="col-register4">
+							<input type="text" name="staff_name" id="staff_name" required>
+						</div>
+					</div>
+					<br>
+					<div class="row-register2">
+						<div class="col-register3">
+							<label for="staff_phone">SĐT người đại diện</label>
+						</div>
+						<div class="col-register4">
+							<input type="text" name="staff_phone" id="staff_phone" required>
+						</div>
+					</div>-->
+					<br>
+					<div class="row-register2">
+						<div class="col-register3">
+							<label for="staff_name">Website</label>
+						</div>
+						<div class="col-register4">
+							<input type="url" name="Website" id="Website" required autofocus>
+						</div>
+					</div>
+					<br>
+					<div class="row-register2">
+						<div class="col-register3">
+							<label for="staff_phone">Địa chỉ</label>
+						</div>
+						<div class="col-register4">
+							<input type="text" name="DiaChi" id="DiaChi" required autofocus>
+						</div>
+					</div>
+					<br>
+					<div class="row-register2">
+						<div class="col-register3">
+							<label for="country">Quốc tịch</label>
+						</div>
+						<div class="col-register4">
+							<select name="country" id="country" required>
+								<option value=""></option>
+								<option value="Việt Nam">Việt Nam</option>
+								<option value="Lào">Lào</option>
+								<option value="Campuchia">Campuchia</option>
+								<option value="Hàn Quốc">Hàn Quốc</option>
+								<option value="Đức">Đức</option>
+								<option value="Nhật Bản">Nhật Bản</option>
+								<option value="Thái Lan">Thái Lan</option>
+								<option value="Mỹ">Mỹ</option>
+								<option value="Singapore">Singapore</option>
+							</select>
+
+						</div>
+					</div>
+					<br>
+					<div class="row-register2">
+						<div class="col-register3">
+							<label for="logo">Ảnh công ty</label>
+						</div>
+						<div class="col-register4">
+							<input type="file" name="logo" id="logo" accept="image/*" required>
+						</div>
+					</div>
+					<br>
+					<div class="row-register2">
+						<div class="col-register3">
+							<label for="staff_phone">Chế độ đãi ngộ:</label>
+						</div>
+						<div class="col-register4">
+							<input type="text" name="CheDoDaiNgo" id="CheDoDaiNgo" required autofocus>
+						</div>
+					</div>
+					<br>
+					<div class="row-register2">
+						<div class="col-register3">
+							<label for="staff_phone">Mô tả thêm</label>
+						</div>
+						<div class="col-register4">
+							<input type="text" name="MoTaThem" id="MoTaThem" required autofocus>
+						</div>
+					</div>
+					<br>
+					<!-- <div class="row2">
+						<div class="col3">
+							<label for="male">Giới tính: </label>
+
+						</div>
+						<div class="col4">
+							<label>
+								<input type="radio" name="gender" value="male" id="male" required checked> Male
+							</label>
+							<br>
+							<label>
+								<input type="radio" name="gender" value="female"> Female
+							</label>
+							<br>
+							<label>
+								<input type="radio" name="gender" value="undefined"> Undefined
+							</label>
+						</div>
+
+					</div>
+					<br> -->
+					<div class="row-register2">
+						<div class="col-register3">
+							<!-- <label for="firstname">Firstname</label> -->
+						</div>
+						<div class="col-register4">
+							<input type="submit" value="Register" />
+						</div>
+					</div>
+
+				</div>
+			</div>
+	</form>
+</div>

@@ -1,0 +1,71 @@
+﻿@{
+    ViewData["Title"] = "Chi tiết bài tuyển dụng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    Baidang post = ViewBag.post;
+    Hosocongty company = ViewBag.company;
+}
+
+<div class="container mb-5">
+    <div class="row">
+        <div class="col-8">
+
+        </div>
+        <div class="col-4 text-end">
+            <a asp-action="AppliedCandidate" asp-controller="Post" asp-route-id="@post.MaBaiDang" class="btn btn-primary">Xem các ứng viên đã nộp</a>
+        </div>
+    </div>
+</div>
+
+<div class="container border">
+    <div class="row">
+        <div class="col-8">
+            <div class="row h-100">
+                <div class="col-4">
+                    <img alt="ảnh ở đây" />
+                </div>
+
+                <div class="col-8 d-flex align-items-center">
+                    <h2>@post.TenCongViec</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <button class="btn btn-info w-100 mb-3">Chỉnh sửa</button>
+            <a class="btn btn-success w-100" asp-action="Apply" asp-controller="Post" asp-route-id="@post.MaBaiDang">Nộp CV</a>
+            <button class="btn btn-dark w-100 mt-3">Xoá</button>
+        </div>
+    </div>
+    <div class="py-5"></div>
+    <div class="row">
+        <div class="col-8">
+            <div class="row">
+                <h4 class="text-danger">Lương: @post.LuongMin VNĐ - @post.LuongMax VNĐ</h4>
+            </div>
+            <div class="row">
+                <label class="fw-bolder">@post.TenCongViec</label>
+                <p class="lh-base">@post.MoTa</p>
+            </div>
+        </div>
+        <div class="col-4">
+            <label class="fw-bold mb-4">@company.TenCongTy </label>
+
+            <div class="mb-4">
+                <label class="fw-bold mb-4">@company.DiaChi</label>
+                <p class="">
+                    abc
+                </p>
+            </div>
+
+            <label class="fw-bold mb-4">@company.QuocTich</label>
+
+            <div class="mb-4">
+                <label class="fw-bold mb-4">@company.Website</label>
+                <p class="">
+                    abc
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

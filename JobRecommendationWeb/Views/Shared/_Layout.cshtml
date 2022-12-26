@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="~/JobRecommendationWeb.styles.css" asp-append-version="true" />
 </head>
 <body>
+<<<<<<< Updated upstream
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
@@ -34,6 +35,66 @@
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
+=======
+	<header>
+		<nav class="navbar navbar-expand-md navbar-light">
+			<a class="navbar-brand" href="#">
+				<img asp-action="Apply" asp-controller="Post" class="logo" src="~/images/logo.png" alt="Logo">
+			</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse " id="navbarSupportedContent">
+				<ul class="navbar-nav">
+					<li class="nav-item active">
+						<a class="nav-link" asp-action="Index" asp-controller="Home">Trang chủ</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#about">Về chúng tôi</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#contact">Liên hệ</a>
+					</li>
+
+					<li class="nav-item">
+						<div class="nav-link">Danh sách <i class="fa-solid fa-chevron-down"></i></div>
+						<ul class="subnav">
+							<li class="nav-item">
+								<a asp-action="Index" asp-controller="Candidate" class="nav-link">Hồ sơ ứng viên</a>
+							</li>
+
+							<li class="nav-item">
+								<a class="nav-link" asp-action="Index" asp-controller="Company">Hồ sơ công ty</a>
+							</li>
+
+							<li class="nav-item">
+								<a class="nav-link" asp-action="Index" asp-controller="Post">Bài tuyển dụng</a>
+							</li>
+							
+							<li class="nav-item">
+								<a class="nav-link" asp-action="Index" asp-controller="Staff">Nhân viên</a>
+							</li>
+
+							<li class="nav-item">
+								<a class="nav-link" asp-action="Index" asp-controller="History">Lịch sử làm việc</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<ul class="navbar-nav ms-auto">
+					<li class="nav-item">
+						<a class="nav-link" asp-action="Login" asp-controller="Login">Đăng nhập</a>
+					</li>
+				</ul>
+				
+			</div>
+		</nav>
+	</header>
+
+	<div role="main">
+        @RenderBody()
+>>>>>>> Stashed changes
     </div>
 
     <footer class="border-top footer text-muted">

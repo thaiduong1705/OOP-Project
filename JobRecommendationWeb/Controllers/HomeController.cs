@@ -13,13 +13,13 @@ namespace JobRecommendationWeb.Controllers
         public HomeController(ILogger<HomeController> logger, JobRecommendationContext context)
         {
             _logger = logger;
-            _context = context;
+            _context = context; 
         }
 
         public IActionResult Index()
         {
-            List<Kinang> skillList = _context.Kinangs.ToList();
-            return View(skillList);
+            List<Baidang> postList = _context.Baidangs.ToList();
+            return View(postList);
         }
 
         public IActionResult Privacy()
@@ -51,6 +51,7 @@ namespace JobRecommendationWeb.Controllers
             return View(kinang);
         }
 
+<<<<<<< Updated upstream
         // GET: Kinangs/Create
         public IActionResult Create()
         {
@@ -162,6 +163,10 @@ namespace JobRecommendationWeb.Controllers
         }
 
         private bool KinangExists(int id)
+=======
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+>>>>>>> Stashed changes
         {
             return _context.Kinangs.Any(e => e.MaKiNang == id);
         }
