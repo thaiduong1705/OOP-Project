@@ -64,6 +64,7 @@ namespace JobRecommendationWeb.Controllers
         public IActionResult Add()
         {
             return View();
+
         }
     }
 }
