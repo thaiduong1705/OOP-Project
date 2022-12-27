@@ -29,6 +29,8 @@ namespace JobRecommendationWeb.Controllers
         public IActionResult Create()
         {
             List<Hosocongty> companylist = _context.Hosocongties.ToList();
+            List<Kinang> kinangList = _context.Kinangs.ToList();
+            ViewBag.kinangList = kinangList;
             ViewBag.companylist = companylist;
             return View();
         }
@@ -42,7 +44,7 @@ namespace JobRecommendationWeb.Controllers
                 Baidang value = new Baidang();
                 value.TenCongViec = form["TenCongViec"];
                 value.WebsiteBaiGoc = form["WebsiteBaiGoc"];
-                value.MaCongTy = Convert.ToInt32(form["maCongTy"]);
+                value.MaCongTy = Convert.ToInt32(form["MaCongTy"]);
                 value.MoTa = form["MoTa"];
                 value.ThamNien = Convert.ToInt32(form["ThamNien"]);
                 value.LuongMin = Convert.ToInt32(form["LuongMin"]);

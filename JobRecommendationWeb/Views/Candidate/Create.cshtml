@@ -9,7 +9,7 @@
 @model List<Kinang>
 
 <div class="container">
-    <form asp-action="Create" asp-controller="Candidate" method="post" enctype="multipart/form-data">
+    <form id="formCreate" asp-action="Create" asp-controller="Candidate" method="post" enctype="multipart/form-data">
 		<div class="row-register">
 			<!-- <div class="col-register1">
 				<img src="images/logo.jpg" alt="ảnh" width="200px">
@@ -23,7 +23,7 @@
 						<label for="candidate_name">Họ Tên</label>
 					</div>
 					<div class="col-register4">
-						<input id="Ten" name="Ten" type="text" required autofocus>
+						<input id="Ten" name="Ten" type="text" autofocus>
 					</div>
 				</div>
 				<br>
@@ -32,7 +32,8 @@
 						<label for="candidate_age">Tuổi</label>
 					</div>
 					<div class="col-register4">
-						<input name="Tuoi" id="Tuoi" type="text" required>
+						<input name="Tuoi" id="Tuoi" type="text">
+						
 					</div>
 				</div>
 				<br>
@@ -41,7 +42,7 @@
 						<label for="candidate_experience">Thâm Niên</label>
 					</div>
 					<div class="col-register4">
-						<input name="ThamNien" id="ThamNien" type="text" required>
+						<input name="ThamNien" id="ThamNien" type="text">
 					</div>
 				</div>
 				<br>
@@ -50,7 +51,7 @@
 						<label for="candidate_phone">SĐT</label>
 					</div>
 					<div class="col-register4">
-						<input name="Sdt" id="Sdt" type="text" required>
+						<input name="Sdt" id="Sdt" type="text">
 					</div>
 				</div>
                 <br>
@@ -59,7 +60,7 @@
 						<label for="email">Email</label>
 					</div>
 					<div class="col-register4">
-						<input atype="email" name="email" id="email" required>
+						<input type="text" name="Email" id="email">
 					</div>
 				</div>
                 <br>
@@ -68,7 +69,7 @@
 						<label for="kinang">Kĩ năng</label>
 					</div>
 					<div class="col-register4">
-						<select name="Kinang" id="Kinang" class="form-select chosen-default" multiple>
+						<select name="test" id="Kinang" class="form-select chosen-default" multiple>
 							@foreach (var item in Model)
 							{
 								<option value="@item.MaKiNang">@item.TenKiNang</option>
@@ -82,7 +83,7 @@
 						<label for="CV">CV</label>
 					</div>
 					<div class="col-register4">
-						<input type="file" id="CV" accept="image/*" required>
+						<input type="file" name="CV" id="CV" accept="image/*">
 					</div>
 				</div>
 				<br>
@@ -91,7 +92,7 @@
 						<label for="location">Địa chỉ</label>
 					</div>
 					<div class="col-register4">
-						<input name="DiaChi" id="DiaChi" type="text" required>
+						<input name="DiaChi" id="DiaChi" type="text">
                         <br>
                         <span>Ví dụ: 332, Cộng Hòa, 14, Tân Bình</span>
 					</div>
@@ -102,7 +103,7 @@
 						<label for="country">Quốc tịch</label>
 					</div>
 					<div class="col-register4">
-						<select name="country" id="country" required>
+						<select name="country" id="country">
 							<option value=""></option>
 							<option value="vn">Việt Nam</option>
 							<option value="lao">Lào</option>
@@ -137,6 +138,7 @@
         });
     </script>
 	@{
-		<partial name="_ValidationScriptsPartial" />
+	<partial name="_ValidationScriptsPartial" />		
 	}
+	<script src=~/js/CandidateValid.js></script>
 }
