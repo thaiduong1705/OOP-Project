@@ -29,20 +29,22 @@
 
 <div class="container me-auto">
     <!-- chỗ này binding ra danh các việc làm nè-->
-    <table class="table  table-bordered"> 
+    <table class="table table-bordered table-striped w-100"> 
         <thead>
             <tr>
                 <th>Stt</th>
                 <th>Tên ứng viên</th>
+                <th></th>
             </tr>
-            
         </thead>
         <tbody>
             @for(int i = 0; i < candidates.Count; i++){
                 <tr>
-                    <td>@i</td>
+                    <td>@(i + 1)</td>
                     <td>@candidates[i].Ten</td>
-                    <td><a asp-action="CandidateApply" asp-controller="Post" asp-route-candidate="@candidates[i].MaUngVien" asp-route-post="@post.MaBaiDang">Ứng tuyển</a></td>
+                    <td>
+                        <a class="link-info text-decoration-none" asp-action="CandidateApply" asp-controller="Post" asp-route-candidate="@candidates[i].MaUngVien" asp-route-post="@post.MaBaiDang">Ứng tuyển</a>
+                    </td>
                 </tr>
             }
         </tbody>
