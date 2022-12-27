@@ -132,21 +132,29 @@ namespace JobRecommendationWeb.Controllers
             return View();
         }
 
-        public async Task<IActionResult> CandidateApply(Ungvien c, Baidang p)
+        public async Task<IActionResult> CandidateApply(int? candidate, int? post)
         {
-            Ungtuyen u = new Ungtuyen();
+            Ungvien ungvien = await _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.MaUngVien == candidate).FirstOrDefaultAsync();
+            Baidang baidang = await _context.Baidangs.Where(x => x.MaBaiDang == post).FirstOrDefaultAsync();
 
-            u.MaBaiDang = p.MaBaiDang;
-            u.MaBaiDangNavigation = p;
-            u.MaUngVien = c.MaUngVien;
-            u.MaUngVienNavigation = c;
-            u.NgayUngTuyen = DateTime.Today;
-            u.ChapThuan = true;
+            Ungtuyen ungtuyen = new Ungtuyen();
+            ungtuyen.MaUngVien = ungvien.MaUngVien;
+            ungtuyen.MaBaiDang = baidang.MaBaiDang;
+            ungtuyen.MaUngVienNavigation = ungvien;
+            ungtuyen.MaBaiDangNavigation = baidang;
+            ungtuyen.ChapThuan = true;
+            ungtuyen.NgayUngTuyen = DateTime.Now;
 
-            _context.Ungtuyens.Add(u);
-            p.Ungtuyens.Add(u);
+            //u.MaBaiDang = post.MaBaiDang;
+            //u.MaBaiDangNavigation = post;
+            //u.MaUngVien = candidate.MaUngVien;
+            //u.MaUngVienNavigation = candidate;
+            //u.NgayUngTuyen = DateTime.Today;
+            //u.ChapThuan = true;
+
+            _context.Ungtuyens.Add(ungtuyen);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Detail", new {id = post});
         }
 
         [HttpGet]
@@ -207,7 +215,7 @@ namespace JobRecommendationWeb.Controllers
 
             return RedirectToAction("Detail", new {id = id});
         }
-        public IActionResult Detele(int? id)
+        public IActionResult Delete(int? id)
         {
 
             if (id == null)
