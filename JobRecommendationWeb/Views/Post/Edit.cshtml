@@ -1,16 +1,18 @@
 ﻿@{
-    ViewData["Title"] = "Tạo hồ sơ tuyển dụng";
+    ViewData["Title"] = "Chỉnh sửa bài tuyển dụng";
     List<SelectListItem> items = new List<SelectListItem>();
     List<SelectListItem> kns = new List<SelectListItem>();
+    Baidang baidang = ViewBag.EditingPost;
+
+    List<int> selectedKiNang = baidang.MaKiNangs.Select(x => x.MaKiNang).ToList();
     foreach (Hosocongty c in ViewBag.companylist)
         items.Add(new SelectListItem { Text = c.TenCongTy, Value = c.MaCongTy.ToString() });
 
-    foreach (Kinang item in ViewBag.kinangList)
+    foreach (Kinang item in ViewBag.KinangList)
     {
         kns.Add(new SelectListItem { Text = item.TenKiNang, Value = item.MaKiNang.ToString() });
     }
 }
-
 
 @section Styles {
     <link rel="stylesheet" href="~/css/MultiSelectStyle.css" />
@@ -18,19 +20,27 @@
 
     <div class="container">
         <form id="formCreate" method="post" autocomplete="off">
+            <input type="text" class="form-control d-none" value="@baidang.MaBaiDang" name="MaBaiDang"/>
             <div class="mb-3">
                 <label class="form-label">Công ty:</label>
                 <select name="MaCongTy" id="MaCongTy" class="form-select form-select-lg">
                 @foreach (var item in items)
                 {
-                    <option value="@item.Value">@item.Text</option>
+                    if (baidang.MaCongTyNavigation.MaCongTy == Convert.ToInt32(item.Value))
+                    {
+                        <option selected value="@item.Value">@item.Text</option>
+                    }
+                    else {
+                        <option value="@item.Value">@item.Text</option>
+                    }
+                    
                 }
             </select>
         </div>
 
         <div class="mb-3">
             <label class="form-label">Tên công việc</label>
-            <input type="text" name="TenCongViec" class="form-control" style="background-color: #eee" />
+            <input type="text" name="TenCongViec" class="form-control" style="background-color: #eee" value="@baidang.TenCongViec" />
         </div>
 
         <div class="mb-3">
@@ -40,18 +50,18 @@
                     <div class="d-flex justify-content-between">
                         <div class="d-flex justify-content-between">
                             <label class="form-label my-2 me-2">Từ</label>
-                            <input type="text" name="LuongMin" class="form-control py-2" style="background-color: #eee" />
+                            <input type="text" name="LuongMin" class="form-control py-2" style="background-color: #eee" value="@baidang.LuongMin" />
                         </div>
                         <div class="px-4"></div>
                         <div class="d-flex justify-content-between">
                             <label class="form-label my-2 me-2">Đến</label>
-                            <input type="text" name="LuongMax" class="form-control" style="background-color: #eee" />
+                            <input type="text" name="LuongMax" class="form-control" style="background-color: #eee" value="@baidang.LuongMax" />
                         </div>
                     </div>
                 </div>
                 <div class="col">
                     <label class="form-label ">Năm kinh nghiệm</label>
-                    <input type="text" name="ThamNien" class="form-control py-2" style="background-color: #eee" />
+                    <input type="text" name="ThamNien" class="form-control py-2" style="background-color: #eee" value="@baidang.ThamNien" />
                 </div>
                 <div class="col">
                     <label class="form-label ">Cấp bậc</label>
@@ -67,30 +77,36 @@
                     <select name="KiNang" class="chosen-default form-select" multiple data-placeholder="Danh sách kĩ năng">
                         @foreach (var item in kns)
                         {
-                            <option value="@item.Value">@item.Text</option>
+                            if (selectedKiNang.Contains(Convert.ToInt32(item.Value))) {
+                                <option selected value="@item.Value">@item.Text</option>
+                            }
+                            else {
+                                <option value="@item.Value">@item.Text</option>
+                            }
                         }
                     </select>
                 </div>
                 <div class="col">
                     <label class="form-label ">Link bài gốc</label>
-                    <input type="text" name="WebsiteBaiGoc" class="form-control py-2" style="background-color: #eee" />
+                    <input type="text" name="WebsiteBaiGoc" class="form-control py-2" style="background-color: #eee" value="@baidang.WebsiteBaiGoc" />
                 </div>
             </div>
         </div>
+
         <div class="mb-3">
-            <label class="form-label">Mô tả công việc</label>
-            <textarea class="form-control" name="MoTaThem" style="background-color: #eee; height: 200px"></textarea>
+            <label class="form-label">Mô tả thêm</label> 
+            <textarea class="form-control" name="MoTaThem" style="background-color: #eee; height: 200px">@baidang.MoTa</textarea>
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Yêu cầu công việc</label>
-            <textarea class="form-control" name="GhiChu" style="background-color: #eee; height: 200px"></textarea>
+            <label class="form-label">Mô tả thêm</label>
+            <textarea class="form-control" name="GhiChu" style="background-color: #eee; height: 200px">@baidang.GhiChu</textarea>
         </div>
 
         <div class="d-flex justify-content-center align-items-center p-2">
             <button type="submit" class="btn btn-danger px-4" asp-action="Index" asp-controller="Post">Huỷ bỏ</button>
             <div class="px-5"></div>
-            <button type="submit" class="btn btn-primary px-4">Đăng bài</button>
+            <button type="submit" class="btn btn-success px-4">Chỉnh sửa</button>
         </div>
     </form>
 </div>

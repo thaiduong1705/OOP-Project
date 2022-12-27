@@ -33,9 +33,9 @@ public partial class Baidang
 
     public virtual ICollection<Phieutocao> Phieutocaos { get; } = new List<Phieutocao>();
 
-    public virtual ICollection<Ungtuyen> Ungtuyens { get; } = new List<Ungtuyen>();
+    public virtual ICollection<Ungtuyen> Ungtuyens { get; set; } = new List<Ungtuyen>();
 
-    public virtual ICollection<Kinang> MaKiNangs { get; } = new List<Kinang>();
+    public virtual ICollection<Kinang> MaKiNangs { get; set; } = new List<Kinang>();
 
     public virtual ICollection<Lichsulamviec> MaLslvs { get; } = new List<Lichsulamviec>();
 }

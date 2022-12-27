@@ -10,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Identity;
+using Newtonsoft.Json.Linq;
 
 namespace JobRecommendationWeb.Controllers
 {
@@ -108,19 +109,19 @@ namespace JobRecommendationWeb.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Detail(int? id)
+        public IActionResult Detail(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var post = await _context.Baidangs.FindAsync(id);
+            var post = _context.Baidangs.Include(x => x.MaKiNangs).Where(x => x.MaBaiDang == id).FirstOrDefault();
             if (post == null)
             {
                 return NotFound();
             }
-            var company = await _context.Hosocongties.Where(x => x.MaCongTy == post.MaCongTy).FirstOrDefaultAsync();
+            var company = _context.Hosocongties.Where(x => x.MaCongTy == post.MaCongTy).FirstOrDefault();
             if (company == null)
             {
                 return NotFound();
@@ -147,6 +148,84 @@ namespace JobRecommendationWeb.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+        [HttpGet]
+        public IActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            Baidang baidang = _context.Baidangs.Include(x => x.MaKiNangs).Where(x => x.MaBaiDang == id).FirstOrDefault();
+
+            List<Hosocongty> companyList = _context.Hosocongties.ToList();
+            List<Kinang> kinangList = _context.Kinangs.ToList();
+            ViewBag.CompanyList = companyList;
+            ViewBag.KinangList = kinangList;
+            ViewBag.EditingPost = baidang;
+            return View(baidang);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(IFormCollection form)
+        {
+            int id = Convert.ToInt32(form["MaBaiDang"]);
+            Baidang baidang = _context.Baidangs.Include(x => x.MaKiNangs).Where(x => x.MaBaiDang == id).FirstOrDefault();
+
+            foreach (Kinang kinang in baidang.MaKiNangs.ToList())
+            {
+                baidang.MaKiNangs.Remove(kinang);
+            }
+
+            baidang.TenCongViec = form["TenCongViec"];
+            baidang.WebsiteBaiGoc = form["WebsiteBaiGoc"];
+            baidang.MaCongTy = Convert.ToInt32(form["MaCongTy"]);
+            baidang.MoTa = form["MoTa"];
+            baidang.ThamNien = Convert.ToInt32(form["ThamNien"]);
+            baidang.LuongMin = Convert.ToInt32(form["LuongMin"]);
+            baidang.LuongMax = Convert.ToInt32(form["LuongMax"]);
+            baidang.GhiChu = form["GhiChu"];
+            
+            List<Kinang> temp = new List<Kinang>();
+            foreach (var item in form["KiNang"])
+            {
+                Kinang kinang = _context.Kinangs.Where(x => x.MaKiNang == int.Parse(item)).FirstOrDefault();
+                if (kinang != null)
+                {
+                    temp.Add(kinang);
+                }    
+            }
+
+            if (temp.Count > 0)
+            {
+                baidang.MaKiNangs = temp;
+            }
+
+            _context.Baidangs.Update(baidang);
+            _context.SaveChanges();
+
+            return RedirectToAction("Detail", new {id = id});
+        }
+        public IActionResult Detele(int? id)
+        {
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Baidang baidang = _context.Baidangs.Include(x => x.MaKiNangs).FirstOrDefault(x => x.MaBaiDang == id);
+
+            foreach (var kinang in baidang.MaKiNangs)
+            {
+                baidang.MaKiNangs.Remove(kinang);
+            }
+            _context.Baidangs.Remove(baidang);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

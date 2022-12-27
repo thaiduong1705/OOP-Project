@@ -4,6 +4,7 @@
 
     Baidang post = ViewBag.post;
     Hosocongty company = ViewBag.company;
+    List<Kinang> k = post.MaKiNangs.ToList();
 }
 
 <div class="container mb-5">
@@ -26,45 +27,58 @@
                 </div>
 
                 <div class="col-8 d-flex align-items-center">
-                    <h2>@post.TenCongViec</h2>
+                    <h2>@company.TenCongTy</h2>
                 </div>
             </div>
         </div>
 
         <div class="col-4">
-            <button class="btn btn-info w-100 mb-3">Chỉnh sửa</button>
+            <a asp-action="Edit" asp-controller="Post" asp-route-id="@post.MaBaiDang" class="btn btn-info w-100 mb-3">Chỉnh sửa</a>
             <a class="btn btn-success w-100" asp-action="Apply" asp-controller="Post" asp-route-id="@post.MaBaiDang">Nộp CV</a>
-            <button class="btn btn-dark w-100 mt-3">Xoá</button>
+            <a asp-action="Delete" asp-controller="Post" asp-route-id="@post.MaBaiDang" class="btn btn-dark w-100 mt-3">Xoá</a>
         </div>
     </div>
     <div class="py-5"></div>
     <div class="row">
         <div class="col-8">
             <div class="row">
+                <h4 class="fw-bold">@post.TenCongViec</h4>
+            </div>
+            <div class="row mb-2">
                 <h4 class="text-danger">Lương: @post.LuongMin VNĐ - @post.LuongMax VNĐ</h4>
             </div>
-            <div class="row">
-                <label class="fw-bolder">@post.TenCongViec</label>
+            <div class="row mb-2">
+                <label class="fw-bolder">Mô tả công việc</label>
                 <p class="lh-base">@post.MoTa</p>
             </div>
+            <div class="row mb-2">
+                <label class="fw-bolder">Yêu cầu công việc</label>
+                <p class="lh-base">@post.GhiChu</p>
+            </div>
+
         </div>
         <div class="col-4">
-            <label class="fw-bold mb-4">@company.TenCongTy </label>
+            <label class="fw-bold mb-4">@company.TenCongTy</label>
 
             <div class="mb-4">
-                <label class="fw-bold mb-4">@company.DiaChi</label>
-                <p class="">
-                    abc
+                <label class="fw-bold mb-4">Địa chỉ: @company.DiaChi</label>
+            </div>
+
+            <label class="fw-bold mb-4">Quốc tịch: @company.QuocTich</label>
+
+            <div class="mb-4">
+                <label class="fw-bold mb-4">Kĩ năng</label>
+                <p class="d-inline-block">
+                    @foreach (var item in k)
+                    {
+                        <text>@item.TenKiNang, </text>
+                    }
                 </p>
             </div>
 
-            <label class="fw-bold mb-4">@company.QuocTich</label>
-
             <div class="mb-4">
-                <label class="fw-bold mb-4">@company.Website</label>
-                <p class="">
-                    abc
-                </p>
+                <label class="fw-bold">Website bài gốc:</label>
+                <a class="link-info d-block text-truncate" href="@post.WebsiteBaiGoc" target="_blank">@post.WebsiteBaiGoc</a>
             </div>
         </div>
     </div>
