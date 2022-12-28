@@ -9,7 +9,7 @@ public partial class Kinang
 
     public string? TenKiNang { get; set; }
 
-    public virtual ICollection<Baidang> MaBaiDangs { get; } = new List<Baidang>();
+    public virtual ICollection<Baidang> MaBaiDangs { get; set; } = new List<Baidang>();
 
-    public virtual ICollection<Ungvien> MaUngViens { get; } = new List<Ungvien>();
+    public virtual ICollection<Ungvien> MaUngViens { get; set; } = new List<Ungvien>();
 }
