@@ -1,133 +1,147 @@
 ﻿@model Hosocongty
 @{
-	ViewData["Title"] = "Chỉnh sửa hồ sơ công ty";
-	List<SelectListItem> items = new List<SelectListItem>();
+    ViewData["Title"] = "Chỉnh sửa hồ sơ công ty";
+    List<SelectListItem> items = new List<SelectListItem>();
 
-	items.Add(new SelectListItem { Text = "Việt Nam", Value = "Việt Nam", Selected = true });
-	items.Add(new SelectListItem { Text = "Lào", Value = "Lào" });
-	items.Add(new SelectListItem { Text = "Campuchia", Value = "Campuchia" });
-	items.Add(new SelectListItem { Text = "Hàn Quốc", Value = "Hàn Quốc" });
-	items.Add(new SelectListItem { Text = "Đức", Value = "Đức" });
-	items.Add(new SelectListItem { Text = "Nhật Bản", Value = "Nhật Bản" });
-	items.Add(new SelectListItem { Text = "Thái Lan", Value = "Thái Lan" });
-	items.Add(new SelectListItem { Text = "Mỹ", Value = "Mỹ" });
-	items.Add(new SelectListItem { Text = "Singapore", Value = "Singapore" });
+    items.Add(new SelectListItem { Text = "Việt Nam", Value = "Việt Nam" });
+    items.Add(new SelectListItem { Text = "Lào", Value = "Lào" });
+    items.Add(new SelectListItem { Text = "Campuchia", Value = "Campuchia" });
+    items.Add(new SelectListItem { Text = "Hàn Quốc", Value = "Hàn Quốc" });
+    items.Add(new SelectListItem { Text = "Đức", Value = "Đức" });
+    items.Add(new SelectListItem { Text = "Nhật Bản", Value = "Nhật Bản" });
+    items.Add(new SelectListItem { Text = "Thái Lan", Value = "Thái Lan" });
+    items.Add(new SelectListItem { Text = "Mỹ", Value = "Mỹ" });
+    items.Add(new SelectListItem { Text = "Singapore", Value = "Singapore" });
 
 }
 @section Styles {
-	<link rel="stylesheet" href="@Url.Content("/css/FormStyle.css")" />
+    <link rel="stylesheet" href="@Url.Content("/css/FormStyle.css")" />
 }
-	<div class="container">
-		<form asp-action="Edit" asp-controller="Company" autocomplete="off" id="formCreate">
-			<div class="row-register">
-				<div class="col-register1">
-					<img src="/images/logo.jpg" alt="ảnh" style="width: 200px">
-				</div>
-				<div class="col-register2">
-					<h1>Thông tin nhà tuyển dụng</h1>
-					<hr>
-					<br>
-					<div class="row-register2">
-						<div class="col-register3">
-							<label for="company_name">Tên công ty</label>
-						</div>
-						<div class="col-register4">
-							<input type="text" name="TenCongTy" autofocus>
-						</div>
-					</div>
-					<br>
-					<div class="row-register2">
-						<div class="col-register3">
-							<label for="staff_name">Website</label>
-						</div>
-						<div class="col-register4">
-							<input type="text" name="Website" autofocus>
-						</div>
-					</div>
-					<br>
-					<div class="row-register2">
-						<div class="col-register3">
-							<label for="staff_phone">Địa chỉ</label>
-						</div>
-						<div class="col-register4">
-							<input type="text" name="DiaChi" autofocus>
-						</div>
-					</div>
-					<br>
-					<div class="row-register2">
-						<div class="col-register3">
-							<label for="country">Quốc tịch</label>
-						</div>
-						<div class="col-register4">
-							<select></select>
-						</div>
-					</div>
-					<br>
-					<div class="row-register2">
-						<div class="col-register3">
-							<label for="logo">Ảnh công ty</label>
-						</div>
-						<div class="col-register4">
-							<input type="file" name="logo" id="logo" accept="image/*" required>
-						</div>
-					</div>
-					<br>
-					<div class="row-register2">
-						<div class="col-register3">
-							<label for="staff_phone">Chế độ đãi ngộ:</label>
-						</div>
-						<div class="col-register4">
-							@Html.TextBoxFor(m => m.CheDoDaiNgo)
-						</div>
-					</div>
-					<br>
-					<div class="row-register2">
-						<div class="col-register3">
-							<label for="staff_phone">Mô tả thêm</label>
-						</div>
-						<div class="col-register4">
-							@Html.TextBoxFor(m => m.MoTaThem)
-						</div>
-					</div>
-					<br>
-					<!-- <div class="row2">
-						<div class="col3">
-							<label for="male">Giới tính: </label>
+    <div class="container">
+        <form asp-action="Edit" asp-controller="Company" autocomplete="off" id="formCreate">
+            <div class="row-register">
+                <div class="col-register1">
+                    <img src="/images/logo.jpg" alt="ảnh" style="width: 200px">
+                </div>
+                <div class="col-register2">
+                    <h1>Thông tin nhà tuyển dụng</h1>
+                    <hr>
+                    <br>
+                    <div class="row-register2">
+                        <div class="col-register3">
+                            <label for="company_name">Tên công ty</label>
+                        </div>
+                        <div class="col-register4">
+                            <input type="text" name="TenCongTy" value="@Model.TenCongTy" autofocus>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row-register2">
+                        <div class="col-register3">
+                            <label for="staff_name">Website</label>
+                        </div>
+                        <div class="col-register4">
+                            <input type="text" name="Website" value="@Model.Website" autofocus>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row-register2">
+                        <div class="col-register3">
+                            <label for="staff_phone">Địa chỉ</label>
+                        </div>
+                        <div class="col-register4">
+                            <input type="text" name="DiaChi" value="@Model.DiaChi" autofocus>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row-register2">
+                        <div class="col-register3">
+                            <label for="country">Quốc tịch</label>
+                        </div>
+                        <div class="col-register4">
+                            <select name="QuocTich">
+                                @{
+                                foreach (var item in items)
+                                {
+                                    if (item.Text == Model.QuocTich)
+                                    {
+                                        <option selected value="@item.Value">@item.Text</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.Value">@item.Text</option>
+                                    }
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <br>
+                <div class="row-register2">
+                    <div class="col-register3">
+                        <label for="logo">Ảnh công ty</label>
+                    </div>
+                    <div class="col-register4">
+                        <input type="file" name="logo" id="logo" accept="image/*" required>
+                    </div>
+                </div>
+                <br>
+                <div class="row-register2">
+                    <div class="col-register3">
+                        <label for="staff_phone">Chế độ đãi ngộ:</label>
+                    </div>
+                    <div class="col-register4">
+                        <input type="text" name="DiaChi" value="@Model.TenCongTy" autofocus>
+                    </div>
+                </div>
+                <br>
+                <div class="row-register2">
+                    <div class="col-register3">
+                        <label for="staff_phone">Mô tả thêm</label>
+                    </div>
+                    <div class="col-register4">
+                        <input type="text" name="DiaChi" value="@Model.MoTaThem" autofocus>
+                    </div>
+                </div>
+                <br>
+                <!-- <div class="row2">
+                    <div class="col3">
+                        <label for="male">Giới tính: </label>
 
-						</div>
-						<div class="col4">
-							<label>
-								<input type="radio" name="gender" value="male" id="male" required checked> Male
-							</label>
-							<br>
-							<label>
-								<input type="radio" name="gender" value="female"> Female
-							</label>
-							<br>
-							<label>
-								<input type="radio" name="gender" value="undefined"> Undefined
-							</label>
-						</div>
+                    </div>
+                    <div class="col4">
+                        <label>
+                            <input type="radio" name="gender" value="male" id="male" required checked> Male
+                        </label>
+                        <br>
+                        <label>
+                            <input type="radio" name="gender" value="female"> Female
+                        </label>
+                        <br>
+                        <label>
+                            <input type="radio" name="gender" value="undefined"> Undefined
+                        </label>
+                    </div>
 
-					</div>
-					<br> -->
-					<div class="row-register2">
-						<div class="col-register3">
-							<!-- <label for="firstname">Firstname</label> -->
-						</div>
-						<div class="col-register4">
-							<button>Đăng ký</button>
-						</div>
-					</div>
+                </div>
+                <br> -->
+                <div class="row-register2">
+                    <div class="col-register3">
+                        <!-- <label for="firstname">Firstname</label> -->
+                    </div>
+                    <div class="col-register4">
+                        <button>Đăng ký</button>
+                    </div>
+                </div>
 
-				</div>
-			</div>
-		</form>
+            </div>
+        </div>
+    </form>
 </div>
 
 @section Scripts {
-	@{
-		<partial name="_ValidationScriptsPartial"/>
-	}
-		<script src=~/js/CompanyValid.js></script>
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+    <script src=~/js/CompanyValid.js></script>
 }

@@ -102,7 +102,7 @@ namespace JobRecommendationWeb.Controllers
                         throw;
                     }
                 }
-                
+
                 return RedirectToAction(nameof(Index));
             }
             return View(value);

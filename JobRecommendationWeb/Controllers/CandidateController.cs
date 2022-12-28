@@ -22,7 +22,7 @@ namespace JobRecommendationWeb.Controllers
             }    
             else
             {
-                var listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.Ten == input).ToList();
+                var listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.Ten.Contains(input)).ToList();
                 if (listUngVien.Count == 0)
                 {
                     return View(_context.Ungviens.Include(x => x.MaKiNangs).ToList());

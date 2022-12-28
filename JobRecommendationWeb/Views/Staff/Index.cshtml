@@ -1,6 +1,7 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Quản lý nhân viên";
+
+    List<Nhanvien> listNV = ViewBag.nhanvien;
 }
 
 <div class="container mb-5">
@@ -18,10 +19,10 @@
             <div class="col-lg-10">
                 <input class="form-control mr-sm-2 col-lg-8" type="text" placeholder="Search">
             </div>
-			<div class="col-2">
+            <div class="col-2">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </div>
-			
+
         </form>
     </div>
 </div>
@@ -32,89 +33,24 @@
             <tr>
                 <th>Mã NV</th>
                 <th>Họ Tên</th>
-				<th>SĐT</th>
+                <th>Tuổi</th>
+                <th>SĐT</th>
                 <th>Email</th>
-				<th>Địa chỉ</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>1</td>
-                <td>A</td>
-				<td>1</td>
-                <td>A</td>
-                <td>A</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>A</td>
-				<td>1</td>
-                <td>A</td>
-                <td>A</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>A</td>
-				<td>1</td>
-                <td>A</td>
-                <td>A</td>
-            </tr>
-			<tr>
-                <td>4</td>
-                <td>A</td>
-				<td>1</td>
-                <td>A</td>
-                <td>A</td>
-            </tr>
-			<tr>
-                <td>5</td>
-                <td>A</td>
-				<td>1</td>
-                <td>A</td>
-                <td>A</td>
-            </tr>
-			<tr>
-                <td>6</td>
-                <td>A</td>
-				<td>1</td>
-                <td>A</td>
-                <td>A</td>
-            </tr>
-			<tr>
-                <td>7</td>
-                <td>A</td>
-				<td>1</td>
-                <td>A</td>
-                <td>A</td>
-            </tr>
-			<tr>
-                <td>8</td>
-                <td>A</td>
-				<td>1</td>
-                <td>A</td>
-                <td>A</td>
-            </tr>
-			<tr>
-                <td>9</td>
-                <td>A</td>
-				<td>1</td>
-                <td>A</td>
-                <td>A</td>
-            </tr>
-			<tr>
-                <td>10</td>
-                <td>A</td>
-				<td>1</td>
-                <td>A</td>
-                <td>A</td>
-            </tr>
-			<tr>
-                <td>11</td>
-                <td>A</td>
-				<td>1</td>
-                <td>A</td>
-                <td>A</td>
-            </tr>
+            @{
+                foreach (var item in listNV)
+                {
+                    <tr>
+                        <td>@item.MaNhanVien</td>
+                        <td>@item.TenNhanVien</td>
+                        <td>@item.Tuoi</td>
+                        <td>@item.Sdt</td>
+                        <td>@item.Email</td>
+                    </tr>
+                }
+            }
         </tbody>
     </table>
 </div>
