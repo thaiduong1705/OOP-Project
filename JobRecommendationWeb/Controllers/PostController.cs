@@ -145,13 +145,6 @@ namespace JobRecommendationWeb.Controllers
             ungtuyen.ChapThuan = true;
             ungtuyen.NgayUngTuyen = DateTime.Now;
 
-            //u.MaBaiDang = post.MaBaiDang;
-            //u.MaBaiDangNavigation = post;
-            //u.MaUngVien = candidate.MaUngVien;
-            //u.MaUngVienNavigation = candidate;
-            //u.NgayUngTuyen = DateTime.Today;
-            //u.ChapThuan = true;
-
             _context.Ungtuyens.Add(ungtuyen);
             await _context.SaveChangesAsync();
             return RedirectToAction("Detail", new {id = post});

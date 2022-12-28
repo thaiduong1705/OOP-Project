@@ -26,7 +26,7 @@ public partial class Ungvien
 
     public virtual ICollection<Cv> Cvs { get; } = new List<Cv>();
 
-    public virtual ICollection<Ungtuyen> Ungtuyens { get; } = new List<Ungtuyen>();
+    public virtual ICollection<Ungtuyen> Ungtuyens { get; set; } = new List<Ungtuyen>();
 
     public virtual ICollection<Kinang> MaKiNangs { get; set; } = new List<Kinang>();
 }

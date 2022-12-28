@@ -32,16 +32,30 @@
         @foreach (var item in Model)
         {
             <li class="d-inline-block m-4">
-                <div class="card position-relative">
-                    <a href="#" class=" position-absolute top-0 left-0 w-100 h-100"></a>
+                <div class="card">
                     <div class="card-body">
                         <h5 class="card-title fw-bolder">@item.Ten</h5>
-                        <div class="small-text mb-2">
+                        <div class="mb-2">
                             <p class="card-text m-0 small"> @item.Tuoi tuổi</p>
-                            <p class="card-text m-0 small"> Năm kinh nghiệm: @item.ThamNien</p>
-                            <p class="card-text m-0 small"> Kĩ năng:</p>
+                            <p class="card-text m-0 small mt-2"><span class="fw-bold">Năm kinh nghiệm:</span> @item.ThamNien</p>
+                            <p class="card-text m-0 small fw-bold mt-2"> Kĩ năng:</p>
+                            <p class="card-text m-0 small">
+                                @foreach (var c in item.MaKiNangs)
+                                {
+                                    <text>@c.TenKiNang, </text>
+                                }
+                            </p>
                         </div>
-                        <p class="card-text">Mô tả</p>
+                       
+                    </div>
+                </div>
+                <div class="row mt-1">
+                    <div class="col-6">
+                        <a asp-action="Delete" asp-controller="Candidate" asp-route-id="@item.MaUngVien" class="btn btn-outline-danger w-100">Xoá</a>
+                        
+                    </div>
+                    <div class="col-6">
+                        <a asp-action="Edit" asp-controller="Candidate" asp-route-id="@item.MaUngVien" class="btn btn-outline-info w-100">Chỉnh sửa</a>
                     </div>
                 </div>
             </li>

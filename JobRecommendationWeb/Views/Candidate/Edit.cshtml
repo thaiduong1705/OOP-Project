@@ -1,15 +1,25 @@
 ﻿@{
-    ViewData["Title"] = "Tạo hồ sơ ứng viên";
+	ViewData["Title"] = "Chỉnh sửa hồ sơ ứng viên";
+
+	Ungvien ungvien = ViewBag.EditingCandidate;
+	List<Kinang> kinangList = ViewBag.kinangList;
+
+	List<int> selectedKiNang = ungvien.MaKiNangs.Select(x => x.MaKiNang).ToList();
+	List<SelectListItem> kns = new List<SelectListItem>();
+	foreach(var kinang in kinangList)
+	{
+		kns.Add(new SelectListItem { Text = kinang.TenKiNang, Value = kinang.MaKiNang.ToString() });
+	}
+
+	List<SelectListItem> countryList = new List<SelectListItem>();
 }
 
 @section Styles {
         <link rel="stylesheet" href="@Url.Content("/css/FormStyle.css")"/>
 }
 
-@model List<Kinang>
-
 <div class="container">
-    <form id="formCreate" asp-action="Create" asp-controller="Candidate" method="post" enctype="multipart/form-data">
+    <form id="formCreate" asp-action="Edit" asp-controller="Candidate" method="post" enctype="multipart/form-data" autocomplete="off">
 		<div class="row-register">
 			<!-- <div class="col-register1">
 				<img src="images/logo.jpg" alt="ảnh" width="200px">
@@ -18,12 +28,13 @@
 				<h1>Thông tin ứng viên</h1>
 				<hr>
 				<br>
+				<input type="text" name="MaUngVien" value="@ungvien.MaUngVien" class="form-control d-none"/>
 				<div class="row-register2">
 					<div class="col-register3">
 						<label for="candidate_name">Họ Tên</label>
 					</div>
 					<div class="col-register4">
-						<input id="Ten" name="Ten" type="text" autofocus>
+						<input id="Ten" name="Ten" type="text" value="@ungvien.Ten" autofocus>
 					</div>
 				</div>
 				<br>
@@ -32,7 +43,7 @@
 						<label for="candidate_age">Tuổi</label>
 					</div>
 					<div class="col-register4">
-						<input name="Tuoi" id="Tuoi" type="text">
+						<input name="Tuoi" id="Tuoi" type="text" value="@ungvien.Tuoi">
 						
 					</div>
 				</div>
@@ -42,7 +53,7 @@
 						<label for="candidate_experience">Thâm Niên</label>
 					</div>
 					<div class="col-register4">
-						<input name="ThamNien" id="ThamNien" type="text">
+						<input name="ThamNien" id="ThamNien" type="text" value="@ungvien.ThamNien">
 					</div>
 				</div>
 				<br>
@@ -51,7 +62,7 @@
 						<label for="candidate_phone">SĐT</label>
 					</div>
 					<div class="col-register4">
-						<input name="Sdt" id="Sdt" type="text">
+						<input name="Sdt" id="Sdt" type="text" value="@ungvien.Sdt">
 					</div>
 				</div>
                 <br>
@@ -60,7 +71,7 @@
 						<label for="email">Email</label>
 					</div>
 					<div class="col-register4">
-						<input type="text" name="Email" id="email">
+						<input type="text" name="Email" id="email" value="@ungvien.Email">
 					</div>
 				</div>
                 <br>
@@ -70,9 +81,15 @@
 					</div>
 					<div class="col-register4">
 						<select name="Kinang" id="Kinang" class="form-select chosen-default" multiple>
-							@foreach (var item in Model)
+							@foreach (var item in kns)
 							{
-								<option value="@item.MaKiNang">@item.TenKiNang</option>
+								if (selectedKiNang.Contains(int.Parse(item.Value)))
+								{
+									<option selected value="@item.Value">@item.Text</option>
+								}
+								else {
+									<option value="@item.Value">@item.Text</option>
+								}
 							}
 						</select>
 					</div>
@@ -92,31 +109,11 @@
 						<label for="location">Địa chỉ</label>
 					</div>
 					<div class="col-register4">
-						<input name="DiaChi" id="DiaChi" type="text">
+						<input name="DiaChi" id="DiaChi" type="text" value="@ungvien.DiaChi">
                         <br>
                         <span>Ví dụ: 332, Cộng Hòa, 14, Tân Bình</span>
 					</div>
-				</div>
-				<br>
-				<div class="row-register2">
-					<div class="col-register3">
-						<label for="country">Quốc tịch</label>
-					</div>
-					<div class="col-register4">
-						<select name="country" id="country">
-							<option value=""></option>
-							<option value="vn">Việt Nam</option>
-							<option value="lao">Lào</option>
-							<option value="cam">Campuchia</option>
-							<option value="kor">Hàn Quốc</option>
-							<option value="ger">Đức</option>
-							<option value="jap">Nhật Bản</option>
-							<option value="tha">Thái Lan</option>
-							<option value="USA">Mỹ</option>
-							<option value="sin">Singapore</option>
-						</select>
-					</div>
-				</div>
+				</div>	
 				<br>
                 <div class="row-register2">
 					<div class="col-register3">
