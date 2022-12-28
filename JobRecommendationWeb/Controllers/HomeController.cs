@@ -19,7 +19,11 @@ namespace JobRecommendationWeb.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.Action = this.ControllerContext.RouteData.Values["action"].ToString();
+            ViewBag.Controller = this.ControllerContext.RouteData.Values["controller"].ToString();
             List<Baidang> postList = _context.Baidangs.ToList();
+
+            // Goi len View Bag
             ViewBag.TaiKhoan = UsingAccount.Instance.Taikhoan;
             ViewBag.Nhanvien = UsingAccount.Instance.Nhanvien;
             return View(postList);

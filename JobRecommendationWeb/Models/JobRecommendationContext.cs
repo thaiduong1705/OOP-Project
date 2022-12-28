@@ -219,7 +219,7 @@ public partial class JobRecommendationContext : DbContext
                 .HasConstraintName("FK_ChucVu_TK");
 
             entity.HasOne(d => d.MaNhanVienNavigation).WithMany(p => p.Taikhoans)
-                .HasForeignKey(d => d.ChucVu)
+                .HasForeignKey(d => d.MaNhanVien)
                 .HasConstraintName("FK_MaNhanVien_TK");
         });
 

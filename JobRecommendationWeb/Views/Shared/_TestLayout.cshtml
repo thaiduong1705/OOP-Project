@@ -1,6 +1,5 @@
 ﻿@{
-	Taikhoan taikhoan = ViewContext.ViewBag.TaiKhoan;
-	Nhanvien nhanvien = ViewContext.ViewBag.NhanVien;
+	
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -33,12 +32,6 @@
 					<li class="nav-item active">
 						<a class="nav-link" asp-action="Index" asp-controller="Home">Trang chủ</a>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#about">Về chúng tôi</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="#contact">Liên hệ</a>
-					</li>
 
 					<li class="nav-item">
 						<div class="nav-link">Danh sách <i class="fa-solid fa-chevron-down"></i></div>
@@ -64,23 +57,7 @@
 							</li>
 						</ul>
 					</li>
-				</ul>
-				<ul class="navbar-nav ms-auto">
-					@if (nhanvien != null)
-					{
-						<li class=""><span class="fw-bold">Xin chào: @taikhoan.ChucVuNavigation.TenChucVu</span></li>
-					}
-					<li class="nav-item">
-						@if(taikhoan == null) {
-							<a class="nav-link" asp-action="Index" asp-controller="Login">Đăng nhập</a>
-						}
-						else
-						{
-							<a class="nav-link" asp-action="Logout" asp-controller="Login">Đăng xuất</a>
-						}
-					</li>
-				</ul>
-				
+				</ul>				
 			</div>
 		</nav>
 	</header>

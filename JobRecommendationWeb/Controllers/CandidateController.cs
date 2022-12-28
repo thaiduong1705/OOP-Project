@@ -28,7 +28,7 @@ namespace JobRecommendationWeb.Controllers
                     return View(_context.Ungviens.Include(x => x.MaKiNangs).ToList());
                 }
                 return View(listUngVien);
-            }    
+            }   
         }
 
         public IActionResult Create()

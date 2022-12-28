@@ -1,3 +1,10 @@
 ﻿@{
-    Layout = "_Layout";
+    if(ViewContext.ViewBag.Controller != "Home")
+    {
+        Layout = "_TestLayout";
+    }
+    else {
+        Layout = "_Layout";
+    }
+    
 }
