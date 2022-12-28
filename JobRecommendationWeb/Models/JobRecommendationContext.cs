@@ -214,12 +214,12 @@ public partial class JobRecommendationContext : DbContext
             entity.Property(e => e.MatKhau).IsUnicode(false);
             entity.Property(e => e.TenDangNhap).IsUnicode(false);
 
-            entity.HasOne(d => d.ChucVuNavigation).WithMany(p => p.Taikhoans)
-                .HasForeignKey(d => d.ChucVu)
+            entity.HasOne(d => d.MaChucVuNavigation).WithMany(p => p.Taikhoans)
+                .HasForeignKey(d => d.MaChucVu)
                 .HasConstraintName("FK_ChucVu_TK");
 
             entity.HasOne(d => d.MaNhanVienNavigation).WithMany(p => p.Taikhoans)
-                .HasForeignKey(d => d.ChucVu)
+                .HasForeignKey(d => d.MaNhanVien)
                 .HasConstraintName("FK_MaNhanVien_TK");
         });
 

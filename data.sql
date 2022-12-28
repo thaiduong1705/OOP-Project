@@ -57,7 +57,7 @@ GO
 INSERT INTO [dbo].[TAIKHOAN]
            ([TenDangNhap]
            ,[MatKhau]
-           ,[ChucVu]
+           ,[MaChucVu]
            ,[MaNhanVien])
      VALUES
            ('mingtai'
@@ -68,7 +68,7 @@ INSERT INTO [dbo].[TAIKHOAN]
 INSERT INTO [dbo].[TAIKHOAN]
            ([TenDangNhap]
            ,[MatKhau]
-           ,[ChucVu])
+           ,[MaChucVu])
      VALUES
            ('staff'
            ,'staff'
@@ -77,11 +77,11 @@ INSERT INTO [dbo].[TAIKHOAN]
 INSERT INTO [dbo].[TAIKHOAN]
            ([TenDangNhap]
            ,[MatKhau]
-           ,[ChucVu])
+           ,[MaChucVu], MaNhanVien)
      VALUES
            ('admin'
            ,'admin'
-           ,1)
+           ,1, 1)
 GO
 
 ---CONG TY---
@@ -93,10 +93,10 @@ INSERT INTO [dbo].[HOSOCONGTY]
            ,[CheDoDaiNgo]
            ,[MoTaThem])
      VALUES
-           ('Microsoft'
+           (N'Microsoft'
            ,'https://www.microsoft.com/vi-vn'
-           ,'Redmond, Washington, Mỹ'
-           ,'Mỹ'
+           ,N'Redmond, Washington, Mỹ'
+           ,N'Mỹ'
            ,N'Thuong luong thang 13'
            ,N'Công ty được sáng lập bởi Bill Gates và Paul Allen vào ngày 4 tháng 4 năm 1975. Nếu tính theo doanh thu thì Microsoft là hãng sản xuất phần mềm lớn nhất thế giới.')
 
@@ -108,12 +108,12 @@ INSERT INTO [dbo].[HOSOCONGTY]
            ,[CheDoDaiNgo]
            ,[MoTaThem])
      VALUES
-           ('Google'
-           ,'https://www.google.com'
-           ,'Mountain View, California, Mỹ'
-           ,'Mỹ'
-           ,''
-           ,'Google LLC là một công ty công nghệ đa quốc gia của Mỹ, chuyên về các dịch vụ và sản phẩm liên quan đến Internet, bao gồm các công nghệ quảng cáo trực tuyến, công cụ tìm kiếm, điện toán đám mây, phần mềm và phần cứng.')
+           (N'Google'
+           ,N'https://www.google.com'
+           ,N'Mountain View, California, Mỹ'
+           ,N'Mỹ'
+           ,N'None'
+           ,N'Google LLC là một công ty công nghệ đa quốc gia của Mỹ, chuyên về các dịch vụ và sản phẩm liên quan đến Internet, bao gồm các công nghệ quảng cáo trực tuyến, công cụ tìm kiếm, điện toán đám mây, phần mềm và phần cứng.')
 
 INSERT INTO [dbo].[HOSOCONGTY]
            ([TenCongTy]
@@ -123,12 +123,12 @@ INSERT INTO [dbo].[HOSOCONGTY]
            ,[CheDoDaiNgo]
            ,[MoTaThem])
      VALUES
-           ('Twitter Inc.'
-           ,'https://twitter.com/home?lang=vi'
-           ,'San Francisco, California, Mỹ'
-           ,'Mỹ'
-           ,''
-           ,'Trụ sở của Twitter được đặt ở San Francisco và có hơn 35 văn phòng khắp thế giới.')
+           (N'Twitter Inc.'
+           ,N'https://twitter.com/home?lang=vi'
+           ,N'San Francisco, California, Mỹ'
+           ,N'Mỹ'
+           ,N'None'
+           ,N'Trụ sở của Twitter được đặt ở San Francisco và có hơn 35 văn phòng khắp thế giới.')
 
 INSERT INTO [dbo].[HOSOCONGTY]
            ([TenCongTy]
@@ -138,12 +138,12 @@ INSERT INTO [dbo].[HOSOCONGTY]
            ,[CheDoDaiNgo]
            ,[MoTaThem])
      VALUES
-           ('Meta Platforms'
-           ,'https://twitter.com'
-           ,'Menlo Park, California, Mỹ'
-           ,'Mỹ'
-           ,''
-           ,'Đây được coi là một trong những công ty công nghệ Big Four cùng với Amazon, Apple và Google. Meta là một trong những công ty có giá trị nhất thế giới.')
+           (N'Meta Platforms'
+           ,N'https://twitter.com'
+           ,N'Menlo Park, California, Mỹ'
+           ,N'Mỹ'
+           ,N'Chưa có'
+           ,N'Đây được coi là một trong những công ty công nghệ Big Four cùng với Amazon, Apple và Google. Meta là một trong những công ty có giá trị nhất thế giới.')
 
 INSERT INTO [dbo].[HOSOCONGTY]
            ([TenCongTy]
@@ -153,12 +153,12 @@ INSERT INTO [dbo].[HOSOCONGTY]
            ,[CheDoDaiNgo]
            ,[MoTaThem])
      VALUES
-           ('Apple Inc'
-           ,'https://www.apple.com'
-           ,'Cupertino, California, Mỹ'
-           ,'Mỹ'
-           ,''
-           ,'Chuyên thiết kế, phát triển và bán thiết bị điện tử tiêu dùng, phần mềm máy tính và các dịch vụ trực tuyến.')
+           (N'Apple Inc'
+           ,N'https://www.apple.com'
+           ,N'Cupertino, California, Mỹ'
+           ,N'Mỹ'
+           ,N'Chưa có'
+           ,N'Chuyên thiết kế, phát triển và bán thiết bị điện tử tiêu dùng, phần mềm máy tính và các dịch vụ trực tuyến.')
 
 GO
 
@@ -176,8 +176,8 @@ INSERT INTO [dbo].[BAIDANG]
            ,[MaTaiKhoan])
      VALUES
            (1
-           ,'PD Incentive Planning & Management Manager'
-           ,'Incentive Planning & Management:
+           ,N'PD Incentive Planning & Management Manager'
+           ,N'Incentive Planning & Management:
 - Work with Partners, Sales team and Management team to design and deploy incentive & recognition quarterly/annually plan to follow the Company’s Target in order to encourage internal salesforce and partners including sales contest, sales and promotion campaigns
 
 - Manage and coordinate with other stakeholders to timely provide communication content/updated results in relation to incentive scheme to maximize the impact of sales campaigns/activities.
@@ -188,9 +188,9 @@ INSERT INTO [dbo].[BAIDANG]
            ,10000
            ,30000
            ,4
-           ,'https://www.vietnamworks.com/pd-incentive-planning-management-manager-1-1592879-jv/?source=searchResults&searchType=2&placement=1592880&sortBy=date'
-           ,'19/12/2022'
-           ,'Qualifications: Bachelor’s Degree in economics, Business Administration, Banking & Finance'
+           ,N'https://www.vietnamworks.com/pd-incentive-planning-management-manager-1-1592879-jv/?source=searchResults&searchType=2&placement=1592880&sortBy=date'
+		   ,'29/12/2022'
+           ,N'Qualifications: Bachelor’s Degree in economics, Business Administration, Banking & Finance'
            ,1)
 
 INSERT INTO [dbo].[BAIDANG]
@@ -206,16 +206,16 @@ INSERT INTO [dbo].[BAIDANG]
            ,[MaTaiKhoan])
      VALUES
            (2
-           ,'SEO Specialist'
-           ,'Responsibilities:
+           ,N'SEO Specialist'
+           ,N'Responsibilities:
 ● Responsible for the search engine optimization of the company''s and client''s website.
 ● Maintain company''s and client''s website position as high as possible in competitive keywords.'
            ,15000
            ,40000
            ,2
-           ,'https://www.vietnamworks.com/seo-specialist-81-1597982-jv/?source=searchResults&searchType=2&placement=1597983&sortBy=date'
+           ,N'https://www.vietnamworks.com/seo-specialist-81-1597982-jv/?source=searchResults&searchType=2&placement=1597983&sortBy=date'
            ,'30/11/2022'
-           ,'Requirements: Required language(s): English & Vietnamese'
+           ,N'Requirements: Required language(s): English & Vietnamese'
            ,1)
 
 INSERT INTO [dbo].[BAIDANG]
@@ -231,14 +231,14 @@ INSERT INTO [dbo].[BAIDANG]
            ,[MaTaiKhoan])
      VALUES
            (2
-           ,'.NET Software Engineer'
-           ,'Design, implement, and maintain software components in complex, distributed systems. Work closely with other groups (QA, Tech Support) to effectively diagnose and resolve software defects.'
+           ,N'.NET Software Engineer'
+           ,N'Design, implement, and maintain software components in complex, distributed systems. Work closely with other groups (QA, Tech Support) to effectively diagnose and resolve software defects.'
            ,12000
            ,50000
            ,3
-           ,'https://topdev.vn/viec-lam/net-software-engineer-kofax-2028869'
+           ,N'https://topdev.vn/viec-lam/net-software-engineer-kofax-2028869'
            ,'23/12/2022'
-           ,'Requirements:At least 3 years of working experience as Software Engineer. Proficiency in C#/.NET programming with Visual Studio 2015 or above in Windows environment.'
+           ,N'Requirements:At least 3 years of working experience as Software Engineer. Proficiency in C#/.NET programming with Visual Studio 2015 or above in Windows environment.'
            ,1)
 GO
 
@@ -251,11 +251,11 @@ INSERT INTO [dbo].[UNGVIEN]
            ,[SDT]
            ,[ThamNien])
      VALUES
-           ('Can Duc Quang'
+           (N'Can Duc Quang'
            ,20
-           ,'324 Hòa Hưng, Phường 13, Quận 10, Thành phố Hồ Chí Minh.'
-           ,'ducquangsama@gmail.com'
-           ,'0915623051'
+           ,N'324 Hòa Hưng, Phường 13, Quận 10, Thành phố Hồ Chí Minh.'
+           ,N'ducquangsama@gmail.com'
+           ,N'0915623051'
            ,4)
 
 INSERT INTO [dbo].[UNGVIEN]
@@ -266,11 +266,11 @@ INSERT INTO [dbo].[UNGVIEN]
            ,[SDT]
            ,[ThamNien])
      VALUES
-           ('Nguyen Minh Duy'
+           (N'Nguyen Minh Duy'
            ,22
-           ,'237 Nguyễn Văn Cừ, Phường Nguyễn Cư Trinh, Quận 1, Thành phố Hồ Chí Minh'
-           ,'duy6820@gmail.com'
-           ,'0916584321'
+           ,N'237 Nguyễn Văn Cừ, Phường Nguyễn Cư Trinh, Quận 1, Thành phố Hồ Chí Minh'
+           ,N'duy6820@gmail.com'
+           ,N'0916584321'
            ,2)
 
 INSERT INTO [dbo].[UNGVIEN]
@@ -281,11 +281,11 @@ INSERT INTO [dbo].[UNGVIEN]
            ,[SDT]
            ,[ThamNien])
      VALUES
-           ('Truong Duc Thien'
+           (N'Truong Duc Thien'
            ,19
-           ,'741, Phước Hoà, huyện Phú Giáo, tỉnh Bình Dương.'
-           ,'thienboydz2k3@gmail.com'
-           ,'0912648321'
+           ,N'741, Phước Hoà, huyện Phú Giáo, tỉnh Bình Dương.'
+           ,N'thienboydz2k3@gmail.com'
+           ,N'0912648321'
            ,0)
 
 INSERT INTO [dbo].[UNGVIEN]
@@ -296,11 +296,11 @@ INSERT INTO [dbo].[UNGVIEN]
            ,[SDT]
            ,[ThamNien])
      VALUES
-           ('Nguyen Huu Minh Sang'
+           (N'Nguyen Huu Minh Sang'
            ,20
-           ,'258 đường Nguyễn Trãi, quận 1, TP Hồ Chí Minh.'
-           ,'sangbatcandoi@gmail.com'
-           ,'0913548463'
+           ,N'258 đường Nguyễn Trãi, quận 1, TP Hồ Chí Minh.'
+           ,N'sangbatcandoi@gmail.com'
+           ,N'0913548463'
            ,2)
 GO
 
