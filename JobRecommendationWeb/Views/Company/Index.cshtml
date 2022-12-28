@@ -1,6 +1,7 @@
 ﻿@model List<Hosocongty>
 @{
     ViewData["Title"] = "Danh sách nhà tuyển dụng";
+
 }
 
 <div class="container mb-5">
@@ -19,11 +20,19 @@
     <ul class="displayCard w-100">
         @foreach (var item in Model)
         {
+            string imgSrc = "";
+            if (item.AnhCongTy != null)
+            {
+                var base64 = Convert.ToBase64String(item.AnhCongTy);
+                
+                imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+            }
+            
             <li class="d-inline-block m-4">
                 <div class="card position-relative">
                     <a asp-action="Detail" asp-controller="Company" asp-route-id="@item.MaCongTy" class=" position-absolute top-0 left-0 w-100 h-100"></a>
                     <div class="card-header d-flex justify-content-center align-items-center">
-                        <img alt="ảnh công ty" />
+                        <img alt="ảnh công ty" src="@imgSrc" />
                     </div>
                     <div class="card-body">
                         <h5 class="card-title fw-bolder">Tên: @item.TenCongTy</h5>

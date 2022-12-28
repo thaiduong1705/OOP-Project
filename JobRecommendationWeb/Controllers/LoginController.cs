@@ -28,11 +28,20 @@ namespace JobRecommendationWeb.Controllers
             {
                 return NotFound();
             }
+
+            // Bind tai khoan va nhan vien
             UsingAccount.Instance.Taikhoan = taikhoan;
             UsingAccount.Instance.Nhanvien = nhanvien;
-
             return RedirectToAction("Index", "Home");
         }
+
+        public IActionResult Logout()
+        {
+            UsingAccount.Instance.Taikhoan = null;
+            UsingAccount.Instance.Nhanvien = null;
+            return RedirectToAction("Index");
+        }
+
         public IActionResult ForgotPassword()
         {
             return View();

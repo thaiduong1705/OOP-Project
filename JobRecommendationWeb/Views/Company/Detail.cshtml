@@ -1,7 +1,16 @@
 ﻿@model Hosocongty
 @{
     ViewData["Title"] = "Chi tiết nhà tuyển dụng";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string imgSrc = "";
+    if (Model.AnhCongTy != null) {
+        var base64 = Convert.ToBase64String(Model.AnhCongTy);
+        if (string.IsNullOrEmpty(base64) == false)
+        {
+            imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+        }
+    }
+}
 }
 
 <div class="container border">
@@ -9,7 +18,7 @@
         <div class="col-8">
             <div class="row h-100">
                 <div class="col-4">
-                    <img alt="ảnh ở đây" />
+                    <img alt="ảnh ở đây" src="@imgSrc" style="object-fit: contain" class="w-100 h-100" />
                 </div>
 
                 <div class="col-8 d-flex align-items-center">

@@ -1,7 +1,5 @@
 ﻿@{
     ViewData["Title"] = "Chi tiết bài tuyển dụng";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-
     Baidang post = ViewBag.post;
     Hosocongty company = ViewBag.company;
     List<Kinang> k = post.MaKiNangs.ToList();
