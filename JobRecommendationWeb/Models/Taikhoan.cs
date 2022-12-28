@@ -17,7 +17,7 @@ public partial class Taikhoan
 
     public virtual ICollection<Baidang> Baidangs { get; } = new List<Baidang>();
 
-    public virtual Nhanvien? ChucVu1 { get; set; }
+    public virtual Nhanvien? MaNhanVienNavigation { get; set; }
 
     public virtual Chucvu? ChucVuNavigation { get; set; }
 

@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Đăng nhập";
+    Layout = "~/Views/Shared/_BlankLayout.cshtml";
+}
+<section class="vh-100 d-flex justify-content-center align-items-center">
+    <div class="card shadow" style="width: 400px;">
+        <div class="card-header text-center">
+            <h3>Đăng nhập</h3>
+        </div>
+        <form method="post" autocomplete="off" asp-action="Login" asp-controller="Login">
+            <div class="card-body">
+                <div class="mb-3">
+                    <label class="form-label">Username</label>
+                    <input type="text" class="form-control" name="Username">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="text" class="form-control" name="Password">
+                </div>
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary">Đăng nhập</button>
+                <hr />
+                <a class="text-decoration-none">Quên mật khẩu?</a>
+            </div>
+        </form>
+    </div>
+</section>

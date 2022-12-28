@@ -1,4 +1,5 @@
-﻿using JobRecommendationWeb.Models;
+﻿using JobRecommendationWeb.AddingClasses;
+using JobRecommendationWeb.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
@@ -19,6 +20,8 @@ namespace JobRecommendationWeb.Controllers
         public IActionResult Index()
         {
             List<Baidang> postList = _context.Baidangs.ToList();
+            ViewBag.TaiKhoan = UsingAccount.Instance.Taikhoan;
+            ViewBag.Nhanvien = UsingAccount.Instance.Nhanvien;
             return View(postList);
         }
 
