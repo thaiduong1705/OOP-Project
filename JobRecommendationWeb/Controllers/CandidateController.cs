@@ -98,7 +98,7 @@ namespace JobRecommendationWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(IFormCollection form)
+        public async Task<IActionResult> Edit(IFormCollection form)
         {
             int id = Convert.ToInt32(form["MaUngVien"]);
             Ungvien ungvien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.MaUngVien == id).FirstOrDefault();
@@ -131,6 +131,14 @@ namespace JobRecommendationWeb.Controllers
             }
             ungvien.MaKiNangs = listkinang;
 
+            var cv = _context.Cvs.FirstOrDefault(x => x.MaUngVien == ungvien.MaUngVien);
+            using (var stream = new MemoryStream())
+            {
+                await form.Files[0].CopyToAsync(stream);
+                cv.AnhCv = stream.ToArray();
+            }
+
+
             _context.Ungviens.Update(ungvien);
             _context.SaveChanges();
             return RedirectToAction("Index");
@@ -138,7 +146,48 @@ namespace JobRecommendationWeb.Controllers
 
         public IActionResult Delete(int? id)
         {
-            
+
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            var ungvien = _context.Ungviens.Include(x => x.MaKiNangs).Include(x => x.Cvs).FirstOrDefault(x => x.MaUngVien == id);
+
+            if (ungvien == null) return NotFound();
+
+            /////Xoa ki nang cua ungvien
+            foreach (var makn in ungvien.MaKiNangs)
+            {
+                var kinang = _context.Kinangs.FirstOrDefault(x => x.MaKiNang == makn.MaKiNang);
+                var listknuv = new List<Ungvien>(kinang.MaUngViens);
+                listknuv.Remove(ungvien);
+                kinang.MaUngViens = listknuv;
+            }
+
+            ///Xoa ung tuyen cua ung vien
+            var dsUngtuyen = _context.Ungtuyens.Where(x => x.MaUngVien == ungvien.MaUngVien).ToList();
+            foreach (var ungtuyen in dsUngtuyen)
+            {
+                var baidang = _context.Baidangs.FirstOrDefault(x => x.MaBaiDang == ungtuyen.MaBaiDang);
+                if (baidang != null)
+                {
+                    var listUngtuyen = new List<Ungtuyen>(baidang.Ungtuyens);
+                    listUngtuyen.Remove(ungtuyen);
+                    baidang.Ungtuyens = listUngtuyen;
+                }
+                _context.Ungtuyens.Remove(ungtuyen);
+            }
+
+            /////Xoa CV
+            foreach (var macv in ungvien.Cvs)
+            {
+                var cv = _context.Cvs.FirstOrDefault(x => x.MaCv == macv.MaCv);
+                if (cv != null) _context.Cvs.Remove(cv);
+            }
+
+            _context.Ungviens.Remove(ungvien);
+            _context.SaveChanges();
             return RedirectToAction("Index");
         }
 

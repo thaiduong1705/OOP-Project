@@ -37,5 +37,5 @@ public partial class Baidang
 
     public virtual ICollection<Kinang> MaKiNangs { get; set; } = new List<Kinang>();
 
-    public virtual ICollection<Lichsulamviec> MaLslvs { get; } = new List<Lichsulamviec>();
+    public virtual ICollection<Lichsulamviec> MaLslvs { get; set; } = new List<Lichsulamviec>();
 }

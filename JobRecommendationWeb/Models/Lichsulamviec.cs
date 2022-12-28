@@ -15,5 +15,5 @@ public partial class Lichsulamviec
 
     public virtual Taikhoan? MaTaiKhoanNavigation { get; set; }
 
-    public virtual ICollection<Baidang> MaBaiDangs { get; } = new List<Baidang>();
+    public virtual ICollection<Baidang> MaBaiDangs { get; set; } = new List<Baidang>();
 }
