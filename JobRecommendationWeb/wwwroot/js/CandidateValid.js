@@ -43,10 +43,6 @@ $("#formCreate").validate({
             required: true
 
         },
-
-        Website: {
-
-        }
     },
     messages: {
         Ten: {

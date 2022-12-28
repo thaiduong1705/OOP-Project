@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using JobRecommendationWeb.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace JobRecommendationWeb.Controllers
@@ -50,6 +51,12 @@ namespace JobRecommendationWeb.Controllers
                 value.QuocTich = form["country"];
                 value.CheDoDaiNgo = form["CheDoDaiNgo"];
                 value.MoTaThem = form["MoTaThem"];
+
+                using (var stream = new MemoryStream())
+                {
+                    await form.Files[0].CopyToAsync(stream);
+                    value.AnhCongTy = stream.ToArray();
+                }
 
                 _context.Hosocongties.Add(value);
                 await _context.SaveChangesAsync();

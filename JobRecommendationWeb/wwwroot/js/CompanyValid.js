@@ -29,7 +29,7 @@
         },
         Website: {
             required: "Vui lòng nhập website công ty",
-            url: true,
+            url: "Vui lòng nhập đúng cú pháp",
         },
         country: {
             required: "Vui lòng chọn quốc gia"
