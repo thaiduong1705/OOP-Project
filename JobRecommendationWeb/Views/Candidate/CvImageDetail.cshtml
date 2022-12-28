@@ -1,0 +1,16 @@
+﻿@{
+    ViewData["Title"] = "Xem CV";
+    Cv cv = ViewBag.Cv;
+    var base64 = Convert.ToBase64String(cv.AnhCv);
+    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+}
+
+<div class="container">
+    <div class="row">
+        <img src="@imgSrc"/>
+    </div>
+
+    <div class="row mt-2">
+        <a asp-action="Index" asp-controller="Candidate" class="btn btn-outline-primary">Trở về</a>
+    </div>
+</div>

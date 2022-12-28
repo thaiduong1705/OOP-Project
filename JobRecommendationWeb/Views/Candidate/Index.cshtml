@@ -1,64 +1,65 @@
 ﻿@model List<Ungvien>
 @{
-    ViewData["Title"] = "Danh sách ứng viên";
+	ViewData["Title"] = "Danh sách ứng viên";
 }
 
 <div class="container mb-5">
-    <div class="row">
-        <div class="col-6">
-            <h3 class="text-dark">Danh sách ứng viên</h3>
-        </div>
-        <div class="col-6 text-end">
-            <a class="btn btn-primary" asp-action="Create" asp-controller="Candidate">Tạo hồ sơ ứng viên</a>
-        </div>
-    </div>
-    <div class="search">
-        <form class="row my-2 my-lg-0">
-            <div class="col-lg-8">
-                <input class="form-control mr-sm-2 col-lg-8" type="text" placeholder="Search">
-            </div>
+	<div class="row">
+		<div class="col-6">
+			<h3 class="text-dark">Danh sách ứng viên</h3>
+		</div>
+		<div class="col-6 text-end">
+			<a class="btn btn-primary" asp-action="Create" asp-controller="Candidate">Tạo hồ sơ ứng viên</a>
+		</div>
+	</div>
+	<div class="search">
+		<form asp-action="Index" asp-controller="Candidate" class="row my-2 my-lg-0" autocomplete="off">
+			<div class="col-lg-8">
+				<input class="form-control mr-sm-2 col-lg-8" type="text" name="input" placeholder="Search">
+			</div>
 			<div class="col-auto">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </div>
-			
-        </form>
-    </div>
-    
+				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+			</div>
+		</form>
+	</div>
+	
 </div>
 
 <div class="container me-auto">
-    <!-- chỗ này binding ra danh các việc làm nè-->
-    <ul class="displayCard w-100">
-        @foreach (var item in Model)
-        {
-            <li class="d-inline-block m-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title fw-bolder">@item.Ten</h5>
-                        <div class="mb-2">
-                            <p class="card-text m-0 small"> @item.Tuoi tuổi</p>
-                            <p class="card-text m-0 small mt-2"><span class="fw-bold">Năm kinh nghiệm:</span> @item.ThamNien</p>
-                            <p class="card-text m-0 small fw-bold mt-2"> Kĩ năng:</p>
-                            <p class="card-text m-0 small">
-                                @foreach (var c in item.MaKiNangs)
-                                {
-                                    <text>@c.TenKiNang, </text>
-                                }
-                            </p>
-                        </div>
-                       
-                    </div>
-                </div>
-                <div class="row mt-1">
-                    <div class="col-6">
-                        <a asp-action="Delete" asp-controller="Candidate" asp-route-id="@item.MaUngVien" class="btn btn-outline-danger w-100">Xoá</a>
-                        
-                    </div>
-                    <div class="col-6">
-                        <a asp-action="Edit" asp-controller="Candidate" asp-route-id="@item.MaUngVien" class="btn btn-outline-info w-100">Chỉnh sửa</a>
-                    </div>
-                </div>
-            </li>
-        }
-    </ul>
+	<!-- chỗ này binding ra danh các việc làm nè-->
+	<ul class="displayCard w-100">
+		@foreach (var item in Model)	
+		{
+			<li class="d-inline-block m-4">
+				<div class="card">
+					<div class="card-body">
+						<h5 class="card-title fw-bolder">@item.Ten</h5>
+						<div class="mb-2">
+							<p class="card-text m-0 small"> @item.Tuoi tuổi</p>
+							<p class="card-text m-0 small mt-2"><span class="fw-bold">Năm kinh nghiệm:</span> @item.ThamNien</p>
+							<p class="card-text m-0 small fw-bold mt-2"> Kĩ năng:</p>
+							<p class="card-text m-0 small">
+								@foreach (var c in item.MaKiNangs)
+								{
+									<text>@c.TenKiNang, </text>
+								}
+							</p>
+						</div>
+					</div>
+					<div class="card-footer">
+						<a class="link-info" asp-action="CvImageDetail" asp-controller="Candidate" asp-route-id="@item.MaUngVien">Xem ảnh CV</a>
+					</div>
+				</div>
+				<div class="row mt-1">
+					<div class="col-6">
+						<a asp-action="Delete" asp-controller="Candidate" asp-route-id="@item.MaUngVien" class="btn btn-outline-danger w-100">Xoá</a>
+						
+					</div>
+					<div class="col-6">
+						<a asp-action="Edit" asp-controller="Candidate" asp-route-id="@item.MaUngVien" class="btn btn-outline-info w-100">Chỉnh sửa</a>
+					</div>
+				</div>
+			</li>
+		}
+	</ul>
 </div>

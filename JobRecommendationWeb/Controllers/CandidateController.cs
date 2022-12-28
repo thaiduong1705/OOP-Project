@@ -13,11 +13,22 @@ namespace JobRecommendationWeb.Controllers
         {
             _context = context;
         }
-        public IActionResult Index()
+        public IActionResult Index(String? input)
         {
-            var listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).ToList();
-
-            return View(listUngVien);
+            if(input == null)
+            {
+                var listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).ToList();
+                return View(listUngVien);
+            }    
+            else
+            {
+                var listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.Ten == input).ToList();
+                if (listUngVien.Count == 0)
+                {
+                    return View(_context.Ungviens.Include(x => x.MaKiNangs).ToList());
+                }
+                return View(listUngVien);
+            }    
         }
 
         public IActionResult Create()
@@ -28,17 +39,17 @@ namespace JobRecommendationWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(IFormCollection form)
+        public async Task<IActionResult> Create(IFormCollection form, IFormFile CV)
         {
             if (ModelState.IsValid)
             {
-                Ungvien value = new Ungvien();
-                value.Ten = form["Ten"];
-                value.Email = form["Email"];
-                value.DiaChi = form["DiaChi"];
-                value.ThamNien = Convert.ToInt32(form["ThamNien"]);
-                value.Sdt = form["Sdt"];
-                value.Tuoi = Convert.ToInt32(form["Tuoi"]);
+                Ungvien ungvien = new Ungvien();
+                ungvien.Ten = form["Ten"];
+                ungvien.Email = form["Email"];
+                ungvien.DiaChi = form["DiaChi"];
+                ungvien.ThamNien = Convert.ToInt32(form["ThamNien"]);
+                ungvien.Sdt = form["Sdt"];
+                ungvien.Tuoi = Convert.ToInt32(form["Tuoi"]);
 
                 List<Kinang> listkinang = new List<Kinang>();
                 foreach(var k in form["Kinang"])
@@ -49,10 +60,23 @@ namespace JobRecommendationWeb.Controllers
                         listkinang.Add(kinang);
                     }
                 }
-                value.MaKiNangs = listkinang;
-
-                _context.Ungviens.Add(value);
+                ungvien.MaKiNangs = listkinang;
+                _context.Ungviens.Add(ungvien);
                 await _context.SaveChangesAsync();
+
+                Cv cv = new Cv();
+                using (var stream = new MemoryStream())
+                {
+                    await form.Files[0].CopyToAsync(stream);
+                    cv.AnhCv = stream.ToArray();
+                }
+
+                cv.MaUngVien = ungvien.MaUngVien;
+                cv.MaUngVienNavigation = ungvien;
+
+                _context.Cvs.Add(cv);
+                await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Index));
             }
             else
@@ -116,6 +140,17 @@ namespace JobRecommendationWeb.Controllers
         {
             
             return RedirectToAction("Index");
+        }
+
+        public IActionResult CvImageDetail(int? id)
+        {
+            Cv cv = _context.Cvs.Where(x => x.MaUngVien == id).FirstOrDefault();
+            if (cv == null)
+            {
+                return NotFound();
+            }
+            ViewBag.Cv = cv;
+            return View();
         }
     }
 }
