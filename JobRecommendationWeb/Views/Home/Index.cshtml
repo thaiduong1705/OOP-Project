@@ -1,14 +1,5 @@
 @{
     ViewData["Title"] = "Trang chủ";
-    Nhanvien nhanvien = null;
-    if (ViewBag.NhanVien != null) {
-        nhanvien = ViewBag.NhanVien;
-    }
-}
-
-@if (nhanvien != null) 
-{
-    <span class="fw-bold">Chào mừng: @nhanvien.TenNhanVien</span>
 }
 
 <partial name="_Introduction" />
