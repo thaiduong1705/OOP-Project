@@ -66,15 +66,19 @@
 						<a class="link-info" asp-action="CvImageDetail" asp-controller="Candidate" asp-route-id="@item.MaUngVien">Xem ảnh CV</a>
 					</div>
 				</div>
-				<div class="row mt-1">
-					<div class="col-6">
-						<a asp-action="Delete" asp-controller="Candidate" asp-route-id="@item.MaUngVien" class="btn btn-outline-danger w-100">Xoá</a>
+				@if (UsingAccount.Instance.Taikhoan != null) 
+				{
+					<div class="row mt-1">
+						<div class="col-6">
+							<a asp-action="Delete" asp-controller="Candidate" asp-route-id="@item.MaUngVien" class="btn btn-outline-danger w-100">Xoá</a>
 						
+						</div>
+						<div class="col-6">
+							<a asp-action="Edit" asp-controller="Candidate" asp-route-id="@item.MaUngVien" class="btn btn-outline-info w-100">Chỉnh sửa</a>
+						</div>
 					</div>
-					<div class="col-6">
-						<a asp-action="Edit" asp-controller="Candidate" asp-route-id="@item.MaUngVien" class="btn btn-outline-info w-100">Chỉnh sửa</a>
-					</div>
-				</div>
+				}
+				
 			</li>
 		}
 	</ul>

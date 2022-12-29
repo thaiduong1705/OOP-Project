@@ -60,6 +60,7 @@ namespace JobRecommendationWeb.Controllers
                 taikhoan.MatKhau = pass;
 
                 _context.SaveChanges();
+                TempData["success"] = "Tạo thành công!";
                 return RedirectToAction("Index");
             }
 

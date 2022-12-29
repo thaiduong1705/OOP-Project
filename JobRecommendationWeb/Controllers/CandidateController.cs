@@ -162,7 +162,7 @@ namespace JobRecommendationWeb.Controllers
 
                 _context.Cvs.Add(cv);
                 await _context.SaveChangesAsync();
-
+                TempData["sucsess"] = "Tạo thành công!";
                 return RedirectToAction(nameof(Index));
             }
             else {            }

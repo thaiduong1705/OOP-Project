@@ -18,7 +18,10 @@ $("#formCreate").validate({
             number: true
         },
         Sdt: {
-            required: true
+            required: true,
+            maxlength: 10,
+            minlength: 10,
+            number: true
         },
         Email: {
             email: true,
@@ -59,7 +62,10 @@ $("#formCreate").validate({
             number: "Chỉ nhập số"
         },
         Sdt: {
-            required: "Nhập số điện thoại"
+            required: "Nhập số điện thoại",
+            maxlength: "Số điện thoại chỉ có 10 số",
+            minlength: "Số điện thoại chỉ có 10 số",
+            number: "Không nhập chữ",
         },
         Email: {
             email: "Nhập đúng cú pháp email",
