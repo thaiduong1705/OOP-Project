@@ -27,12 +27,14 @@ namespace JobRecommendationWeb.Controllers
 
             if (taikhoan == null)
             {
-                return NotFound();
+                TempData["error"] = "Đăng nhập thất bại!";
+                return RedirectToAction("Index");
             }
 
             // Bind tai khoan va nhan vien
             UsingAccount.Instance.Taikhoan = taikhoan;
             UsingAccount.Instance.Nhanvien = taikhoan.MaNhanVienNavigation;
+            TempData["success"] = "Đăng nhập thành công";
             return RedirectToAction("Index", "Home");
         }
 

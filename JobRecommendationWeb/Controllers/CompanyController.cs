@@ -111,6 +111,7 @@ namespace JobRecommendationWeb.Controllers
 
                 _context.Hosocongties.Add(value);
                 await _context.SaveChangesAsync();
+                TempData["success"] = "Tạo thành công!";
                 return RedirectToAction(nameof(Index));
             }
             return View(form);
@@ -179,8 +180,7 @@ namespace JobRecommendationWeb.Controllers
                 //        throw;
                 //    }
                 //}
-
-
+                TempData["success"] = "Chỉnh sửa thành công!";
                 return RedirectToAction(nameof(Index));
             }
             return View(value);
@@ -244,6 +244,7 @@ namespace JobRecommendationWeb.Controllers
 
             _context.Hosocongties.Remove(congty);
             _context.SaveChanges();
+            TempData["success"] = "Xoá thành công!";
             return RedirectToAction("Index");
         }
     }

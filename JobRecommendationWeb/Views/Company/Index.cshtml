@@ -5,6 +5,7 @@
 
 }
 
+<partial name="_Notification" />
 <div class="container mb-5">
     <div class="row">
         <div class="col-6">
@@ -19,14 +20,16 @@
     </div>
     <div class="search">
 		<form asp-action="Index" asp-controller="Company" method="POST" enctype="multipart/form-data" class="row my-2 my-lg-0" autocomplete="off">
-			<div class="input-group mb-3">
+            <div class="col-10">
+                <div class="input-group mb-3">
 					<input class="form-control mr-sm-2 col-lg-8" type="text" name="input" placeholder="Search">
 					<select name="filter" id="filter" style="border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-color: #6c757d;">
 						<option value="">Chọn tất cả</option>
 						<option value="TenCongTy">Tên công ty</option>
 						<option value="QuocTich">Quốc gia</option>
 					</select>
-			</div>
+			    </div>
+            </div>
 			<div class="col-auto">
                 <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Search">
 			</div>

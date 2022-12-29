@@ -165,10 +165,8 @@ namespace JobRecommendationWeb.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            else
-            {
-                
-            }
+            else {            }
+            TempData["success"] = "Tạo thành công";
             return View(form);
         }
 
@@ -230,6 +228,7 @@ namespace JobRecommendationWeb.Controllers
 
             _context.Ungviens.Update(ungvien);
             _context.SaveChanges();
+            TempData["success"] = "Chỉnh sửa thành công!";
             return RedirectToAction("Index");
         }
 
@@ -277,6 +276,8 @@ namespace JobRecommendationWeb.Controllers
 
             _context.Ungviens.Remove(ungvien);
             _context.SaveChanges();
+
+            TempData["success"] = "Xoá thành công!";
             return RedirectToAction("Index");
         }
 
