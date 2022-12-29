@@ -40,8 +40,8 @@ namespace JobRecommendationWeb.Controllers
                         {
                             var listUngVien = new List<Ungvien>();
 
-                            listUngVien = _context.Ungviens.Where(x => x.Ten.Contains(searchInput)
-                            || x.Tuoi == int.Parse(searchInput)
+                            listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.Ten.Contains(searchInput)
+                            || x.Tuoi.ToString() == searchInput
                             || x.DiaChi.Contains(searchInput)
                             || x.Email.Contains(searchInput)
                             || x.Sdt.Contains(searchInput) ).ToList();
@@ -60,7 +60,7 @@ namespace JobRecommendationWeb.Controllers
                         }
                     case "Tuoi":
                         {
-                            var listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.Tuoi >= int.Parse(searchInput)).ToList();
+                            var listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.Tuoi.ToString() == searchInput).ToList();
                             if (listUngVien.Count == 0)
                             {
                                 return View(new List<Ungvien>());
@@ -96,10 +96,15 @@ namespace JobRecommendationWeb.Controllers
                         }
                     case "ThamNien":
                         {
-                            var listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.ThamNien >= int.Parse(searchInput)).ToList();
-                            if (listUngVien.Count == 0)
+                            int tuoi = 0;
+                            var listUngVien = new List<Ungvien>();
+                            if (int.TryParse(searchInput, out tuoi))
                             {
-                                return View(new List<Ungvien>());
+                                listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.ThamNien >= tuoi).ToList();
+                                if (listUngVien.Count == 0)
+                                {
+                                    return View(new List<Ungvien>());
+                                }
                             }
                             return View(listUngVien);
                         }
