@@ -18,6 +18,26 @@ namespace JobRecommendationWeb.Controllers
             return View(listCongTy);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Index(IFormCollection form)
+        {
+            if (form["Search"] == "")
+            {
+                var listCongty = new List<Ungvien>();
+                return View(listCongty);
+            }
+            else
+            {
+                var listCongty = _context.Hosocongties.Where(x => x.TenCongTy.Contains(form["Search"])).ToList();
+                if (listCongty.Count == 0)
+                {
+                    return View(new List<Ungvien>());
+                }
+                return View(listCongty);
+            }
+        }
+
         public async Task<IActionResult> Detail(int? id)
         {
             if (id == null)

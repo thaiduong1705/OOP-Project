@@ -27,6 +27,26 @@ namespace JobRecommendationWeb.Controllers
             return View(listBaiDang);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Index(IFormCollection form)
+        {
+            if (form["Search"] == "")
+            {
+                var listBaiDang = new List<Baidang>();
+                return View(listBaiDang);
+            }
+            else
+            {
+                var listBaiDang = _context.Baidangs.Where(x => x.TenCongViec.Contains(form["Search"])).ToList();
+                if (listBaiDang.Count == 0)
+                {
+                    return View(new List<Baidang>());
+                }
+                return View(listBaiDang);
+            }
+        }
+
         public IActionResult Create()
         {
             List<Hosocongty> companylist = _context.Hosocongties.ToList();
@@ -79,7 +99,7 @@ namespace JobRecommendationWeb.Controllers
             {
                 if (item.MaBaiDang == post.MaBaiDang)
                 {
-                    Ungvien? c = await _context.Ungviens.FindAsync(id);
+                    Ungvien? c = await _context.Ungviens.FindAsync(item.MaUngVien);
                     if (c != null)
                         candidates.Add(c);
                 }

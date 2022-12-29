@@ -15,20 +15,28 @@ namespace JobRecommendationWeb.Controllers
         }
         public IActionResult Index(String? input)
         {
-            if(input == null)
+            var listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).ToList();
+            return View(listUngVien);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Index(IFormCollection form)
+        {
+            if (form["Search"] == "")
             {
-                var listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).ToList();
+                var listUngVien = new List<Ungvien>();
                 return View(listUngVien);
-            }    
+            }
             else
             {
-                var listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.Ten.Contains(input)).ToList();
+                var listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.Ten.Contains(form["Search"])).ToList();
                 if (listUngVien.Count == 0)
                 {
-                    return View(_context.Ungviens.Include(x => x.MaKiNangs).ToList());
+                    return View(new List<Ungvien>());
                 }
                 return View(listUngVien);
-            }    
+            }
         }
 
         public IActionResult Create()

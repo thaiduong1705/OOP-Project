@@ -13,6 +13,16 @@
             <a class="btn btn-primary" asp-action="Create" asp-controller="Post">Tạo bài tuyển dụng</a>
         </div>
     </div>
+    <div class="search">
+		<form asp-action="Index" asp-controller="Post" method="POST" enctype="multipart/form-data" class="row my-2 my-lg-0" autocomplete="off">
+			<div class="col-lg-8">
+				<input class="form-control mr-sm-2 col-lg-8" type="text" name="Search" id="Search" placeholder="Search">
+			</div>
+			<div class="col-auto">
+                <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Search">
+			</div>
+		</form>
+	</div>
 </div>
 
 

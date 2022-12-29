@@ -13,12 +13,12 @@
 		</div>
 	</div>
 	<div class="search">
-		<form asp-action="Index" asp-controller="Candidate" class="row my-2 my-lg-0" autocomplete="off">
+		<form asp-action="Index" asp-controller="Candidate" method="POST" enctype="multipart/form-data" class="row my-2 my-lg-0" autocomplete="off">
 			<div class="col-lg-8">
-				<input class="form-control mr-sm-2 col-lg-8" type="text" name="input" placeholder="Search">
+				<input class="form-control mr-sm-2 col-lg-8" type="text" name="Search" id="Search" placeholder="Search">
 			</div>
 			<div class="col-auto">
-				<a asp-action="Index" asp-controller="Candidate" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</a>
+				<input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Search">
 			</div>
 		</form>
 	</div>
