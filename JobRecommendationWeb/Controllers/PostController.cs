@@ -81,24 +81,7 @@ namespace JobRecommendationWeb.Controllers
                             }
                             return View(listBaiDang);
                         }
-                    case "MoTa":
-                        {
-                            var listBaiDang = _context.Baidangs.Where(x => x.MoTa.Contains(form["input"])).ToList();
-                            if (listBaiDang.Count == 0)
-                            {
-                                return View(new List<Baidang>());
-                            }
-                            return View(listBaiDang);
-                        }
-                    case "WebsiteBaiGoc":
-                        {
-                            var listBaiDang = _context.Baidangs.Where(x => x.WebsiteBaiGoc.Contains(form["input"])).ToList();
-                            if (listBaiDang.Count == 0)
-                            {
-                                return View(new List<Baidang>());
-                            }
-                            return View(listBaiDang);
-                        }
+                   
                     case "LuongMax":
                         {
                             var listBaiDang = _context.Baidangs.Where(x => x.LuongMax >= int.Parse(form["input"])).ToList();
@@ -186,11 +169,74 @@ namespace JobRecommendationWeb.Controllers
                 await _context.SaveChangesAsync();
 
                 await _context.SaveChangesAsync();
+
+                TempData["success"] = "Tạo thành công!";
                 return RedirectToAction(nameof(Index));
             }
             return View(form);
         }
 
+        public IActionResult Detail(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var post = _context.Baidangs.Include(x => x.MaKiNangs).Where(x => x.MaBaiDang == id).FirstOrDefault();
+            if (post == null)
+            {
+                return NotFound();
+            }
+            var company = _context.Hosocongties.Where(x => x.MaCongTy == post.MaCongTy).FirstOrDefault();
+            if (company == null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.post = post;
+            ViewBag.company = company;
+            return View();
+        }
+
+        public async Task<IActionResult> Apply(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var post = await _context.Baidangs.FindAsync(id);
+            if (post == null)
+            {
+                return NotFound();
+            }
+            var candidates = _context.Ungviens.ToList();
+
+            ViewBag.post = post;
+            ViewBag.candidates = candidates;
+
+            return View();
+        } 
+
+        public async Task<IActionResult> CandidateApply(int? candidate, int? post)
+        {
+            Ungvien ungvien = await _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.MaUngVien == candidate).FirstOrDefaultAsync();
+            Baidang baidang = await _context.Baidangs.Where(x => x.MaBaiDang == post).FirstOrDefaultAsync();
+
+            Ungtuyen ungtuyen = new Ungtuyen();
+            ungtuyen.MaUngVien = ungvien.MaUngVien;
+            ungtuyen.MaBaiDang = baidang.MaBaiDang;
+            ungtuyen.MaUngVienNavigation = ungvien;
+            ungtuyen.MaBaiDangNavigation = baidang;
+            ungtuyen.ChapThuan = true;
+            ungtuyen.NgayUngTuyen = DateTime.Now;
+
+            _context.Ungtuyens.Add(ungtuyen);
+            await _context.SaveChangesAsync();
+            TempData["success"] = "Ứng tuyển thành công!";
+            return RedirectToAction("Detail", new {id = post});
+        }
 
         public async Task<IActionResult> AppliedCandidate(int? id)
         {
@@ -219,67 +265,6 @@ namespace JobRecommendationWeb.Controllers
 
             ViewBag.candidates = candidates;
             return View();
-        }
-
-        public async Task<IActionResult> Apply(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var post = await _context.Baidangs.FindAsync(id);
-            if (post == null)
-            {
-                return NotFound();
-            }
-            var candidates = _context.Ungviens.ToList();
-
-            ViewBag.post = post;
-            ViewBag.candidates = candidates;
-
-            return View();
-        }
-
-        public IActionResult Detail(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var post = _context.Baidangs.Include(x => x.MaKiNangs).Where(x => x.MaBaiDang == id).FirstOrDefault();
-            if (post == null)
-            {
-                return NotFound();
-            }
-            var company = _context.Hosocongties.Where(x => x.MaCongTy == post.MaCongTy).FirstOrDefault();
-            if (company == null)
-            {
-                return NotFound();
-            }
-
-            ViewBag.post = post;
-            ViewBag.company = company;
-            return View();
-        }
-
-        public async Task<IActionResult> CandidateApply(int? candidate, int? post)
-        {
-            Ungvien ungvien = await _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.MaUngVien == candidate).FirstOrDefaultAsync();
-            Baidang baidang = await _context.Baidangs.Where(x => x.MaBaiDang == post).FirstOrDefaultAsync();
-
-            Ungtuyen ungtuyen = new Ungtuyen();
-            ungtuyen.MaUngVien = ungvien.MaUngVien;
-            ungtuyen.MaBaiDang = baidang.MaBaiDang;
-            ungtuyen.MaUngVienNavigation = ungvien;
-            ungtuyen.MaBaiDangNavigation = baidang;
-            ungtuyen.ChapThuan = true;
-            ungtuyen.NgayUngTuyen = DateTime.Now;
-
-            _context.Ungtuyens.Add(ungtuyen);
-            await _context.SaveChangesAsync();
-            return RedirectToAction("Detail", new {id = post});
         }
 
         [HttpGet]
@@ -337,7 +322,8 @@ namespace JobRecommendationWeb.Controllers
 
             _context.Baidangs.Update(baidang);
             _context.SaveChanges();
-
+            TempData["success"] = "Chỉnh sửa thành công!";
+            
             return RedirectToAction("Detail", new {id = id});
         }
 
@@ -396,6 +382,8 @@ namespace JobRecommendationWeb.Controllers
 
             _context.Baidangs.Remove(baidang);
             _context.SaveChanges();
+            TempData["Success"] = "Xoá thành công!";
+
             return RedirectToAction("Index");
         }
 

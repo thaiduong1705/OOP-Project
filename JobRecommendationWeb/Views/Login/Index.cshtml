@@ -2,6 +2,7 @@
     ViewData["Title"] = "Đăng nhập";
     Layout = "~/Views/Shared/_BlankLayout.cshtml";
 }
+<partial name="_Notification" />
 <section class="vh-100 d-flex justify-content-center align-items-center">
     <div class="card shadow" style="width: 400px;">
         <div class="card-header text-center">
@@ -15,7 +16,7 @@
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Password</label>
-                    <input type="text" class="form-control" name="Password">
+                    <input type="password" class="form-control" name="Password">
                 </div>
             </div>
             <div class="card-footer">
