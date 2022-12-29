@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using JobRecommendationWeb.AddingClasses;
+using JobRecommendationWeb.CustomViewModel;
+using Microsoft.AspNetCore.Mvc;
 
 namespace JobRecommendationWeb.Controllers
 {
@@ -16,6 +18,46 @@ namespace JobRecommendationWeb.Controllers
 
             ViewBag.nhanvien = nhanvien;
             return View();
+        }
+        public IActionResult Create()
+        {
+            TaikhoanNhanvienViewModel value = new TaikhoanNhanvienViewModel();
+            ViewBag.Chucvu = _context.Chucvus.ToList();
+            ViewBag.TaikhoanExisted = false;
+            return View(value);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(TaikhoanNhanvienViewModel value)
+        {
+            var ktTaikhoan = _context.Taikhoans.Where(x => x.TenDangNhap == value.Taikhoan.TenDangNhap).ToList();
+            if (ktTaikhoan.Count > 0)
+            {
+                ViewBag.TaikhoanExisted = true;
+                ViewBag.Chucvu = _context.Chucvus.ToList();
+                return View(value);
+            }
+
+            var nhanvien = new Nhanvien();
+            nhanvien.TenNhanVien = value.Nhanvien.TenNhanVien;
+            nhanvien.Email = value.Nhanvien.Email;
+            nhanvien.Sdt = value.Nhanvien.Sdt;
+            nhanvien.Tuoi = value.Nhanvien.Tuoi;
+
+            _context.Nhanviens.Add(nhanvien);
+            _context.SaveChanges();
+
+            var taikhoan = new Taikhoan();
+            taikhoan.MaNhanVien = nhanvien.MaNhanVien;
+            taikhoan.MaChucVu = value.Taikhoan.MaChucVu;
+            taikhoan.TenDangNhap = value.Taikhoan.TenDangNhap;
+
+            var pass = Encryptor.CreateMD5(Encryptor.Base64Encode(value.Taikhoan.MatKhau));
+            taikhoan.MatKhau = pass;
+
+            _context.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }
