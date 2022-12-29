@@ -31,7 +31,8 @@ namespace JobRecommendationWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Index(IFormCollection form)
         {
-            if (form["input"] == "")
+            string searchInput = form["input"];
+            if (string.IsNullOrEmpty(searchInput))
             {
                 var listBaiDang = _context.Baidangs.ToList();
                 return View(listBaiDang);
@@ -44,29 +45,10 @@ namespace JobRecommendationWeb.Controllers
                         {
                             var listBaiDang = new List<Baidang>();
 
-                            var congty = _context.Hosocongties.Where(x => x.TenCongTy.Contains(form["input"])).ToList();
+                            listBaiDang = _context.Baidangs.Where(x => x.MaCongTyNavigation.TenCongTy.Contains(searchInput)
+                                || x.TenCongViec.Contains(searchInput)
+                                || x.MoTa.Contains(searchInput)).ToList();
 
-                            foreach (var item in congty)
-                            {
-                                listBaiDang.AddRange(_context.Baidangs.Where(x => x.MaCongTy == item.MaCongTy).ToList());
-                            }
-
-                            listBaiDang.AddRange(_context.Baidangs.Where(x => x.TenCongViec.Contains(form["input"])).ToList());
-                            listBaiDang.AddRange(_context.Baidangs.Where(x => x.MoTa.Contains(form["input"])).ToList());
-                            listBaiDang.AddRange(_context.Baidangs.Where(x => x.WebsiteBaiGoc.Contains(form["input"])).ToList());
-
-                            int n;
-                            if (int.TryParse(form["input"], out n))
-                            {
-                                listBaiDang.AddRange(_context.Baidangs.Where(x => x.LuongMax >= int.Parse(form["input"])).ToList());
-                                listBaiDang.AddRange(_context.Baidangs.Where(x => x.LuongMin >= int.Parse(form["input"])).ToList());
-                                listBaiDang.AddRange(_context.Baidangs.Where(x => x.ThamNien >= int.Parse(form["input"])).ToList());
-                            }
-
-                            if (listBaiDang.Count == 0)
-                            {
-                                return View(new List<Baidang>());
-                            }
                             return View(listBaiDang);
                         }
                     case "TenCongTy":

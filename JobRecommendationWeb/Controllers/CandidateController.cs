@@ -24,7 +24,9 @@ namespace JobRecommendationWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Index(IFormCollection form)
         {
-            if (form["input"] == "")
+            string searchInput = form["input"];
+
+            if (string.IsNullOrEmpty(searchInput))
             {
                 var listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).ToList();
                 return View(listUngVien);
@@ -37,29 +39,18 @@ namespace JobRecommendationWeb.Controllers
                         {
                             var listUngVien = new List<Ungvien>();
 
-                            listUngVien.AddRange(_context.Ungviens.Where(x => x.Ten.Contains(form["input"])).ToList());
-                            listUngVien.AddRange(_context.Ungviens.Where(x => x.DiaChi.Contains(form["input"])).ToList());
-                            listUngVien.AddRange(_context.Ungviens.Where(x => x.Email.Contains(form["input"])).ToList());
-                            listUngVien.AddRange(_context.Ungviens.Where(x => x.Sdt.Contains(form["input"])).ToList());
+                            listUngVien = _context.Ungviens.Where(x => x.Ten.Contains(searchInput)
+                            || x.Tuoi == int.Parse(searchInput)
+                            || x.DiaChi.Contains(searchInput)
+                            || x.Email.Contains(searchInput)
+                            || x.Sdt.Contains(searchInput) ).ToList();
 
-
-                            int n;
-                            if (int.TryParse(form["input"], out n))
-                            {
-                                listUngVien.AddRange(_context.Ungviens.Where(x => x.Tuoi >= int.Parse(form["input"])).ToList());
-                                listUngVien.AddRange(_context.Ungviens.Where(x => x.ThamNien >= int.Parse(form["input"])).ToList());
-                            }
-
-                            if (listUngVien.Count == 0)
-                            {
-                                return View(new List<Ungvien>());
-                            }
                             return View(listUngVien);
                         }
 
                     case "TenUngVien":
                         {
-                            var listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.Ten.Contains(form["input"])).ToList();
+                            var listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.Ten.Contains(searchInput)).ToList();
                             if (listUngVien.Count == 0)
                             {
                                 return View(new List<Ungvien>());
@@ -68,7 +59,7 @@ namespace JobRecommendationWeb.Controllers
                         }
                     case "Tuoi":
                         {
-                            var listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.Tuoi >= int.Parse(form["input"])).ToList();
+                            var listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.Tuoi >= int.Parse(searchInput)).ToList();
                             if (listUngVien.Count == 0)
                             {
                                 return View(new List<Ungvien>());
@@ -77,7 +68,7 @@ namespace JobRecommendationWeb.Controllers
                         }
                     case "DiaChi":
                         {
-                            var listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.DiaChi.Contains(form["input"])).ToList();
+                            var listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.DiaChi.Contains(searchInput)).ToList();
                             if (listUngVien.Count == 0)
                             {
                                 return View(new List<Ungvien>());
@@ -86,7 +77,7 @@ namespace JobRecommendationWeb.Controllers
                         }
                     case "Email":
                         {
-                            var listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.Email.Contains(form["input"])).ToList();
+                            var listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.Email.Contains(searchInput)).ToList();
                             if (listUngVien.Count == 0)
                             {
                                 return View(new List<Ungvien>());
@@ -95,7 +86,7 @@ namespace JobRecommendationWeb.Controllers
                         }
                     case "Sdt":
                         {
-                            var listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.Sdt.Contains(form["input"])).ToList();
+                            var listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.Sdt.Contains(searchInput)).ToList();
                             if (listUngVien.Count == 0)
                             {
                                 return View(new List<Ungvien>());
@@ -104,7 +95,7 @@ namespace JobRecommendationWeb.Controllers
                         }
                     case "ThamNien":
                         {
-                            var listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.ThamNien >= int.Parse(form["input"])).ToList();
+                            var listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.ThamNien >= int.Parse(searchInput)).ToList();
                             if (listUngVien.Count == 0)
                             {
                                 return View(new List<Ungvien>());

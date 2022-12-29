@@ -20,32 +20,31 @@ namespace JobRecommendationWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Index(IFormCollection form)
+        public IActionResult Index(IFormCollection form)
         {
-            if (form["input"] == "")
-            {
+            string searchInput = form["input"];
+            if (string.IsNullOrEmpty(searchInput))
+			{
                 var listCongTy = _context.Hosocongties.ToList();
                 return View(listCongTy);
             }
             else
             {
-                switch (form["country"])
+                switch (form["filter"])
                 {
                     case "":
                         {
                             var listCongTy = new List<Hosocongty>();
-                            listCongTy.AddRange(_context.Hosocongties.Where(x => x.TenCongTy.Contains(form["input"])).ToList());
-                            listCongTy.AddRange(_context.Hosocongties.Where(x => x.QuocTich.Contains(form["input"])).ToList());
-
-                            if (listCongTy.Count == 0)
-                            {
-                                return View(new List<Hosocongty>());
-                            }
+                            listCongTy = _context.Hosocongties.Where(x => x.TenCongTy.Contains(searchInput)
+                            || x.DiaChi.Contains(searchInput)
+                            || x.Website.Contains(searchInput)
+                            || x.QuocTich.Contains(searchInput)
+                            || x.CheDoDaiNgo.Contains(searchInput)).ToList();
                             return View(listCongTy);
                         }
                     case "TenCongTy":
                         {
-                            var listCongTy = _context.Hosocongties.Where(x => x.TenCongTy.Contains(form["input"])).ToList();
+                            var listCongTy = _context.Hosocongties.Where(x => x.TenCongTy.Contains(searchInput)).ToList();
                             if (listCongTy.Count == 0)
                             {
                                 return View(new List<Hosocongty>());
@@ -54,7 +53,7 @@ namespace JobRecommendationWeb.Controllers
                         }
                     case "QuocTich":
                         {
-                            var listCongTy = _context.Hosocongties.Where(x => x.QuocTich.Contains(form["input"])).ToList();
+                            var listCongTy = _context.Hosocongties.Where(x => x.QuocTich.Contains(searchInput)).ToList();
                             if (listCongTy.Count == 0)
                             {
                                 return View(new List<Hosocongty>());
