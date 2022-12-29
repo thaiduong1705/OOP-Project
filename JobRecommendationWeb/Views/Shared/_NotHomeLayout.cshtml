@@ -1,6 +1,4 @@
-﻿@{
-
-}
+﻿@using JobRecommendationWeb.AddingClasses;
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,15 +45,41 @@
 							<li class="nav-item">
 								<a class="nav-link" asp-action="Index" asp-controller="Post">Bài tuyển dụng</a>
 							</li>
-
-							<li class="nav-item">
-								<a class="nav-link" asp-action="Index" asp-controller="Staff">Nhân viên</a>
-							</li>
-
-							<li class="nav-item">
-								<a class="nav-link" asp-action="Index" asp-controller="History">Lịch sử làm việc</a>
-							</li>
 						</ul>
+					</li>
+					@if (UsingAccount.Instance.Taikhoan != null) 
+					{
+						@if (UsingAccount.Instance.Taikhoan.MaChucVu == 1)
+						{
+							<li>
+								<div class="nav-link">Quản trị viên <i class="fa-solid fa-chevron-down"></i></div>
+								<ul class="subnav">
+									<li class="nav-item">
+										<a class="nav-link" asp-action="Index" asp-controller="Staff">Nhân viên</a>
+									</li>
+
+									<li class="nav-item">
+										<a class="nav-link" asp-action="Index" asp-controller="History">Lịch sử làm việc</a>
+									</li>
+								</ul>
+							</li>
+						}
+					}
+				</ul>
+				<ul class="navbar-nav ms-auto">
+					@if (UsingAccount.Instance.Taikhoan != null)
+					{
+						<li class="nav-link"><span class="fw-bold">Xin chào: @UsingAccount.Instance.Taikhoan.MaChucVuNavigation.TenChucVu</span></li>
+					}
+					<li class="nav-item">
+						@if (UsingAccount.Instance.Taikhoan == null)
+						{
+							<a class="nav-link" asp-action="Index" asp-controller="Login">Đăng nhập</a>
+						}
+						else
+						{
+							<a class="nav-link" asp-action="Logout" asp-controller="Login">Đăng xuất</a>
+						}
 					</li>
 				</ul>
 			</div>

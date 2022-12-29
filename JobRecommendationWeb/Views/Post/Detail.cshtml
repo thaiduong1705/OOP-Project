@@ -1,4 +1,5 @@
-﻿@{
+﻿@using JobRecommendationWeb.AddingClasses;
+@{
     ViewData["Title"] = "Chi tiết bài tuyển dụng";
     Baidang post = ViewBag.post;
     Hosocongty company = ViewBag.company;
@@ -30,11 +31,15 @@
             </div>
         </div>
 
-        <div class="col-4">
-            <a asp-action="Edit" asp-controller="Post" asp-route-id="@post.MaBaiDang" class="btn btn-info w-100 mb-3">Chỉnh sửa</a>
-            <a class="btn btn-success w-100" asp-action="Apply" asp-controller="Post" asp-route-id="@post.MaBaiDang">Nộp CV</a>
-            <a asp-action="Delete" asp-controller="Post" asp-route-id="@post.MaBaiDang" class="btn btn-dark w-100 mt-3">Xoá</a>
-        </div>
+
+        @if (UsingAccount.Instance.Taikhoan != null)
+        {
+            <div class="col-4">
+                <a asp-action="Edit" asp-controller="Post" asp-route-id="@post.MaBaiDang" class="btn btn-info w-100 mb-3">Chỉnh sửa</a>
+                <a class="btn btn-success w-100" asp-action="Apply" asp-controller="Post" asp-route-id="@post.MaBaiDang">Nộp CV</a>
+                <a asp-action="Delete" asp-controller="Post" asp-route-id="@post.MaBaiDang" class="btn btn-dark w-100 mt-3">Xoá</a>
+            </div>
+        }
     </div>
     <div class="py-5"></div>
     <div class="row">

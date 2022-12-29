@@ -1,4 +1,5 @@
-﻿@model List<Hosocongty>
+﻿@using JobRecommendationWeb.AddingClasses;
+@model List<Hosocongty>
 @{
     ViewData["Title"] = "Danh sách nhà tuyển dụng";
 
@@ -10,7 +11,10 @@
             <h3 class="text-dark">Danh sách nhà tuyển dụng</h3>
         </div>
         <div class="col-6 text-end">
-            <a class="btn btn-primary" asp-action="Create" asp-controller="Company">Tạo hồ sơ công ty</a>
+            @if (UsingAccount.Instance.Taikhoan != null) 
+            {
+                <a class="btn btn-primary" asp-action="Create" asp-controller="Company">Tạo hồ sơ công ty</a>
+            }
         </div>
     </div>
     <div class="search">
