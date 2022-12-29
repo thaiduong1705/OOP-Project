@@ -1,0 +1,120 @@
+﻿@{
+	ViewData["Title"] = "Tạo nhân viên";
+
+	List<Chucvu> listchucvu = ViewBag.Chucvu;
+	bool TaikhoanExisted = ViewBag.TaikhoanExisted;
+}
+
+@model JobRecommendationWeb.CustomViewModel.TaikhoanNhanvienViewModel
+
+@section Styles {
+        <link rel="stylesheet" href="@Url.Content("/css/FormStyle.css")"/>
+}
+
+<div class="container">
+    <form id="formCreate" asp-action="Create" asp-controller="Staff" method="post">
+		<div class="row-register">
+			<!-- <div class="col-register1">
+				<img src="images/logo.jpg" alt="ảnh" width="200px">
+			</div> -->
+			<div class="col-register2">
+				<h1>Thông tin Nhân viên</h1>
+				<hr>
+				<br>
+				<div class="row-register2">
+					<div class="col-register3">
+						<label for="Username">Tên tài khoản</label>
+					</div>
+					<div class="col-register4">
+						<input id="Username" type="text" value="@Model.Taikhoan.TenDangNhap" asp-for="@Model.Taikhoan.TenDangNhap" autofocus>
+						@if (TaikhoanExisted)
+						{
+							<label class="text-bg-danger">Tên tài khoản đã có người sử dụng</label>
+						}
+					</div>
+				</div>
+				<br>
+				<div class="row-register2">
+					<div class="col-register3">
+						<label for="Password">Mật khẩu</label>
+					</div>
+					<div class="col-register4">
+						<input id="Password" type="password" value="@Model.Taikhoan.MatKhau" asp-for="@Model.Taikhoan.MatKhau" autofocus>
+					</div>
+				</div>
+				<br>
+				<div class="row-register2">
+					<div class="col-register3">
+						<label for="ChucVu">Chức vụ</label>
+					</div>
+					<div class="col-register4">
+						<select class="" asp-for="@Model.Taikhoan.MaChucVu">
+							@foreach (var cvu in listchucvu)
+							{
+								<option value="@cvu.MaChucVu">@cvu.TenChucVu</option>
+							}
+						</select>
+					</div>
+				</div>
+				<br>
+				<div class="row-register2">
+					<div class="col-register3">
+						<label for="candidate_name">Họ Tên</label>
+					</div>
+					<div class="col-register4">
+						<input id="Ten" type="text" value="@Model.Nhanvien.TenNhanVien" asp-for="@Model.Nhanvien.TenNhanVien" autofocus>
+					</div>
+				</div>
+				<br>
+				<div class="row-register2">
+					<div class="col-register3">
+						<label for="candidate_age">Tuổi</label>
+					</div>
+					<div class="col-register4">
+						<input id="Tuoi" type="text" value="@Model.Nhanvien.Tuoi" asp-for="@Model.Nhanvien.Tuoi">
+						
+					</div>
+				</div>
+				<br>
+                <div class="row-register2">
+					<div class="col-register3">
+						<label for="candidate_phone">SĐT</label>
+					</div>
+					<div class="col-register4">
+						<input id="Sdt" type="text" value="@Model.Nhanvien.Sdt" asp-for="@Model.Nhanvien.Sdt">
+					</div>
+				</div>
+                <br>
+				<div class="row-register2">
+					<div class="col-register3">
+						<label for="email">Email</label>
+					</div>
+					<div class="col-register4">
+						<input type="text" id="email" value="@Model.Nhanvien.Email" asp-for="@Model.Nhanvien.Email">
+					</div>
+				</div>
+                <br>
+                <div class="row-register2">
+					<div class="col-register3">
+						<!-- <label for="firstname">Firstname</label> -->
+					</div>
+					<div class="col-register4">
+						<button type="submit" >Đăng ký</button>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</form>
+</div>
+@section Scripts {
+    <script>
+        $(function () {
+            $(".chosen-default").chosen();
+        });
+    </script>
+	@{
+	<partial name="_ValidationScriptsPartial" />		
+	}
+	<script src=~/js/CandidateValid.js></script>
+}
