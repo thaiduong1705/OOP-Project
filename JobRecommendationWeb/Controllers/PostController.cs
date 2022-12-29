@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json.Linq;
+using JobRecommendationWeb.AddingClasses;
 
 namespace JobRecommendationWeb.Controllers
 {
@@ -163,6 +164,27 @@ namespace JobRecommendationWeb.Controllers
                 value.GhiChu = form["GhiChu"];
 
                 _context.Baidangs.Add(value);
+                await _context.SaveChangesAsync();
+
+                Lichsulamviec lichsu = new Lichsulamviec();
+                var date = DateTime.Now;
+                if (date.Hour > 12)
+                {
+                    lichsu.MaBaiDangs.Add(value);
+                    lichsu.MaTaiKhoan = UsingAccount.Instance.Taikhoan.MaTaiKhoan;
+                    lichsu.NgayLamViec = date.Date;
+                    lichsu.CaLamViec = "Chiều";
+                }
+                else
+                {
+                    lichsu.MaBaiDangs.Add(value);
+                    lichsu.MaTaiKhoan = UsingAccount.Instance.Taikhoan.MaTaiKhoan;
+                    lichsu.NgayLamViec = date.Date;
+                    lichsu.CaLamViec = "Sáng";
+                }
+                _context.Lichsulamviecs.Add(lichsu);
+                await _context.SaveChangesAsync();
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
