@@ -31,21 +31,129 @@ namespace JobRecommendationWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Index(IFormCollection form)
         {
-            if (form["Search"] == "")
+            if (form["input"] == "")
             {
-                var listBaiDang = new List<Baidang>();
+                var listBaiDang = _context.Baidangs.ToList();
                 return View(listBaiDang);
             }
             else
             {
-                var listBaiDang = _context.Baidangs.Where(x => x.TenCongViec.Contains(form["Search"])).ToList();
-                if (listBaiDang.Count == 0)
+                switch (form["baidang"])
                 {
-                    return View(new List<Baidang>());
+                    case "":
+                        {
+                            var listBaiDang = new List<Baidang>();
+
+                            var congty = _context.Hosocongties.Where(x => x.TenCongTy.Contains(form["input"])).ToList();
+
+                            foreach (var item in congty)
+                            {
+                                listBaiDang.AddRange(_context.Baidangs.Where(x => x.MaCongTy == item.MaCongTy).ToList());
+                            }
+
+                            listBaiDang.AddRange(_context.Baidangs.Where(x => x.TenCongViec.Contains(form["input"])).ToList());
+                            listBaiDang.AddRange(_context.Baidangs.Where(x => x.MoTa.Contains(form["input"])).ToList());
+                            listBaiDang.AddRange(_context.Baidangs.Where(x => x.WebsiteBaiGoc.Contains(form["input"])).ToList());
+
+                            int n;
+                            if (int.TryParse(form["input"], out n))
+                            {
+                                listBaiDang.AddRange(_context.Baidangs.Where(x => x.LuongMax >= int.Parse(form["input"])).ToList());
+                                listBaiDang.AddRange(_context.Baidangs.Where(x => x.LuongMin >= int.Parse(form["input"])).ToList());
+                                listBaiDang.AddRange(_context.Baidangs.Where(x => x.ThamNien >= int.Parse(form["input"])).ToList());
+                            }
+
+                            if (listBaiDang.Count == 0)
+                            {
+                                return View(new List<Baidang>());
+                            }
+                            return View(listBaiDang);
+                        }
+                    case "TenCongTy":
+                        {
+                            var congty = _context.Hosocongties.Where(x => x.TenCongTy.Contains(form["input"])).ToList();
+                            if (congty == null)
+                            {
+                                return View(new List<Baidang>());
+                            } else
+                            {
+                                var listBaiDang = new List<Baidang>();
+                                foreach (var item in congty)
+                                {
+                                    listBaiDang.AddRange(_context.Baidangs.Where(x => x.MaCongTy == item.MaCongTy).ToList());
+                                }
+                                if (listBaiDang.Count == 0)
+                                {
+                                    return View(new List<Baidang>());
+                                }
+                                return View(listBaiDang);
+                            }
+                        }
+                    case "TenCongViec":
+                        {
+                            var listBaiDang = _context.Baidangs.Where(x => x.TenCongViec.Contains(form["input"])).ToList();
+                            if (listBaiDang.Count == 0)
+                            {
+                                return View(new List<Baidang>());
+                            }
+                            return View(listBaiDang);
+                        }
+                    case "MoTa":
+                        {
+                            var listBaiDang = _context.Baidangs.Where(x => x.MoTa.Contains(form["input"])).ToList();
+                            if (listBaiDang.Count == 0)
+                            {
+                                return View(new List<Baidang>());
+                            }
+                            return View(listBaiDang);
+                        }
+                    case "WebsiteBaiGoc":
+                        {
+                            var listBaiDang = _context.Baidangs.Where(x => x.WebsiteBaiGoc.Contains(form["input"])).ToList();
+                            if (listBaiDang.Count == 0)
+                            {
+                                return View(new List<Baidang>());
+                            }
+                            return View(listBaiDang);
+                        }
+                    case "LuongMax":
+                        {
+                            var listBaiDang = _context.Baidangs.Where(x => x.LuongMax >= int.Parse(form["input"])).ToList();
+                            if (listBaiDang.Count == 0)
+                            {
+                                return View(new List<Baidang>());
+                            }
+                            return View(listBaiDang);
+                        }
+
+                    case "LuongMin":
+                        {
+                            var listBaiDang = _context.Baidangs.Where(x => x.LuongMin >= int.Parse(form["input"])).ToList();
+                            if (listBaiDang.Count == 0)
+                            {
+                                return View(new List<Baidang>());
+                            }
+                            return View(listBaiDang);
+                        }
+
+                    case "ThamNien":
+                        {
+                            var listBaiDang = _context.Baidangs.Where(x => x.ThamNien >= int.Parse(form["input"])).ToList();
+                            if (listBaiDang.Count == 0)
+                            {
+                                return View(new List<Baidang>());
+                            }
+                            return View(listBaiDang);
+                        }
+                    default:
+                        {
+                            var listBaiDang = new List<Baidang>();
+                            return View(listBaiDang);
+                        }
                 }
-                return View(listBaiDang);
             }
         }
+
 
         public IActionResult Create()
         {

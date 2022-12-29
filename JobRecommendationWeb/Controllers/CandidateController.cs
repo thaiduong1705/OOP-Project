@@ -2,6 +2,7 @@
 using JobRecommendationWeb.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Packaging;
 
 namespace JobRecommendationWeb.Controllers
 {
@@ -23,19 +24,99 @@ namespace JobRecommendationWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Index(IFormCollection form)
         {
-            if (form["Search"] == "")
+            if (form["input"] == "")
             {
-                var listUngVien = new List<Ungvien>();
+                var listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).ToList();
                 return View(listUngVien);
             }
             else
             {
-                var listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.Ten.Contains(form["Search"])).ToList();
-                if (listUngVien.Count == 0)
+                switch (form["UngVien"])
                 {
-                    return View(new List<Ungvien>());
+                    case "":
+                        {
+                            var listUngVien = new List<Ungvien>();
+
+                            listUngVien.AddRange(_context.Ungviens.Where(x => x.Ten.Contains(form["input"])).ToList());
+                            listUngVien.AddRange(_context.Ungviens.Where(x => x.DiaChi.Contains(form["input"])).ToList());
+                            listUngVien.AddRange(_context.Ungviens.Where(x => x.Email.Contains(form["input"])).ToList());
+                            listUngVien.AddRange(_context.Ungviens.Where(x => x.Sdt.Contains(form["input"])).ToList());
+
+
+                            int n;
+                            if (int.TryParse(form["input"], out n))
+                            {
+                                listUngVien.AddRange(_context.Ungviens.Where(x => x.Tuoi >= int.Parse(form["input"])).ToList());
+                                listUngVien.AddRange(_context.Ungviens.Where(x => x.ThamNien >= int.Parse(form["input"])).ToList());
+                            }
+
+                            if (listUngVien.Count == 0)
+                            {
+                                return View(new List<Ungvien>());
+                            }
+                            return View(listUngVien);
+                        }
+
+                    case "TenUngVien":
+                        {
+                            var listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.Ten.Contains(form["input"])).ToList();
+                            if (listUngVien.Count == 0)
+                            {
+                                return View(new List<Ungvien>());
+                            }
+                            return View(listUngVien);
+                        }
+                    case "Tuoi":
+                        {
+                            var listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.Tuoi >= int.Parse(form["input"])).ToList();
+                            if (listUngVien.Count == 0)
+                            {
+                                return View(new List<Ungvien>());
+                            }
+                            return View(listUngVien);
+                        }
+                    case "DiaChi":
+                        {
+                            var listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.DiaChi.Contains(form["input"])).ToList();
+                            if (listUngVien.Count == 0)
+                            {
+                                return View(new List<Ungvien>());
+                            }
+                            return View(listUngVien);
+                        }
+                    case "Email":
+                        {
+                            var listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.Email.Contains(form["input"])).ToList();
+                            if (listUngVien.Count == 0)
+                            {
+                                return View(new List<Ungvien>());
+                            }
+                            return View(listUngVien);
+                        }
+                    case "Sdt":
+                        {
+                            var listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.Sdt.Contains(form["input"])).ToList();
+                            if (listUngVien.Count == 0)
+                            {
+                                return View(new List<Ungvien>());
+                            }
+                            return View(listUngVien);
+                        }
+                    case "ThamNien":
+                        {
+                            var listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.ThamNien >= int.Parse(form["input"])).ToList();
+                            if (listUngVien.Count == 0)
+                            {
+                                return View(new List<Ungvien>());
+                            }
+                            return View(listUngVien);
+                        }
+                    default:
+                        {
+                            var listUngVien = new List<Ungvien>();
+                            return View(listUngVien);
+                        }
                 }
-                return View(listUngVien);
             }
         }
 

@@ -22,19 +22,51 @@ namespace JobRecommendationWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Index(IFormCollection form)
         {
-            if (form["Search"] == "")
+            if (form["input"] == "")
             {
-                var listCongty = new List<Ungvien>();
-                return View(listCongty);
+                var listCongTy = _context.Hosocongties.ToList();
+                return View(listCongTy);
             }
             else
             {
-                var listCongty = _context.Hosocongties.Where(x => x.TenCongTy.Contains(form["Search"])).ToList();
-                if (listCongty.Count == 0)
+                switch (form["country"])
                 {
-                    return View(new List<Ungvien>());
+                    case "":
+                        {
+                            var listCongTy = new List<Hosocongty>();
+                            listCongTy.AddRange(_context.Hosocongties.Where(x => x.TenCongTy.Contains(form["input"])).ToList());
+                            listCongTy.AddRange(_context.Hosocongties.Where(x => x.QuocTich.Contains(form["input"])).ToList());
+
+                            if (listCongTy.Count == 0)
+                            {
+                                return View(new List<Hosocongty>());
+                            }
+                            return View(listCongTy);
+                        }
+                    case "TenCongTy":
+                        {
+                            var listCongTy = _context.Hosocongties.Where(x => x.TenCongTy.Contains(form["input"])).ToList();
+                            if (listCongTy.Count == 0)
+                            {
+                                return View(new List<Hosocongty>());
+                            }
+                            return View(listCongTy);
+                        }
+                    case "QuocTich":
+                        {
+                            var listCongTy = _context.Hosocongties.Where(x => x.QuocTich.Contains(form["input"])).ToList();
+                            if (listCongTy.Count == 0)
+                            {
+                                return View(new List<Hosocongty>());
+                            }
+                            return View(listCongTy);
+                        }
+                    default:
+                        {
+                            var listUngVien = new List<Hosocongty>();
+                            return View(listUngVien);
+                        }
                 }
-                return View(listCongty);
             }
         }
 

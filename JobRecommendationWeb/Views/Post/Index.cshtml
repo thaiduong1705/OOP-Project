@@ -17,10 +17,15 @@
 		<form asp-action="Index" asp-controller="Post" method="POST" enctype="multipart/form-data" class="row my-2 my-lg-0" autocomplete="off">
 			<div class="input-group mb-3">
 					<input class="form-control mr-sm-2 col-lg-8" type="text" name="input" placeholder="Search">
-					<select name="country" id="country" style="border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-color: #6c757d;">
+                    <select name="baidang" id="baidang" style="border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-color: #6c757d;">
 						<option value="">Chọn tất cả</option>
-						<option value="TenCongTy">Tên công ty</option>
-						<option value="QuocTich">Quốc gia</option>
+                        <option value="TenCongTy">Tên công ty</option>
+                        <option value="TenCongViec ">Tên công việc</option>
+                        <option value="MoTa ">Mô tả</option>
+                        <option value="LuongMin">Lương tối thiểu</option>
+                        <option value="LuongMax">Lương tối đa</option>
+                        <option value="ThamNien ">Thâm Niên</option>
+                        <option value="WebsiteBaiGoc  ">Website</option>
 					</select>
 				</div>
 				
