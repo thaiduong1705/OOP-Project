@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Microsoft.Build.Framework;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using RequiredAttribute = System.ComponentModel.DataAnnotations.RequiredAttribute;
 
 namespace JobRecommendationWeb.Models;
 
@@ -7,6 +10,7 @@ public partial class Taikhoan
 {
     public int MaTaiKhoan { get; set; }
 
+    [Required(ErrorMessage = "Vui lòng nhập tên đăng nhập")]
     public string? TenDangNhap { get; set; }
 
     public string? MatKhau { get; set; }

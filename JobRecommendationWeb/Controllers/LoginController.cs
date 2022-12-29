@@ -20,19 +20,19 @@ namespace JobRecommendationWeb.Controllers
         public IActionResult Login(IFormCollection form)
         {
             string username = form["Username"];
-            string password = form["Password"];
+            string password = Encryptor.CreateMD5(Encryptor.Base64Encode(form["Password"]));
             List<Chucvu> chucvus = _context.Chucvus.ToList();
+            List<Nhanvien> nhanviens = _context.Nhanviens.ToList();
             Taikhoan taikhoan = _context.Taikhoans.Where(x => x.TenDangNhap == username && x.MatKhau == password).FirstOrDefault();
-            Nhanvien nhanvien = _context.Nhanviens.Where(x => x.MaNhanVien == taikhoan.MaNhanVien).FirstOrDefault();
 
-            if (taikhoan == null || nhanvien == null)
+            if (taikhoan == null)
             {
                 return NotFound();
             }
 
             // Bind tai khoan va nhan vien
             UsingAccount.Instance.Taikhoan = taikhoan;
-            UsingAccount.Instance.Nhanvien = nhanvien;
+            UsingAccount.Instance.Nhanvien = taikhoan.MaNhanVienNavigation;
             return RedirectToAction("Index", "Home");
         }
 
@@ -40,7 +40,7 @@ namespace JobRecommendationWeb.Controllers
         {
             UsingAccount.Instance.Taikhoan = null;
             UsingAccount.Instance.Nhanvien = null;
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult ForgotPassword()

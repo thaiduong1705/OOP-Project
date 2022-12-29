@@ -75,7 +75,7 @@ namespace JobRecommendationWeb.Controllers
             {
                 case "":
                     listNhanvien = _context.Nhanviens.Where(x => x.TenNhanVien.Contains(searchInput)
-                    || x.Tuoi == int.Parse(searchInput)
+                    || x.Tuoi.ToString() == searchInput
                     || x.Email.Contains(searchInput)
                     || x.Sdt.Contains(searchInput) ).ToList();
                     break;
@@ -83,7 +83,7 @@ namespace JobRecommendationWeb.Controllers
                     listNhanvien = _context.Nhanviens.Where(x => x.TenNhanVien.Contains(searchInput)).ToList();
                     break;
                 case "Tuoi":
-                    listNhanvien = _context.Nhanviens.Where(x => x.Tuoi == int.Parse(searchInput)).ToList();
+                    listNhanvien = _context.Nhanviens.Where(x => x.Tuoi.ToString() == searchInput).ToList();
                     break;
                 case "Sdt":
                     listNhanvien = _context.Nhanviens.Where(x => x.Sdt.Contains(searchInput)).ToList();

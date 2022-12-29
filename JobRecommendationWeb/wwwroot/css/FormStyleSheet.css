@@ -1,0 +1,236 @@
+﻿*, *:after. *:before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    /* font-family: arial; */
+    font-size: 16px;
+    margin: 0;
+    /* background: #222; */
+    width: 100%;
+    /* color: #fff; */
+
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    min-height: 100vh;
+}
+
+hr {
+    margin: 0 5%;
+}
+
+h1 {
+    text-align: center;
+}
+
+.col-register1 {
+    height: 400px;
+    position: relative;
+}
+
+button {
+    /* background-color: #1bbc9b;
+	height: 50px;
+	width: 130px;
+    border: none;
+    font-weight: bold;
+	position: absolute; */
+}
+
+.col-register3 {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+ul li a {
+    text-decoration: none;
+    color: #000;
+}
+
+ul li:first-child a {
+    color: blue;
+}
+
+ul li {
+    list-style-type: none;
+}
+
+.row-register2 {
+    display: flex;
+    margin: 10px 0;
+}
+
+/* .col-register3, .col-register4 {
+	width: 50%;
+} */
+
+.col-register3 {
+    width: 30%;
+}
+
+.col-register4 {
+    width: 70%;
+    position: relative;
+}
+
+
+/* mới */
+
+.input_container {
+    width: 600px;
+    background-color: #fff;
+    padding: 30px;
+    /* border-radius: 15px; */
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+    /* border: 10px solid #1bbc9b; */
+}
+
+    .input_container .input_row {
+        margin-bottom: 12px;
+    }
+
+    .input_container input:not([type='submit']),
+    .input_container select {
+        /* width: 100%; */
+        /* margin: 0 0 3px; */
+        background-color: #d6d6d6;
+        color: #000;
+        /* padding: 10px 15px; */
+        height: 20px;
+        /* line-height: 30px; */
+        /* font-size: 20px; */
+        border-radius: 5px;
+        /* border: 2px solid transparent; */
+        outline: 0;
+        transition: all 0.05s ease-out;
+    }
+
+    .input_container select {
+        height: 35px;
+        width: 100%;
+        border: 2px solid #000;
+    }
+
+        .input_container input:not([type='submit']):focus,
+        .input_container select:focus {
+            border-color: #1bbc9b;
+        }
+
+    .input_container input[type='submit'],
+    .input_container input[type='button'],
+    button {
+        padding: 10px 30px;
+        font-size: 18px;
+        line-height: 30px;
+        height: 50px;
+        text-align: center;
+        text-transform: uppercase;
+        cursor: pointer;
+        background-color: #1bbc9b;
+        color: #fff;
+        border: 0;
+        transition: all 0.5s ease-out;
+        border-radius: 5px;
+    }
+
+        .input_container input[type="submit"]:hover,
+        .input_container input[type='button']:hover,
+        button:hover {
+            background-color: rgb(11, 97, 97);
+        }
+
+    .input_container input[type="file"] {
+        border: 2px solid #000;
+        width: 100%;
+        /* display: none; */
+    }
+
+    /* .input_container input[type="date"] {
+    width: 173px;
+} */
+
+    .input_container input[id='name'],
+    .input_container input[id='staff_name'] {
+        text-transform: capitalize;
+    }
+
+    .input_container input:not([type='radio'],[type='button']) {
+        width: 100%;
+        height: 30px;
+    }
+
+    .input_container textarea {
+        width: 100%;
+        border-radius: 5px;
+        border: 2px solid #000;
+        background-color: #d6d6d6;
+    }
+
+/* .input_container .label-file {
+    color: #000;
+    height: 35px;
+    width: 430px;
+    background-color: #d6d6d6;
+    border-radius: 5px;
+    border: 2px solid #000;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0; 
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} */
+
+
+label.error {
+    font-weight: 700;
+    display: block;
+    color: #f00;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* alert */
+.register-form {
+    position: relative;
+    /* background: #000; */
+    overflow: hidden;
+}
+
+.alert {
+    width: 220px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 0 5px #1bbc9b;
+    position: absolute;
+    padding-right: 5px;
+    top: 20px;
+    right: -500px;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: all 0.4s;
+}
+
+ion-icon {
+    padding: 0 10px;
+    font-size: 20px;
+    color: #1bbc9b;
+}
+
+.process {
+    height: 70px;
+    border-left: 5px solid #1bbc9b;
+    top: 0;
+    left: 0;
+    position: absolute;
+    transition: all 0.2s;
+}

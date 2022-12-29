@@ -22,8 +22,9 @@ namespace JobRecommendationWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Index(IFormCollection form)
+        public async Task<IActionResult> Index(IFormCollection? form)
         {
+
             string searchInput = form["input"];
 
             if (string.IsNullOrEmpty(searchInput))
