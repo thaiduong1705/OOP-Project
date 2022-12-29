@@ -15,7 +15,6 @@ namespace JobRecommendationWeb.Controllers
         public IActionResult Index()
         {
             List<Nhanvien> nhanvien = _context.Nhanviens.ToList();
-
             ViewBag.nhanvien = nhanvien;
             return View();
         }
@@ -64,20 +63,49 @@ namespace JobRecommendationWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Index(IFormCollection form)
         {
-            if (form["Search"] == "")
+            string searchInput = form["input"];
+            var listNhanvien = new List<Nhanvien>();
+            if (string.IsNullOrEmpty(searchInput))
             {
-                var listNhanvien = new List<Nhanvien>();
-                return View(listNhanvien);
+                listNhanvien = _context.Nhanviens.ToList();
+                ViewBag.nhanvien = listNhanvien;
+                return View();
             }
-            else
+            switch (form["NhanVien"])
             {
-                var listNhanvien = _context.Nhanviens.Where(x => x.TenNhanVien.Contains(form["Search"])).ToList();
-                if (listNhanvien.Count == 0)
-                {
-                    return View(new List<Nhanvien>());
-                }
-                return View(listNhanvien);
+                case "":
+                    listNhanvien = _context.Nhanviens.Where(x => x.TenNhanVien.Contains(searchInput)
+                    || x.Tuoi == int.Parse(searchInput)
+                    || x.Email.Contains(searchInput)
+                    || x.Sdt.Contains(searchInput) ).ToList();
+                    break;
+                case "TenNhanVien":
+                    listNhanvien = _context.Nhanviens.Where(x => x.TenNhanVien.Contains(searchInput)).ToList();
+                    break;
+                case "Tuoi":
+                    listNhanvien = _context.Nhanviens.Where(x => x.Tuoi == int.Parse(searchInput)).ToList();
+                    break;
+                case "Sdt":
+                    listNhanvien = _context.Nhanviens.Where(x => x.Sdt.Contains(searchInput)).ToList();
+                    break;
+                case "Email":
+                    listNhanvien = _context.Nhanviens.Where(x => x.Email.Contains(searchInput)).ToList();
+                    break;
+
             }
+
+            ViewBag.nhanvien = listNhanvien;
+            return View();
+
+            //else
+            //{
+            //    var listNhanvien = _context.Nhanviens.Where(x => x.TenNhanVien.Contains(form["Search"])).ToList();
+            //    if (listNhanvien.Count == 0)
+            //    {
+            //        return View(new List<Nhanvien>());
+            //    }
+            //    return View(listNhanvien);
+            //}
         }
     }
 }
