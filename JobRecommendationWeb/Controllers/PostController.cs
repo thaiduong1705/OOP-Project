@@ -84,30 +84,35 @@ namespace JobRecommendationWeb.Controllers
                    
                     case "LuongMax":
                         {
-                            var listBaiDang = _context.Baidangs.Where(x => x.LuongMax >= int.Parse(form["input"])).ToList();
-                            if (listBaiDang.Count == 0)
+                            int luongMax;
+                            var listBaiDang = new List<Baidang>();
+                            if (int.TryParse(form["input"], out luongMax))
                             {
-                                return View(new List<Baidang>());
+                                listBaiDang = _context.Baidangs.Where(x => x.LuongMax >= luongMax).ToList();
                             }
                             return View(listBaiDang);
+
+
                         }
 
                     case "LuongMin":
                         {
-                            var listBaiDang = _context.Baidangs.Where(x => x.LuongMin >= int.Parse(form["input"])).ToList();
-                            if (listBaiDang.Count == 0)
+                            int luongMin;
+                            var listBaiDang = new List<Baidang>();
+                            if (int.TryParse(form["input"], out luongMin))
                             {
-                                return View(new List<Baidang>());
+                                listBaiDang = _context.Baidangs.Where(x => x.LuongMin >= luongMin).ToList();
                             }
                             return View(listBaiDang);
                         }
 
                     case "ThamNien":
                         {
-                            var listBaiDang = _context.Baidangs.Where(x => x.ThamNien >= int.Parse(form["input"])).ToList();
-                            if (listBaiDang.Count == 0)
+                            int thamNien;
+                            var listBaiDang = new List<Baidang>();
+                            if (int.TryParse(form["input"], out thamNien))
                             {
-                                return View(new List<Baidang>());
+                                listBaiDang = _context.Baidangs.Where(x => x.LuongMin <= thamNien).ToList();
                             }
                             return View(listBaiDang);
                         }
