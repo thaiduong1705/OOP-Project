@@ -16,9 +16,18 @@
 
     <div class="search">
         <form asp-action="Index" asp-controller="Staff" method="POST" enctype="multipart/form-data" class="row my-2 my-lg-0" autocomplete="off">
-            <div class="col-lg-8">
-                <input class="form-control mr-sm-2 col-lg-8" type="text" name="Search" id="Search" placeholder="Search">
-            </div>
+            <div class="col-lg-8 round-3">
+				<div class="input-group mb-3">
+					<input class="form-control mr-sm-2 col-lg-8" type="text" name="input" placeholder="Search">
+					<select name="NhanVien" style="border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-color: #6c757d;">
+								   <option value="">Chọn tất cả</option>
+								   <option value="TenNhanVien">Tên</option>
+								   <option value="Tuoi">Tuổi</option>
+								   <option value="Email">Email</option>
+								   <option value="Sdt">SDT</option>
+					</select>
+				</div>
+			</div>
             <div class="col-auto">
                 <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Search">
             </div>
