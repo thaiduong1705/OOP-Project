@@ -1,6 +1,7 @@
 ﻿@{
 	Taikhoan taikhoan = ViewContext.ViewBag.TaiKhoan;
 	Nhanvien nhanvien = ViewContext.ViewBag.NhanVien;
+	Chucvu chucvu = ViewContext.ViewBag.ChucVu;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -68,7 +69,7 @@
 				<ul class="navbar-nav ms-auto">
 					@if (nhanvien != null)
 					{
-						<li class=""><span class="fw-bold">Xin chào: </span></li>
+						<li class=""><span class="fw-bold">Xin chào: @taikhoan.MaChucVuNavigation.TenChucVu</span></li>
 					}
 					<li class="nav-item">
 						@if (taikhoan == null)

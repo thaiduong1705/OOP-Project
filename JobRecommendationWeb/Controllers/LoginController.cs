@@ -21,6 +21,7 @@ namespace JobRecommendationWeb.Controllers
         {
             string username = form["Username"];
             string password = form["Password"];
+            List<Chucvu> chucvus = _context.Chucvus.ToList();
             Taikhoan taikhoan = _context.Taikhoans.Where(x => x.TenDangNhap == username && x.MatKhau == password).FirstOrDefault();
             Nhanvien nhanvien = _context.Nhanviens.Where(x => x.MaNhanVien == taikhoan.MaNhanVien).FirstOrDefault();
 
