@@ -9,5 +9,6 @@
             Nhanvien = new Nhanvien();
             Taikhoan = new Taikhoan();
         }
+        public string RePassword { get; set; }
     }
 }
