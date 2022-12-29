@@ -221,10 +221,13 @@ namespace JobRecommendationWeb.Controllers
             ungvien.MaKiNangs = listkinang;
 
             var cv = _context.Cvs.FirstOrDefault(x => x.MaUngVien == ungvien.MaUngVien);
-            using (var stream = new MemoryStream())
+            if (form.Files.Count() != 0)
             {
-                await form.Files[0].CopyToAsync(stream);
-                cv.AnhCv = stream.ToArray();
+                using (var stream = new MemoryStream())
+                {
+                    await form.Files[0].CopyToAsync(stream);
+                    cv.AnhCv = stream.ToArray();
+                }
             }
 
 

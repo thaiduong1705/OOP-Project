@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="@Url.Content("/css/FormStyle.css")" />
 }
     <div class="container">
-        <form asp-action="Edit" asp-controller="Company" autocomplete="off" id="formCreate">
+        <form asp-action="Edit" asp-controller="Company" method="POST" enctype="multipart/form-data" autocomplete="off" id="formCreate">
             <div class="row-register">
                 <div class="col-register1">
                     <img src="/images/logo.jpg" alt="ảnh" style="width: 200px">
@@ -26,7 +26,8 @@
                 <div class="col-register2">
                     <h1>Thông tin nhà tuyển dụng</h1>
                     <hr>
-                    <br>
+                    <br>				
+                    <input type="text" name="MaCongTy" value="@Model.MaCongTy" class="form-control d-none"/>
                     <div class="row-register2">
                         <div class="col-register3">
                             <label for="company_name">Tên công ty</label>
@@ -91,7 +92,7 @@
                         <label for="staff_phone">Chế độ đãi ngộ:</label>
                     </div>
                     <div class="col-register4">
-                        <input type="text" name="DiaChi" value="@Model.TenCongTy" autofocus>
+                        <input type="text" name="CheDoDaiNgo" value="@Model.CheDoDaiNgo" autofocus>
                     </div>
                 </div>
                 <br>
@@ -100,7 +101,7 @@
                         <label for="staff_phone">Mô tả thêm</label>
                     </div>
                     <div class="col-register4">
-                        <input type="text" name="DiaChi" value="@Model.MoTaThem" autofocus>
+                        <input type="text" name="MoTaThem" value="@Model.MoTaThem" autofocus>
                     </div>
                 </div>
                 <br>
@@ -130,7 +131,7 @@
                         <!-- <label for="firstname">Firstname</label> -->
                     </div>
                     <div class="col-register4">
-                        <button>Đăng ký</button>
+                        <button>Lưu</button>
                     </div>
                 </div>
 

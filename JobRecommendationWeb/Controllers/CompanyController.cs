@@ -134,26 +134,53 @@ namespace JobRecommendationWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Hosocongty value)
+        public async Task<IActionResult> Edit(IFormCollection form)
         {
+            var value = await _context.Hosocongties.FindAsync(int.Parse(form["MaCongTy"]));
             if (ModelState.IsValid)
             {
-                try
+                if (form.Files.Count() != 0)
                 {
-                    _context.Update(value);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (value == null)
+                    using (var stream = new MemoryStream())
                     {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
+                        await form.Files[0].CopyToAsync(stream);
+                        value.AnhCongTy = stream.ToArray();
                     }
                 }
+
+                value.TenCongTy = form["TenCongTy"];
+                value.Website = form["Website"];
+                value.DiaChi = form["DiaChi"];
+                value.QuocTich = form["QuocTich"];
+                value.CheDoDaiNgo = form["CheDoDaiNgo"];
+                value.MoTaThem = form["MoTaThem"];
+
+                _context.Update(value);
+                await _context.SaveChangesAsync();
+
+                //try
+                //{
+                //    if (value.AnhCongTy == null)
+                //    {
+                //        byte[] anh = _context.Hosocongties.FirstOrDefault(x => x.MaCongTy == value.MaCongTy).AnhCongTy;
+                //        if (anh != null) value.AnhCongTy = anh;
+                //    }
+
+                //    _context.Update(value);
+                //    await _context.SaveChangesAsync();
+                //}
+                //catch (DbUpdateConcurrencyException)
+                //{
+                //    if (value == null)
+                //    {
+                //        return NotFound();
+                //    }
+                //    else
+                //    {
+                //        throw;
+                //    }
+                //}
+
 
                 return RedirectToAction(nameof(Index));
             }
