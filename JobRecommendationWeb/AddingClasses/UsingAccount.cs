@@ -14,6 +14,5 @@
         }
 
         public Taikhoan Taikhoan { get; set; } = null;
-        public Nhanvien Nhanvien { get; set; } = null;
     }
 }

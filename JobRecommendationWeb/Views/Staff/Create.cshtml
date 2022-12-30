@@ -54,8 +54,8 @@
                                 <label for="name">Họ Tên</label>
                             </div>
                             <div class="col-register4">
-                                <input type="text" required value="@Model.Nhanvien.TenNhanVien" asp-for="@Model.Nhanvien.TenNhanVien">
-                                <span asp-validation-for="@Model.Nhanvien.TenNhanVien" class="text-danger"></span>
+                                <input type="text" required value="@Model.Taikhoan.TenNhanVien" asp-for="@Model.Taikhoan.TenNhanVien">
+                                <span asp-validation-for="@Model.Taikhoan.TenNhanVien" class="text-danger"></span>
                             </div>
                         </div>
                         <br>
@@ -64,8 +64,8 @@
                                 <label for="age">Tuổi</label>
                             </div>
                             <div class="col-register4">
-                                <input type="text" id="age" required value="@Model.Nhanvien.Tuoi" asp-for="@Model.Nhanvien.Tuoi">
-                                <span asp-validation-for="@Model.Nhanvien.Tuoi" class="text-danger"></span>
+                                <input type="text" id="age" required value="@Model.Taikhoan.Tuoi" asp-for="@Model.Taikhoan.Tuoi">
+                                <span asp-validation-for="@Model.Taikhoan.Tuoi" class="text-danger"></span>
                             </div>
                         </div>
                         <br>
@@ -74,8 +74,8 @@
                                 <label for="phone">Số điện thoại</label>
                             </div>
                             <div class="col-register4">
-                                <input type="text" id="phone" required value="@Model.Nhanvien.Sdt" asp-for="@Model.Nhanvien.Sdt">
-                                <span asp-validation-for="@Model.Nhanvien.Sdt" class="text-danger"></span>
+                                <input type="text" id="phone" required value="@Model.Taikhoan.Sdt" asp-for="@Model.Taikhoan.Sdt">
+                                <span asp-validation-for="@Model.Taikhoan.Sdt" class="text-danger"></span>
                             </div>
                         </div>
                         <br>
@@ -84,8 +84,20 @@
                                 <label for="email">Email</label>
                             </div>
                             <div class="col-register4">
-                                <input type="email" id="email" required value="@Model.Nhanvien.Email" asp-for="@Model.Nhanvien.Email">
-                                <span asp-validation-for="@Model.Nhanvien.Email" class="text-danger"></span>
+                                <input type="email" id="email" required value="@Model.Taikhoan.Email" asp-for="@Model.Taikhoan.Email">
+                                <span asp-validation-for="@Model.Taikhoan.Email" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="input-row row-register2">
+                            <div class="col-register3">
+                                <label for="gender">Giới tính </label>
+                            </div>
+                            <div class="col-register4">
+                                <input type="radio" id="phone"  value="Nam" asp-for="@Model.Taikhoan.GioiTinh" required>
+                                <input type="radio" id="phone" value="Nữ" asp-for="@Model.Taikhoan.GioiTinh"> Nữ
+                                <input type="radio" id="phone" value="Khác" asp-for="@Model.Taikhoan.GioiTinh"> Khác
+                                <span asp-validation-for="@Model.Taikhoan.Sdt" class="text-danger"></span>
                             </div>
                         </div>
                         <br>

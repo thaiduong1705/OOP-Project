@@ -14,8 +14,8 @@ namespace JobRecommendationWeb.Controllers
         }
         public IActionResult Index()
         {
-            List<Nhanvien> nhanvien = _context.Nhanviens.ToList();
-            ViewBag.nhanvien = nhanvien;
+            List<Taikhoan> taikhoans = _context.Taikhoans.ToList();
+            ViewBag.taikhoan = taikhoans;
             return View();
         }
         public IActionResult Create()
@@ -42,19 +42,14 @@ namespace JobRecommendationWeb.Controllers
 
             if (ModelState.IsValid)
             {
-                var nhanvien = new Nhanvien();
-                nhanvien.TenNhanVien = value.Nhanvien.TenNhanVien;
-                nhanvien.Email = value.Nhanvien.Email;
-                nhanvien.Sdt = value.Nhanvien.Sdt;
-                nhanvien.Tuoi = value.Nhanvien.Tuoi;
-
-                _context.Nhanviens.Add(nhanvien);
-                _context.SaveChanges();
-
                 var taikhoan = new Taikhoan();
-                taikhoan.MaNhanVien = nhanvien.MaNhanVien;
                 taikhoan.MaChucVu = value.Taikhoan.MaChucVu;
                 taikhoan.TenDangNhap = value.Taikhoan.TenDangNhap;
+
+                taikhoan.TenNhanVien = value.Taikhoan.TenNhanVien;
+                taikhoan.Email = value.Taikhoan.Email;
+                taikhoan.Sdt = value.Taikhoan.Sdt;
+                taikhoan.Tuoi = value.Taikhoan.Tuoi;
 
                 var pass = Encryptor.CreateMD5(Encryptor.Base64Encode(value.Taikhoan.MatKhau));
                 taikhoan.MatKhau = pass;
@@ -73,32 +68,32 @@ namespace JobRecommendationWeb.Controllers
         public async Task<IActionResult> Index(IFormCollection form)
         {
             string searchInput = form["input"];
-            var listNhanvien = new List<Nhanvien>();
+            var listNhanvien = new List<Taikhoan>();
             if (string.IsNullOrEmpty(searchInput))
             {
-                listNhanvien = _context.Nhanviens.ToList();
+                listNhanvien = _context.Taikhoans.ToList();
                 ViewBag.nhanvien = listNhanvien;
                 return View();
             }
             switch (form["NhanVien"])
             {
                 case "":
-                    listNhanvien = _context.Nhanviens.Where(x => x.TenNhanVien.Contains(searchInput)
+                    listNhanvien = _context.Taikhoans.Where(x => x.TenNhanVien.Contains(searchInput)
                     || x.Tuoi.ToString() == searchInput
                     || x.Email.Contains(searchInput)
                     || x.Sdt.Contains(searchInput) ).ToList();
                     break;
                 case "TenNhanVien":
-                    listNhanvien = _context.Nhanviens.Where(x => x.TenNhanVien.Contains(searchInput)).ToList();
+                    listNhanvien = _context.Taikhoans.Where(x => x.TenNhanVien.Contains(searchInput)).ToList();
                     break;
                 case "Tuoi":
-                    listNhanvien = _context.Nhanviens.Where(x => x.Tuoi.ToString() == searchInput).ToList();
+                    listNhanvien = _context.Taikhoans.Where(x => x.Tuoi.ToString() == searchInput).ToList();
                     break;
                 case "Sdt":
-                    listNhanvien = _context.Nhanviens.Where(x => x.Sdt.Contains(searchInput)).ToList();
+                    listNhanvien = _context.Taikhoans.Where(x => x.Sdt.Contains(searchInput)).ToList();
                     break;
                 case "Email":
-                    listNhanvien = _context.Nhanviens.Where(x => x.Email.Contains(searchInput)).ToList();
+                    listNhanvien = _context.Taikhoans.Where(x => x.Email.Contains(searchInput)).ToList();
                     break;
 
             }

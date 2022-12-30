@@ -1,7 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Quản lý nhân viên";
 
-    List<Nhanvien> listNV = ViewBag.nhanvien;
+    List<Taikhoan> listNV = ViewBag.taikhoan;
 }
 <partial name="_Notification" />
 <div class="container mb-5">
@@ -49,16 +49,16 @@
         </thead>
         <tbody>
             @{
-                foreach (var item in listNV)
+                for(int i = 0; i < listNV.Count; i++)
                 {
                         <tr>
-                            <td>@item.MaNhanVien</td>
-                            <td>@item.TenNhanVien</td>
-                            <td>@item.Tuoi</td>
-                            <td>@item.Sdt</td>
-                            <td>@item.Email</td>
+                            <td>@(i+1)</td>
+                            <td>@listNV[i].TenNhanVien</td>
+                            <td>@listNV[i].Tuoi</td>
+                            <td>@listNV[i].Sdt</td>
+                            <td>@listNV[i].Email</td>
                             <td>
-                            <a asp-action="Edit" asp-controller="Staff" asp-route-id="@item.MaNhanVien">Chỉnh sửa</a>
+                            <a asp-action="Edit" asp-controller="Staff" asp-route-id="@listNV[i].MaTaiKhoan">Chỉnh sửa</a>
                             </td>
                         </tr>
                 }

@@ -23,12 +23,10 @@ namespace JobRecommendationWeb.Controllers
             ViewBag.Controller = this.ControllerContext.RouteData.Values["controller"].ToString();
             List<Baidang> postList = _context.Baidangs.ToList();
             List<Chucvu> chucvus = _context.Chucvus.ToList();
-            List<Nhanvien> nhanviens = _context.Nhanviens.ToList();
             List<Taikhoan> tks = _context.Taikhoans.ToList();
 
             // Goi len View Bag
             ViewBag.TaiKhoan = UsingAccount.Instance.Taikhoan;
-            ViewBag.Nhanvien = UsingAccount.Instance.Nhanvien;
 
             return View(postList);
         }
