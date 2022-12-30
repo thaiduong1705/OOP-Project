@@ -16,7 +16,7 @@ namespace JobRecommendationWeb.Controllers
         }
         public IActionResult Index(String? input)
         {
-            var listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).ToList();
+            var listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.IsDeleted == false).ToList();
             return View(listUngVien);
         }
 

@@ -183,56 +183,15 @@ namespace JobRecommendationWeb.Controllers
             var congty = _context.Hosocongties.FirstOrDefault(x => x.MaCongTy == id);
 
             if (congty == null) return NotFound();
-
-            //foreach (var baidang in congty.Baidangs)
-            //{
-            //    ///Xoa phieu to cao lien quan toi bai dang
-            //    foreach (var pToCao in baidang.Phieutocaos)
-            //    {
-            //        var pPhat = _context.Phieuphats.FirstOrDefault(x => x.MaPhieuToCao == pToCao.MaPhieuToCao);
-            //        if (pPhat != null) _context.Phieuphats.Remove(pPhat);
-            //        _context.Phieutocaos.Remove(pToCao);
-            //    }
-
-            //    ///Xoa ki nang cua bai dang
-            //    foreach (var makn in baidang.MaKiNangs)
-            //    {
-            //        var kinang = _context.Kinangs.FirstOrDefault(x => x.MaKiNang == makn.MaKiNang);
-            //        var listknbd = new List<Baidang>(kinang.MaBaiDangs);
-            //        listknbd.Remove(baidang);
-            //        kinang.MaBaiDangs = listknbd;
-
-            //    }
-
-            //    ///Xoa ung tuyen cua ung vien
-            //    var dsUngtuyen = _context.Ungtuyens.Where(x => x.MaBaiDang == baidang.MaBaiDang).ToList();
-            //    foreach (var ungtuyen in dsUngtuyen)
-            //    {
-            //        var ungvien = _context.Ungviens.FirstOrDefault(x => x.MaUngVien == ungtuyen.MaUngVien);
-            //        if (ungvien != null)
-            //        {
-            //            var listUngtuyen = new List<Ungtuyen>(ungvien.Ungtuyens);
-            //            listUngtuyen.Remove(ungtuyen);
-            //            ungvien.Ungtuyens = listUngtuyen;
-            //        }
-            //        _context.Ungtuyens.Remove(ungtuyen);
-            //    }
-
-            //    ///Xoa lich su lam viec cua bai dang
-            //    var listLsLv = _context.Lichsulamviecs.Where(x => x.MaTaiKhoan == baidang.MaTaiKhoan).ToList();
-            //    foreach (var lslv in listLsLv)
-            //    {
-            //        var listBaiDang = new List<Baidang>(lslv.MaBaiDangs);
-            //        listBaiDang.Remove(baidang);
-            //        lslv.MaBaiDangs = listBaiDang;
-            //    }
-
-            //    _context.Baidangs.Remove(baidang);
-            //}
-
-            //_context.Hosocongties.Remove(congty);
-
             congty.IsDeleted = true;
+
+            List<Baidang> listbaidang = _context.Baidangs.Where(x => x.MaCongTy == congty.MaCongTy).ToList();
+
+            foreach (var baidang in listbaidang)
+            {
+                baidang.IsDeleted = true;
+            }
+
             _context.SaveChanges();
             TempData["success"] = "Xoá thành công!";
             return RedirectToAction("Index");
