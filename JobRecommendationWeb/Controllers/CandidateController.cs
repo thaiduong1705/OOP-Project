@@ -1,4 +1,5 @@
-﻿using JobRecommendationWeb.CustomViewModel;
+﻿using JobRecommendationWeb.AddingClasses;
+using JobRecommendationWeb.CustomViewModel;
 using JobRecommendationWeb.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,7 @@ namespace JobRecommendationWeb.Controllers
         {
             _context = context;
         }
+
         public IActionResult Index(String? input)
         {
             var listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.IsDeleted == false).ToList();
@@ -96,6 +98,11 @@ namespace JobRecommendationWeb.Controllers
 
         public IActionResult Create()
         {
+            if (UsingAccount.Instance.Taikhoan == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             var listkinang = _context.Kinangs.ToList();
             return View(listkinang);
         }
@@ -104,6 +111,11 @@ namespace JobRecommendationWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(IFormCollection form, IFormFile CV)
         {
+            if (UsingAccount.Instance.Taikhoan == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             if (ModelState.IsValid)
             {
                 Ungvien ungvien = new Ungvien();
@@ -150,6 +162,12 @@ namespace JobRecommendationWeb.Controllers
 
         public IActionResult Edit(int? id)
         {
+
+            if (UsingAccount.Instance.Taikhoan == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             Ungvien ungvien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.MaUngVien == id).FirstOrDefault();
             List<Kinang> kinangs = _context.Kinangs.ToList();
 
@@ -162,6 +180,12 @@ namespace JobRecommendationWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(IFormCollection form)
         {
+
+            if (UsingAccount.Instance.Taikhoan == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             int id = Convert.ToInt32(form["MaUngVien"]);
             Ungvien ungvien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.MaUngVien == id && x.IsDeleted == false).FirstOrDefault();
 
@@ -214,6 +238,12 @@ namespace JobRecommendationWeb.Controllers
         public IActionResult Delete(int? id)
         {
 
+            if (UsingAccount.Instance.Taikhoan == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+
             if (id == null || id == 0)
             {
                 return NotFound();
@@ -264,6 +294,12 @@ namespace JobRecommendationWeb.Controllers
 
         public IActionResult CvImageDetail(int? id)
         {
+
+            if (UsingAccount.Instance.Taikhoan == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             Cv cv = _context.Cvs.Where(x => x.MaUngVien == id).FirstOrDefault();
             if (cv == null)
             {

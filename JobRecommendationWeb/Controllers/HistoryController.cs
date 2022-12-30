@@ -14,6 +14,12 @@ namespace JobRecommendationWeb.Controllers
 
         public IActionResult Index()
         {
+
+            if (UsingAccount.Instance.Taikhoan == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             var taikhoan = _context.Taikhoans.ToList();
             var lichsulamviec = _context.Lichsulamviecs.ToList();
             var chitietlamviec = _context.Chitietlamviecs.ToList();
@@ -28,6 +34,12 @@ namespace JobRecommendationWeb.Controllers
         [HttpPost]
         public IActionResult Index(IFormCollection form)
         {
+
+            if (UsingAccount.Instance.Taikhoan == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             if (form["lslv"] == "")
             {
                 return View();
