@@ -65,6 +65,7 @@ namespace JobRecommendationWeb.Controllers
                 taikhoan.Email = value.Taikhoan.Email;
                 taikhoan.Sdt = value.Taikhoan.Sdt;
                 taikhoan.Tuoi = value.Taikhoan.Tuoi;
+                taikhoan.GioiTinh = value.Taikhoan.GioiTinh;
 
                 var pass = Encryptor.CreateMD5(Encryptor.Base64Encode(value.Taikhoan.MatKhau));
                 taikhoan.MatKhau = pass;

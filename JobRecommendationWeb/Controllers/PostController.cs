@@ -22,9 +22,9 @@ namespace JobRecommendationWeb.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Index(IFormCollection? form)
-        {
+        { 
             string searchInput = form["input"];
-            var listBaiDang = _context.Baidangs.Include(x => x.MaCongTyNavigation).ToList();
+            var listBaiDang = _context.Baidangs.Include(x => x.MaCongTyNavigation).Where(x => x.IsDeleted == false).ToList();
 
             if (string.IsNullOrEmpty(searchInput))
             {
@@ -38,7 +38,7 @@ namespace JobRecommendationWeb.Controllers
                         {
                             listBaiDang = listBaiDang.Where(x => x.MaCongTyNavigation.TenCongTy.Contains(searchInput)
                                 || x.TenCongViec.Contains(searchInput)
-                                || x.MoTa.Contains(searchInput)).ToList();
+                                || (x.MoTa == null)? true : x.MoTa.Contains(searchInput)).ToList();
                             break;
 
                         }
@@ -118,7 +118,6 @@ namespace JobRecommendationWeb.Controllers
                 value.TenCongViec = form["TenCongViec"];
                 value.WebsiteBaiGoc = form["WebsiteBaiGoc"];
                 value.MaCongTy = Convert.ToInt32(form["MaCongTy"]);
-                value.MoTa = form["MoTa"];
                 value.ThamNien = Convert.ToInt32(form["ThamNien"]);
                 value.LuongMin = Convert.ToInt32(form["LuongMin"]);
                 value.LuongMax = Convert.ToInt32(form["LuongMax"]);
@@ -208,6 +207,12 @@ namespace JobRecommendationWeb.Controllers
             if (UsingAccount.Instance.Taikhoan == null)
             {
                 return RedirectToAction("Index", "Home");
+            }
+
+            var checkExist = _context.Ungtuyens.Where(x => x.MaUngVien == candidate && x.MaBaiDang == post).ToList();
+            if (checkExist.Count != 0)
+            {
+                return RedirectToAction("Apply", "Post", new {id = post});
             }
 
             Ungvien ungvien = await _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.MaUngVien == candidate && x.IsDeleted == false).FirstOrDefaultAsync();
@@ -308,7 +313,7 @@ namespace JobRecommendationWeb.Controllers
             baidang.TenCongViec = form["TenCongViec"];
             baidang.WebsiteBaiGoc = form["WebsiteBaiGoc"];
             baidang.MaCongTy = Convert.ToInt32(form["MaCongTy"]);
-            baidang.MoTa = form["MoTa"];
+            baidang.MoTa = form["MoTaThem"];
             baidang.ThamNien = Convert.ToInt32(form["ThamNien"]);
             baidang.LuongMin = Convert.ToInt32(form["LuongMin"]);
             baidang.LuongMax = Convert.ToInt32(form["LuongMax"]);
