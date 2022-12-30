@@ -15,131 +15,106 @@
 
 }
 @section Styles {
-    <link rel="stylesheet" href="@Url.Content("/css/FormStyle.css")" />
+    <link rel="stylesheet" href="@Url.Content("/css/Form.css")" />
 }
-    <div class="container">
-        <form asp-action="Edit" asp-controller="Company" method="POST" enctype="multipart/form-data" autocomplete="off" id="formCreate">
+<div class="formView">
+    <div class="input_container">
+        <form name="formValidation" id="formValidation" action="valid.html">
             <div class="row-register">
-                <div class="col-register1">
-                    <img src="/images/logo.jpg" alt="ảnh" style="width: 200px">
-                </div>
                 <div class="col-register2">
                     <h1>Thông tin nhà tuyển dụng</h1>
                     <hr>
-                    <br>				
-                    <input type="text" name="MaCongTy" value="@Model.MaCongTy" class="form-control d-none"/>
-                    <div class="row-register2">
+                    <br>
+                    <div class="input-row row-register2">
                         <div class="col-register3">
-                            <label for="company_name">Tên công ty</label>
+                            <label for="name">Tên công ty</label>
                         </div>
                         <div class="col-register4">
-                            <input type="text" name="TenCongTy" value="@Model.TenCongTy">
+                            <input type="text" name="TenCongTy" id="name" value="@Model.TenCongTy" required autofocus>
                         </div>
                     </div>
                     <br>
-                    <div class="row-register2">
+                    
+                    <div class="input-row row-register2">
                         <div class="col-register3">
-                            <label for="staff_name">Website</label>
+                            <label for="email">Website</label>
                         </div>
                         <div class="col-register4">
-                            <input type="text" name="Website" value="@Model.Website">
+                            <input type="text" name="Website" id="email" value="@Model.Website" required>
                         </div>
                     </div>
                     <br>
-                    <div class="row-register2">
+                    
+                    <div class="input-row row-register2">
                         <div class="col-register3">
-                            <label for="staff_phone">Địa chỉ</label>
+                            <label for="location">Địa chỉ</label>
                         </div>
                         <div class="col-register4">
-                            <input type="text" name="DiaChi" value="@Model.DiaChi">
+                            <input type="text" name="DiaChi" id="location" value="@Model.DiaChi" required>
+                            <br>
+                            <span>Ví dụ: 332, Cộng Hòa, 14, Tân Bình</span>
                         </div>
                     </div>
                     <br>
-                    <div class="row-register2">
+                    <div class="input-row row-register2">
                         <div class="col-register3">
                             <label for="country">Quốc gia</label>
                         </div>
                         <div class="col-register4">
-                            <select name="QuocTich">
-                                @{
-                                foreach (var item in items)
+                            <select name="country" id="country" required>
+                                @foreach (var item in items)
                                 {
-                                    if (item.Text == Model.QuocTich)
+                                    if (item.Value == Model.QuocTich)
                                     {
                                         <option selected value="@item.Value">@item.Text</option>
                                     }
                                     else
                                     {
-                                        <option value="@item.Value">@item.Text</option>
+                                        <option selected value="@item.Value">@item.Text</option>
                                     }
                                 }
-                            }
-                        </select>
+                            </select>
+                        </div>
                     </div>
+                    <br>
+                    <div class="input-row row-register2">
+                        <div class="col-register3">
+                            <label for="compensation">Chế độ đãi ngộ</label>
+                        </div>
+                        <div class="col-register4">
+                            <textarea id="compensation" name="CheDoDaiNgo" rows="4" cols="50" required>@Model.CheDoDaiNgo</textarea>
+                            <!-- <input type="text-area" name="compensation" id="compensation" required> -->
+                        </div>
+                    </div>
+                    <br>
+                    <div class="input-row row-register2">
+                        <div class="col-register3">
+                            <label for="describe">Mô tả công ty</label>
+                        </div>
+                        <div class="col-register4">
+                            <textarea  id="describe" name="MoTaThem" rows="4" cols="50" required>@Model.MoTaThem</textarea>
+                            <!-- <input type="text-area" name="describe" id="describe" required> -->
+                        </div>
+                    </div>
+                    <br>
+                    <div class="input-row row-register2">
+                        <div class="col-register3">
+                            <label for="GPKD">Ảnh công ty</label>
+                        </div>
+                        <div class="col-register4">
+                            <input type="file" name="AnhCongTy" id="GPKD" accept="image/*" required>
+                        </div>
+                    </div>
+                    <br>
                 </div>
-                <br>
-                <div class="row-register2">
-                    <div class="col-register3">
-                        <label for="logo">Ảnh công ty</label>
-                    </div>
-                    <div class="col-register4">
-                        <input type="file" name="logo" id="logo"   accept="image/*" required>
-                    </div>
-                </div>
-                <br>
-                <div class="row-register2">
-                    <div class="col-register3">
-                        <label for="staff_phone">Chế độ đãi ngộ:</label>
-                    </div>
-                    <div class="col-register4">
-                        <input type="text" name="CheDoDaiNgo" value="@Model.CheDoDaiNgo" autofocus>
-                    </div>
-                </div>
-                <br>
-                <div class="row-register2">
-                    <div class="col-register3">
-                        <label for="staff_phone">Mô tả thêm</label>
-                    </div>
-                    <div class="col-register4">
-                        <input type="text" name="MoTaThem" value="@Model.MoTaThem" autofocus>
-                    </div>
-                </div>
-                <br>
-                <!-- <div class="row2">
-                    <div class="col3">
-                        <label for="male">Giới tính: </label>
-
-                    </div>
-                    <div class="col4">
-                        <label>
-                            <input type="radio" name="gender" value="male" id="male" required checked> Male
-                        </label>
-                        <br>
-                        <label>
-                            <input type="radio" name="gender" value="female"> Female
-                        </label>
-                        <br>
-                        <label>
-                            <input type="radio" name="gender" value="undefined"> Undefined
-                        </label>
-                    </div>
-
-                </div>
-                <br> -->
-                <div class="row-register2">
-                    <div class="col-register3">
-                        <!-- <label for="firstname">Firstname</label> -->
-                    </div>
-                    <div class="col-register4">
-                        <button>Lưu</button>
-                    </div>
-                </div>
-
             </div>
-        </div>
-    </form>
+            <div class="text-center">
+                <button>ĐĂNG KÝ</button>
+                <input onclick="resetForm()" type="button" value="LÀM MỚI">
+            </div>
+        </form>
+    </div>
 </div>
-
 @section Scripts {
     @{
         <partial name="_ValidationScriptsPartial" />

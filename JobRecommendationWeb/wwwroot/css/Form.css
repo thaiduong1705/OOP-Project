@@ -4,20 +4,30 @@
     -ms-box-sizing: border-box;
     box-sizing: border-box;
 }
-
+/*
 body {
-    /* font-family: arial; */
+     font-family: arial; 
     font-size: 16px;
     margin: 0;
-    /* background: #222; */
+     background: #222; 
     width: 100%;
-    /* color: #fff; */
+     color: #fff; 
 
     display: flex;
     align-items: center;
     justify-content: space-around;
     min-height: 100vh;
+}*/
+.formView {
+    font-size: 14px;
+    margin: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 100%;
 }
+
 
 hr {
     margin: 0 5%;
@@ -25,20 +35,6 @@ hr {
 
 h1 {
     text-align: center;
-}
-
-.col-register1 {
-    height: 400px;
-    position: relative;
-}
-
-button {
-    /* background-color: #1bbc9b;
-	height: 50px;
-	width: 130px;
-    border: none;
-    font-weight: bold;
-	position: absolute; */
 }
 
 .col-register3 {
@@ -67,6 +63,9 @@ ul li {
 /* .col-register3, .col-register4 {
 	width: 50%;
 } */
+/* .col-register2 {
+    width: 100%;
+} */
 
 .col-register3 {
     width: 30%;
@@ -81,7 +80,7 @@ ul li {
 /* mới */
 
 .input_container {
-    width: 600px;
+    width: 1000px;
     background-color: #fff;
     padding: 30px;
     /* border-radius: 15px; */
@@ -144,9 +143,11 @@ ul li {
         }
 
     .input_container input[type="file"] {
-        border: 2px solid #000;
-        width: 100%;
+        /* border: 2px solid #000; */
+        /* width: 100%; */
         /* display: none; */
+        background-color: #fff;
+        line-height: 36px;
     }
 
     /* .input_container input[type="date"] {
@@ -168,6 +169,13 @@ ul li {
         border-radius: 5px;
         border: 2px solid #000;
         background-color: #d6d6d6;
+        display: block;
+        background-clip: padding-box;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        border-radius: 0.375rem;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     }
 
 /* .input_container .label-file {
@@ -234,3 +242,5 @@ ion-icon {
     position: absolute;
     transition: all 0.2s;
 }
+
+

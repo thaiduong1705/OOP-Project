@@ -10,32 +10,34 @@
         <div class="col-6">
             <h3 class="text-dark">Danh sách bài tuyển dụng</h3>
         </div>
-        <div class="col-6 text-end">
+    </div>
+    <div class="search row">
+        <div class="col-10">
+            <form asp-action="Index" asp-controller="Post" method="POST" enctype="multipart/form-data" class="row my-2 my-lg-0" autocomplete="off">
+                <div class="col-10">
+                    <div class="input-group mb-3">
+                        <input class="form-control mr-sm-2 col-lg-8" type="text" name="input" placeholder="Search">
+                        <select name="baidang" id="baidang" style="border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-color: #6c757d;">
+                            <option value="">Chọn tất cả</option>
+                            <option value="TenCongTy">Tên công ty</option>
+                            <option value="TenCongViec ">Tên công việc</option>
+                            <option value="LuongMin">Lương tối thiểu</option>
+                            <option value="LuongMax">Lương tối đa</option>
+                            <option value="ThamNien">Thâm Niên</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-2 text-end">
+                    <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Search">
+                </div>
+            </form>
+        </div>
+		<div class="col-2 text-end">
             @if (UsingAccount.Instance.Taikhoan != null)
 			{
                 <a class="btn btn-primary" asp-action="Create" asp-controller="Post">Tạo bài tuyển dụng</a>
             }
         </div>
-    </div>
-    <div class="search">
-		<form asp-action="Index" asp-controller="Post" method="POST" enctype="multipart/form-data" class="row my-2 my-lg-0" autocomplete="off">
-            <div class="col-8">
-                <div class="input-group mb-3">
-					<input class="form-control mr-sm-2 col-lg-8" type="text" name="input" placeholder="Search">
-                    <select name="baidang" id="baidang" style="border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-color: #6c757d;">
-						<option value="">Chọn tất cả</option>
-                        <option value="TenCongTy">Tên công ty</option>
-                        <option value="TenCongViec ">Tên công việc</option>
-                        <option value="LuongMin">Lương tối thiểu</option>
-                        <option value="LuongMax">Lương tối đa</option>
-                        <option value="ThamNien">Thâm Niên</option>
-					</select>
-				</div>
-            </div>			
-			<div class="col-auto">
-                <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Search">
-			</div>
-		</form>
 	</div>
 </div>
 

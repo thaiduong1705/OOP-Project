@@ -4,107 +4,108 @@
 
 }
 @section Styles {
-	<link rel="stylesheet" href="@Url.Content("/css/FormStyle.css")"/>
+<link rel="stylesheet" href="@Url.Content("/css/Form.css")" />
 }
-<div class="container">
-	<form id="formCreate" asp-action="Create" asp-controller="Company" method="POST" enctype="multipart/form-data" autocomplete="off">
-		<div class="row-register">
-			<div class="col-register1">
-				<img src="/images/logo.jpg" alt="ảnh" style="width: 200px">
-			</div>
-			<div class="col-register2">
-				<h1>Thông tin nhà tuyển dụng</h1>
-				<hr>
-				<br>
-				<div class="row-register2">
-					<div class="col-register3">
-						<label for="company_name">Tên công ty</label>
-					</div>
-					<div class="col-register4">
-						<input type="text" name="TenCongTy" >
-					</div>
-				</div>
-				<br>
-				<div class="row-register2">
-					<div class="col-register3">
-						<label for="">Website</label>
-					</div>
-					<div class="col-register4">
-						<input type="url" name="Website">
-					</div>
-				</div>
-				<br>
-				<div class="row-register2">
-					<div class="col-register3">
-						<label for="staff_phone">Địa chỉ</label>
-					</div>
-					<div class="col-register4">
-						<input type="text" name="DiaChi" id="DiaChi">
-					</div>
-				</div>
-				<br>
-				<div class="row-register2">
-					<div class="col-register3">
-						<label for="country">Quốc tịch</label>
-					</div>
-					<div class="col-register4">
-						<select name="country" id="country">
-							<option selected value="Việt Nam">Việt Nam</option>
-							<option value="Lào">Lào</option>
-							<option value="Campuchia">Campuchia</option>
-							<option value="Hàn Quốc">Hàn Quốc</option>
-							<option value="Đức">Đức</option>
-							<option value="Nhật Bản">Nhật Bản</option>
-							<option value="Thái Lan">Thái Lan</option>
-							<option value="Mỹ">Mỹ</option>
-							<option value="Singapore">Singapore</option>
-						</select>
-
-					</div>
-				</div>
-				<br>
-				<div class="row-register2">
-					<div class="col-register3">
-						<label for="logo">Ảnh công ty</label>
-					</div>
-					<div class="col-register4">
-						<input type="file" name="logo" id="logo" accept="image/*">
-					</div>
-				</div>
-				<br>
-				<div class="row-register2">
-					<div class="col-register3">
-						<label for="staff_phone">Chế độ đãi ngộ:</label>
-					</div>
-					<div class="col-register4">
-						<input type="text" name="CheDoDaiNgo" id="CheDoDaiNgo">
-					</div>
-				</div>
-				<br>
-				<div class="row-register2">
-					<div class="col-register3">
-						<label for="staff_phone">Mô tả thêm</label>
-					</div>
-					<div class="col-register4">
-						<input type="text" name="MoTaThem" id="MoTaThem">
-					</div>
-				</div>
-				<br>
-				<div class="row-register2">
-					<div class="col-register3">
-					</div>
-					<div class="col-register4">
-						<input type="submit" value="Register" />
-					</div>
-				</div>
-
-			</div>
-		</div>
-	</form>
+<div class="formView">
+    <div class="input_container">
+        <form name="formValidation" id="formValidation" action="valid.html">
+            <div class="row-register">
+                <div class="col-register2">
+                    <h1>Thông tin nhà tuyển dụng</h1>
+                    <hr>
+                    <br>
+                    <div class="input-row row-register2">
+                        <div class="col-register3">
+                            <label for="name">Tên công ty</label>
+                        </div>
+                        <div class="col-register4">
+                            <input type="text" name="TenCongTy" id="name" required autofocus>
+                        </div>
+                    </div>
+                    <br>
+                    
+                    <div class="input-row row-register2">
+                        <div class="col-register3">
+                            <label for="email">Website</label>
+                        </div>
+                        <div class="col-register4">
+                            <input type="text" name="Website" id="email" required>
+                        </div>
+                    </div>
+                    <br>
+                    
+                    <div class="input-row row-register2">
+                        <div class="col-register3">
+                            <label for="location">Địa chỉ</label>
+                        </div>
+                        <div class="col-register4">
+                            <input type="text" name="DiaChi" id="location" required>
+                            <br>
+                            <span>Ví dụ: 332, Cộng Hòa, 14, Tân Bình</span>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="input-row row-register2">
+                        <div class="col-register3">
+                            <label for="country">Quốc gia</label>
+                        </div>
+                        <div class="col-register4">
+                            <select name="country" id="country" required>
+                                <option value=""></option>
+                                <option value="vn">Việt Nam</option>
+                                <option value="lao">Lào</option>
+                                <option value="cam">Campuchia</option>
+                                <option value="kor">Hàn Quốc</option>
+                                <option value="ger">Đức</option>
+                                <option value="jap">Nhật Bản</option>
+                                <option value="tha">Thái Lan</option>
+                                <option value="USA">Mỹ</option>
+                                <option value="sin">Singapore</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="input-row row-register2">
+                        <div class="col-register3">
+                            <label for="compensation">Chế độ đãi ngộ</label>
+                        </div>
+                        <div class="col-register4">
+                            <textarea id="compensation" name="CheDoDaiNgo" rows="4" cols="50" required></textarea>
+                            <!-- <input type="text-area" name="compensation" id="compensation" required> -->
+                        </div>
+                    </div>
+                    <br>
+                    <div class="input-row row-register2">
+                        <div class="col-register3">
+                            <label for="describe">Mô tả công ty</label>
+                        </div>
+                        <div class="col-register4">
+                            <textarea  id="describe" name="MoTaThem" rows="4" cols="50" required></textarea>
+                            <!-- <input type="text-area" name="describe" id="describe" required> -->
+                        </div>
+                    </div>
+                    <br>
+                    <div class="input-row row-register2">
+                        <div class="col-register3">
+                            <label for="GPKD">Ảnh công ty</label>
+                        </div>
+                        <div class="col-register4">
+                            <input type="file" name="AnhCongTy" id="GPKD" accept="image/*" required>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+            <div class="text-center">
+                <button>ĐĂNG KÝ</button>
+                <input onclick="resetForm()" type="button" value="LÀM MỚI">
+            </div>
+        </form>
+    </div>
 </div>
 @section Scripts {
 	@{
-		<partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial" />
 	}
-	<script src="~/js/CompanyValid.js"></script>
+<script src="~/js/CompanyValid.js"></script>
 }
