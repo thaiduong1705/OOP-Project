@@ -15,7 +15,7 @@ namespace JobRecommendationWeb.Controllers
         }
         public IActionResult Index()
         {
-            var listBaiDang = _context.Baidangs.Include( x => x.MaCongTyNavigation ).Where(x => x.IsDeleted == false).ToList();
+            var listBaiDang = _context.Baidangs.Include(x => x.MaCongTyNavigation).Where(x => x.IsDeleted == false).ToList();
             return View(listBaiDang);
         }
 
@@ -24,11 +24,11 @@ namespace JobRecommendationWeb.Controllers
         public async Task<IActionResult> Index(IFormCollection? form)
         {
             string searchInput = form["input"];
-            var listBaiDang = new List<Baidang>();
+            var listBaiDang = _context.Baidangs.Include(x => x.MaCongTyNavigation).ToList();
 
             if (string.IsNullOrEmpty(searchInput))
             {
-                listBaiDang = _context.Baidangs.ToList();
+                listBaiDang = listBaiDang.Where(x => x.IsDeleted == false).ToList();
             }
             else
             {
@@ -36,7 +36,7 @@ namespace JobRecommendationWeb.Controllers
                 {
                     case "":
                         {
-                            listBaiDang = _context.Baidangs.Where(x => x.MaCongTyNavigation.TenCongTy.Contains(searchInput)
+                            listBaiDang = listBaiDang.Where(x => x.MaCongTyNavigation.TenCongTy.Contains(searchInput)
                                 || x.TenCongViec.Contains(searchInput)
                                 || x.MoTa.Contains(searchInput)).ToList();
                             break;
@@ -44,12 +44,12 @@ namespace JobRecommendationWeb.Controllers
                         }
                     case "TenCongTy":
                         {
-                            listBaiDang = _context.Baidangs.Where(x => x.MaCongTyNavigation.TenCongTy.Contains(searchInput)).ToList();
+                            listBaiDang = listBaiDang.Where(x => x.MaCongTyNavigation.TenCongTy.Contains(searchInput)).ToList();
                             break;
                         }
                     case "TenCongViec":
                         {
-                            listBaiDang = _context.Baidangs.Where(x => x.TenCongViec.Contains(searchInput)).ToList();
+                            listBaiDang = listBaiDang.Where(x => x.TenCongViec.Contains(searchInput)).ToList();
                             break;
                         }
 
@@ -58,7 +58,7 @@ namespace JobRecommendationWeb.Controllers
                             int luongMax;
                             if (int.TryParse(form["input"], out luongMax))
                             {
-                                listBaiDang = _context.Baidangs.Where(x => x.LuongMax >= luongMax).ToList();
+                                listBaiDang = listBaiDang.Where(x => x.LuongMax >= luongMax).ToList();
                             }
                             break;
 
@@ -69,7 +69,7 @@ namespace JobRecommendationWeb.Controllers
                             int luongMin;
                             if (int.TryParse(form["input"], out luongMin))
                             {
-                                listBaiDang = _context.Baidangs.Where(x => x.LuongMin >= luongMin).ToList();
+                                listBaiDang = listBaiDang.Where(x => x.LuongMin >= luongMin).ToList();
                             }
                             break;
                         }
@@ -79,13 +79,12 @@ namespace JobRecommendationWeb.Controllers
                             int thamNien;
                             if (int.TryParse(form["input"], out thamNien))
                             {
-                                listBaiDang = _context.Baidangs.Where(x => x.LuongMin <= thamNien).ToList();
+                                listBaiDang = listBaiDang.Where(x => x.LuongMin <= thamNien).ToList();
                             }
                             break;
                         }
                 }
             }
-            listBaiDang = listBaiDang.Where(x => x.IsDeleted == false).ToList();
             return View(listBaiDang);
         }
 

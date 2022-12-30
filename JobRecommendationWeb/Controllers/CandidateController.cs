@@ -26,15 +26,15 @@ namespace JobRecommendationWeb.Controllers
         {
 
             string searchInput = form["input"];
+            var listUngVien = new List<Ungvien>();
 
             if (string.IsNullOrEmpty(searchInput))
             {
-                var listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).ToList();
-                return View(listUngVien);
+                listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).ToList();
             }
             else
             {
-                var listUngVien = new List<Ungvien>();
+                listUngVien = new List<Ungvien>();
                 switch (form["UngVien"])
                 {
                     case "":
@@ -89,9 +89,9 @@ namespace JobRecommendationWeb.Controllers
                             break;
                         }
                 }
-                listUngVien = listUngVien.Where(x => x.IsDeleted == false).ToList();
-                return View(listUngVien);
             }
+            listUngVien = listUngVien.Where(x => x.IsDeleted == false).ToList();
+            return View(listUngVien);
         }
 
         public IActionResult Create()
