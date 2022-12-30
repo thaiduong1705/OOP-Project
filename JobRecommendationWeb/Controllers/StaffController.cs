@@ -14,12 +14,22 @@ namespace JobRecommendationWeb.Controllers
         }
         public IActionResult Index()
         {
+            if (UsingAccount.Instance.Taikhoan == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             List<Taikhoan> taikhoans = _context.Taikhoans.ToList();
             ViewBag.taikhoan = taikhoans;
             return View();
         }
         public IActionResult Create()
         {
+            if (UsingAccount.Instance.Taikhoan == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             TaikhoanNhanvienViewModel value = new TaikhoanNhanvienViewModel();
             ViewBag.Chucvu = _context.Chucvus.ToList();
             return View(value);
@@ -29,6 +39,11 @@ namespace JobRecommendationWeb.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(TaikhoanNhanvienViewModel value)
         {
+            if (UsingAccount.Instance.Taikhoan == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             if (value.Taikhoan.MatKhau != value.RePassword)
             {
                 ModelState.AddModelError("RePassword", "Mật khẩu nhập lại không đúng");
@@ -54,6 +69,7 @@ namespace JobRecommendationWeb.Controllers
                 var pass = Encryptor.CreateMD5(Encryptor.Base64Encode(value.Taikhoan.MatKhau));
                 taikhoan.MatKhau = pass;
 
+                _context.Taikhoans.Add(taikhoan);
                 _context.SaveChanges();
                 TempData["success"] = "Tạo thành công!";
                 return RedirectToAction("Index");
@@ -67,6 +83,11 @@ namespace JobRecommendationWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Index(IFormCollection form)
         {
+            if (UsingAccount.Instance.Taikhoan == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             string searchInput = form["input"];
             var listNhanvien = new List<Taikhoan>();
             if (string.IsNullOrEmpty(searchInput))
@@ -104,6 +125,11 @@ namespace JobRecommendationWeb.Controllers
 
         public IActionResult Edit(int? id)
         {
+            if (UsingAccount.Instance.Taikhoan == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             TaikhoanNhanvienViewModel taikhoan = new TaikhoanNhanvienViewModel();
             taikhoan.Taikhoan = _context.Taikhoans.FirstOrDefault(x => x.MaTaiKhoan == id);
 
@@ -115,6 +141,10 @@ namespace JobRecommendationWeb.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(TaikhoanNhanvienViewModel taikhoan)
         {
+            if (UsingAccount.Instance.Taikhoan == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
             _context.Taikhoans.Update(taikhoan.Taikhoan);
             return RedirectToAction("Index");

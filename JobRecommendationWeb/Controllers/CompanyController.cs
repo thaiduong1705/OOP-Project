@@ -1,4 +1,5 @@
-﻿using JobRecommendationWeb.Models;
+﻿using JobRecommendationWeb.AddingClasses;
+using JobRecommendationWeb.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -59,6 +60,11 @@ namespace JobRecommendationWeb.Controllers
 
         public async Task<IActionResult> Detail(int? id)
         {
+            if (UsingAccount.Instance.Taikhoan == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -74,6 +80,12 @@ namespace JobRecommendationWeb.Controllers
 
         public IActionResult Create()
         {
+
+            if (UsingAccount.Instance.Taikhoan == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             return View();
         }
 
@@ -81,6 +93,12 @@ namespace JobRecommendationWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(IFormCollection form)
         {
+
+            if (UsingAccount.Instance.Taikhoan == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             if (ModelState.IsValid)
             {
                 Hosocongty value = new Hosocongty();
@@ -107,6 +125,12 @@ namespace JobRecommendationWeb.Controllers
 
         public async Task<IActionResult> Edit(int? id)
         {
+
+            if (UsingAccount.Instance.Taikhoan == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -124,6 +148,12 @@ namespace JobRecommendationWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(IFormCollection form)
         {
+
+            if (UsingAccount.Instance.Taikhoan == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             var value = await _context.Hosocongties.FindAsync(int.Parse(form["MaCongTy"]));
             if (ModelState.IsValid)
             {
@@ -175,6 +205,12 @@ namespace JobRecommendationWeb.Controllers
         }
         public IActionResult Delete(int? id)
         {
+
+            if (UsingAccount.Instance.Taikhoan == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             if (id == null || id == 0)
             {
                 return NotFound();

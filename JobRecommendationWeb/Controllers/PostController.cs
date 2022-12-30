@@ -91,6 +91,11 @@ namespace JobRecommendationWeb.Controllers
 
         public IActionResult Create()
         {
+            if (UsingAccount.Instance.Taikhoan == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             List<Hosocongty> companylist = _context.Hosocongties.Where(x => x.IsDeleted == false).ToList();
             List<Kinang> kinangList = _context.Kinangs.ToList();
             ViewBag.kinangList = kinangList;
@@ -102,6 +107,11 @@ namespace JobRecommendationWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(IFormCollection form)
         {
+            if (UsingAccount.Instance.Taikhoan == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             if (ModelState.IsValid)
             {
                 Baidang value = new Baidang();
@@ -160,6 +170,11 @@ namespace JobRecommendationWeb.Controllers
 
         public async Task<IActionResult> Apply(int? id)
         {
+            if (UsingAccount.Instance.Taikhoan == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -180,6 +195,11 @@ namespace JobRecommendationWeb.Controllers
 
         public async Task<IActionResult> CandidateApply(int? candidate, int? post)
         {
+            if (UsingAccount.Instance.Taikhoan == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             Ungvien ungvien = await _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.MaUngVien == candidate && x.IsDeleted == false).FirstOrDefaultAsync();
             Baidang baidang = await _context.Baidangs.Where(x => x.MaBaiDang == post && x.IsDeleted == false).FirstOrDefaultAsync();
 
@@ -199,6 +219,11 @@ namespace JobRecommendationWeb.Controllers
 
         public async Task<IActionResult> AppliedCandidate(int? id)
         {
+            if (UsingAccount.Instance.Taikhoan == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -230,6 +255,11 @@ namespace JobRecommendationWeb.Controllers
         [HttpGet]
         public IActionResult Edit(int? id)
         {
+            if (UsingAccount.Instance.Taikhoan == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             if (id == null)
             {
                 return NotFound();
@@ -252,6 +282,11 @@ namespace JobRecommendationWeb.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(IFormCollection form)
         {
+            if (UsingAccount.Instance.Taikhoan == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             int id = Convert.ToInt32(form["MaBaiDang"]);
             Baidang baidang = _context.Baidangs.Include(x => x.MaKiNangs).Where(x => x.MaBaiDang == id && x.IsDeleted == false).FirstOrDefault();
 
@@ -308,6 +343,11 @@ namespace JobRecommendationWeb.Controllers
 
         public IActionResult Delete(int? id)
         {
+            if (UsingAccount.Instance.Taikhoan == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             if (id == null || id == 0)
             {
                 return NotFound();
@@ -383,6 +423,11 @@ namespace JobRecommendationWeb.Controllers
 
         public IActionResult ExportToExcel(int? id)
         {
+            if (UsingAccount.Instance.Taikhoan == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
 
             Baidang post = _context.Baidangs.FirstOrDefault(x => x.MaBaiDang == id && x.IsDeleted == false);
 

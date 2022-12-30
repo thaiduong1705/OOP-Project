@@ -29,7 +29,8 @@ public partial class Taikhoan
     public int? Tuoi { get; set; }
 
     [Required(ErrorMessage = "Vui lòng nhập số điện thoại")]
-    [MinLength(6, ErrorMessage = "Vui lòng nhập đúng định dạng số điện thoại")]
+    [MinLength(10, ErrorMessage = "Vui lòng nhập đúng định dạng số điện thoại")]
+    [MaxLength(10, ErrorMessage = "Vui lòng nhập đúng định dạng số điện thoại")]
     [Phone(ErrorMessage = "Vui lòng nhập đúng định dạng số điện thoại")]
     public string? Sdt { get; set; }
 
