@@ -1,18 +1,8 @@
-﻿using Microsoft.AspNetCore.Http.Metadata;
-using JobRecommendationWeb.CustomViewModel;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Reflection;
-using JobRecommendationWeb.Models;
-using Microsoft.Extensions.Hosting;
-using System.Collections.Generic;
-using System.Security.Cryptography;
-using Microsoft.AspNetCore.Identity;
-using Newtonsoft.Json.Linq;
+﻿using ClosedXML.Excel;
 using JobRecommendationWeb.AddingClasses;
-using ClosedXML.Excel;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 namespace JobRecommendationWeb.Controllers
 {
@@ -25,7 +15,7 @@ namespace JobRecommendationWeb.Controllers
         }
         public IActionResult Index()
         {
-            var listBaiDang = _context.Baidangs.Where(x => x.IsDeleted == false).ToList();
+            var listBaiDang = _context.Baidangs.Include( x => x.MaCongTyNavigation ).Where(x => x.IsDeleted == false).ToList();
             return View(listBaiDang);
         }
 
@@ -130,8 +120,8 @@ namespace JobRecommendationWeb.Controllers
 
                 var chitietlamviec = new Chitietlamviec();
                 var date = DateTime.Now;
-                var lslv = _context.Lichsulamviecs.FirstOrDefault( x => x.MaTaiKhoan == UsingAccount.Instance.Taikhoan.MaTaiKhoan && x.NgayLamViec == DateTime.Today );
-                
+                var lslv = _context.Lichsulamviecs.FirstOrDefault(x => x.MaTaiKhoan == UsingAccount.Instance.Taikhoan.MaTaiKhoan && x.NgayLamViec == DateTime.Today);
+
                 chitietlamviec.MaLslv = lslv.MaLslv;
                 chitietlamviec.HoatDong = "Thêm bài đăng " + value.TenCongViec;
                 chitietlamviec.MaBaiDang = value.MaBaiDang;
@@ -227,7 +217,7 @@ namespace JobRecommendationWeb.Controllers
             {
                 if (item.MaBaiDang == post.MaBaiDang)
                 {
-                    Ungvien? c = await _context.Ungviens.Include(x => x.MaKiNangs).FirstOrDefaultAsync( x => x.MaUngVien == item.MaUngVien && x.IsDeleted == false);
+                    Ungvien? c = await _context.Ungviens.Include(x => x.MaKiNangs).FirstOrDefaultAsync(x => x.MaUngVien == item.MaUngVien && x.IsDeleted == false);
                     if (c != null)
                         candidates.Add(c);
                 }
@@ -267,7 +257,7 @@ namespace JobRecommendationWeb.Controllers
             Baidang baidang = _context.Baidangs.Include(x => x.MaKiNangs).Where(x => x.MaBaiDang == id && x.IsDeleted == false).FirstOrDefault();
 
             foreach (Kinang kinang in baidang.MaKiNangs.ToList())
-            {   
+            {
                 baidang.MaKiNangs.Remove(kinang);
             }
 
@@ -448,7 +438,7 @@ namespace JobRecommendationWeb.Controllers
                     worksheet.Cell(currentRow, 6).Value = user.Email;
                     worksheet.Cell(currentRow, 7).Value = user.Sdt;
                     worksheet.Cell(currentRow, 8).Value = user.ThamNien + " năm";
-                    worksheet.Cell(currentRow, 9).Value = (user.GioiTinh == 0)? "Nam" : (user.GioiTinh == 1)? "Nữ" : "Khác";
+                    worksheet.Cell(currentRow, 9).Value = (user.GioiTinh == 0) ? "Nam" : (user.GioiTinh == 1) ? "Nữ" : "Khác";
                 }
 
                 using (var stream = new MemoryStream())
