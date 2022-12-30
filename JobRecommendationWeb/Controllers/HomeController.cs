@@ -1,8 +1,14 @@
 ﻿using JobRecommendationWeb.AddingClasses;
 using JobRecommendationWeb.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Protocol.Plugins;
 using System.Diagnostics;
+using System.IO;
+using System.Net;
+using System.Net.Mail;
+using System.Text;
 
 namespace JobRecommendationWeb.Controllers
 {
@@ -52,9 +58,28 @@ namespace JobRecommendationWeb.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public IActionResult SendMail()
+        [HttpPost]
+        public IActionResult SendMail(IFormCollection? form)
         {
-            ///Gui mail ve 
+            if (form["username"] != "" && form["message"] != "")
+            {
+                using (MailMessage mail = new MailMessage())
+                {
+                    mail.From = new MailAddress("testemail65465@gmail.com");
+                    mail.To.Add("testemail65465@gmail.com");
+                    mail.Subject = form["username"] + ": " + form["subject"];
+                    mail.Body = form["message"];
+                    mail.IsBodyHtml = false;
+
+                    using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
+                    {
+                        smtp.UseDefaultCredentials = false;
+                        smtp.Credentials = new NetworkCredential("testemail65465@gmail.com", "luboauymuxbdfuvh");
+                        smtp.EnableSsl = true;
+                        smtp.Send(mail);
+                    }
+                }
+            }
             return RedirectToAction("Index");
         }
     }
