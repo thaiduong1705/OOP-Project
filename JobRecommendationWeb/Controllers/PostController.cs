@@ -226,7 +226,7 @@ namespace JobRecommendationWeb.Controllers
             {
                 if (item.MaBaiDang == post.MaBaiDang)
                 {
-                    Ungvien? c = await _context.Ungviens.FirstOrDefaultAsync( x => x.MaUngVien == item.MaUngVien && x.IsDeleted == false);
+                    Ungvien? c = await _context.Ungviens.Include(x => x.MaKiNangs).FirstOrDefaultAsync( x => x.MaUngVien == item.MaUngVien && x.IsDeleted == false);
                     if (c != null)
                         candidates.Add(c);
                 }
