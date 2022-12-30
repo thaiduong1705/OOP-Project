@@ -216,7 +216,7 @@ namespace JobRecommendationWeb.Controllers
             {
                 return NotFound();
             }
-            var candidates = _context.Ungviens.ToList();
+            var candidates = _context.Ungviens.Include(x => x.MaKiNangs).ToList();
 
             ViewBag.post = post;
             ViewBag.candidates = candidates;
@@ -262,7 +262,7 @@ namespace JobRecommendationWeb.Controllers
             {
                 if (item.MaBaiDang == post.MaBaiDang)
                 {
-                    Ungvien? c = await _context.Ungviens.FindAsync(item.MaUngVien);
+                    Ungvien? c = await _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.MaUngVien == item.MaUngVien).FirstOrDefaultAsync();
                     if (c != null)
                         candidates.Add(c);
                 }

@@ -19,27 +19,31 @@
             </div>
         </form>
     </div>
-
 </div>
 
 <div class="container me-auto">
     <!-- chỗ này binding ra danh các việc làm nè-->
-    <ul class="displayCard w-100">
-        @foreach (var item in c)
-        {
-            <li class="d-inline-block m-4">
-                <div class="card position-relative">
-                    <div class="card-body">
-                        <h5 class="card-title fw-bolder">@item.Ten </h5>
-                        <div class="small-text mb-2">
-                            <p class="card-text m-0 small"> @item.Tuoi tuổi</p>
-                            <p class="card-text m-0 small"> Năm kinh nghiệm: @item.ThamNien</p>
-                            <p class="card-text m-0 small"> Kĩ năng:</p>
-                        </div>
-                        <p class="card-text">Mô tả</p>
-                    </div>
-                </div>
-            </li>
-        }
-    </ul>
+	<ul class="displayCard w-100">
+		@foreach (var item in c)	
+		{
+			<li class="d-inline-block m-4">
+				<div class="card">
+					<div class="card-body">
+						<h5 class="card-title fw-bolder">@item.Ten</h5>
+						<div class="mb-2">
+							<p class="card-text m-0 small"> @item.Tuoi tuổi</p>
+							<p class="card-text m-0 small mt-2"><span class="fw-bold">Năm kinh nghiệm:</span> @item.ThamNien</p>
+							<p class="card-text m-0 small fw-bold mt-2"> Kĩ năng:</p>
+							<p class="card-text m-0 small">
+								@foreach (var k in item.MaKiNangs)
+								{
+									<text>@k.TenKiNang, </text>
+								}
+							</p>
+						</div>
+					</div>
+				</div>
+			</li>
+		}
+	</ul>
 </div>

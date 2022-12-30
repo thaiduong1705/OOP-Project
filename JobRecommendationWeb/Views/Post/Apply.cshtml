@@ -3,50 +3,61 @@
     Baidang post = ViewBag.post;
     List<Ungvien> candidates = ViewBag.candidates;
 }
-
+@section Styles {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
+}
 <div class="container mb-5">
     <div class="row">
         <div class="col-6">
             <h3 class="text-dark">Danh sách ứng viên</h3>
         </div>
-    </div>
-    <div class="search">
-        <form class="row my-2 my-lg-0">
-            <div class="col-lg-8">
-                <input class="form-control mr-sm-2 col-lg-8" type="text" placeholder="Search">
-            </div>
-			<div class="col-2">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </div>
             <div class="col-2">
                 <a asp-action="Detail" asp-controller="Post" asp-route-id="@post.MaBaiDang" class="btn btn-outline-success my-2 my-sm-0" type="submit">Trở về</a>
             </div>
-			
-        </form>
+
     </div>
     
 </div>
+    <div class="container py-5">
+        <div class="row">
+            <table id="example" class="table table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Tên</th>
+                        <th>Tuổi</th>
+                        <th>Thâm niên</th>
+                        <th>Kỹ năng</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in candidates)
+                    {
+                        <tr>
+                            <td>@item.Ten</td>
+                            <td>@item.Tuoi</td>
+                            <td>@item.ThamNien</td>
+                            <td>
+                                @foreach (var k in item.MaKiNangs)
+                                {
+                                    <text>@k.TenKiNang, </text>
+                                }
+                            </td>
+                            <td>
+                                <a class="link-info text-decoration-none" asp-action="CandidateApply" asp-controller="Post" asp-route-candidate="@item.MaUngVien" asp-route-post="@post.MaBaiDang">Ứng tuyển</a>
+                            </td>
 
-<div class="container me-auto">
-    <!-- chỗ này binding ra danh các việc làm nè-->
-    <table class="table table-bordered table-striped w-100"> 
-        <thead>
-            <tr>
-                <th>Stt</th>
-                <th>Tên ứng viên</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @for(int i = 0; i < candidates.Count; i++){
-                <tr>
-                    <td>@(i + 1)</td>
-                    <td>@candidates[i].Ten</td>
-                    <td>
-                        <a class="link-info text-decoration-none" asp-action="CandidateApply" asp-controller="Post" asp-route-candidate="@candidates[i].MaUngVien" asp-route-post="@post.MaBaiDang">Ứng tuyển</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+    <script src="/js/data-table.js"></script>
+}
