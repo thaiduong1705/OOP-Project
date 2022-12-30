@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace JobRecommendationWeb.Migrations
 {
     /// <inheritdoc />
-    public partial class InitDb : Migration
+    public partial class IntitalDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -36,7 +36,8 @@ namespace JobRecommendationWeb.Migrations
                     QuocTich = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CheDoDaiNgo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     MoTaThem = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    AnhCongTy = table.Column<byte[]>(type: "varbinary(max)", nullable: true)
+                    AnhCongTy = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true, defaultValueSql: "((0))")
                 },
                 constraints: table =>
                 {
@@ -54,22 +55,6 @@ namespace JobRecommendationWeb.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("KINANG_PK", x => x.MaKiNang);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "NHANVIEN",
-                columns: table => new
-                {
-                    MaNhanVien = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TenNhanVien = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Tuoi = table.Column<int>(type: "int", nullable: true),
-                    SDT = table.Column<string>(type: "varchar(10)", unicode: false, maxLength: 10, nullable: true),
-                    Email = table.Column<string>(type: "varchar(max)", unicode: false, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("NHANVIEN_PK", x => x.MaNhanVien);
                 });
 
             migrationBuilder.CreateTable(
@@ -114,7 +99,9 @@ namespace JobRecommendationWeb.Migrations
                     DiaChi = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SDT = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ThamNien = table.Column<int>(type: "int", nullable: true)
+                    ThamNien = table.Column<int>(type: "int", nullable: true),
+                    GioiTinh = table.Column<int>(type: "int", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true, defaultValueSql: "((0))")
                 },
                 constraints: table =>
                 {
@@ -127,10 +114,14 @@ namespace JobRecommendationWeb.Migrations
                 {
                     MaTaiKhoan = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    TenDangNhap = table.Column<string>(type: "varchar(max)", unicode: false, nullable: true),
-                    MatKhau = table.Column<string>(type: "varchar(max)", unicode: false, nullable: true),
-                    MaChucVu = table.Column<int>(type: "int", nullable: true),
-                    MaNhanVien = table.Column<int>(type: "int", nullable: true)
+                    TenDangNhap = table.Column<string>(type: "varchar(20)", unicode: false, maxLength: 20, nullable: false),
+                    MatKhau = table.Column<string>(type: "varchar(max)", unicode: false, nullable: false),
+                    MaChucVu = table.Column<int>(type: "int", nullable: false),
+                    TenNhanVien = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Tuoi = table.Column<int>(type: "int", nullable: false),
+                    SDT = table.Column<string>(type: "varchar(10)", unicode: false, maxLength: 10, nullable: false),
+                    Email = table.Column<string>(type: "varchar(max)", unicode: false, nullable: false),
+                    GioiTinh = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -139,12 +130,8 @@ namespace JobRecommendationWeb.Migrations
                         name: "FK_ChucVu_TK",
                         column: x => x.MaChucVu,
                         principalTable: "CHUCVU",
-                        principalColumn: "MaChucVu");
-                    table.ForeignKey(
-                        name: "FK_MaNhanVien_TK",
-                        column: x => x.MaNhanVien,
-                        principalTable: "NHANVIEN",
-                        principalColumn: "MaNhanVien");
+                        principalColumn: "MaChucVu",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -203,7 +190,8 @@ namespace JobRecommendationWeb.Migrations
                     WebsiteBaiGoc = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     NgayDangBai = table.Column<DateTime>(type: "datetime", nullable: true),
                     GhiChu = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    MaTaiKhoan = table.Column<int>(type: "int", nullable: true)
+                    MaTaiKhoan = table.Column<int>(type: "int", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true, defaultValueSql: "((0))")
                 },
                 constraints: table =>
                 {
@@ -227,7 +215,6 @@ namespace JobRecommendationWeb.Migrations
                     MaLSLV = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     MaTaiKhoan = table.Column<int>(type: "int", nullable: true),
-                    CaLamViec = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     NgayLamViec = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
@@ -311,20 +298,19 @@ namespace JobRecommendationWeb.Migrations
                 name: "CHITIETLAMVIEC",
                 columns: table => new
                 {
-                    MaLslv = table.Column<int>(type: "int", nullable: false),
-                    MaBaiDang = table.Column<int>(type: "int", nullable: false)
+                    MaCTLV = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MaLSLV = table.Column<int>(type: "int", nullable: true),
+                    MaBaiDang = table.Column<int>(type: "int", nullable: true),
+                    HoatDong = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ThoiGian = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("CHITIETLAMVIEC_PK", x => new { x.MaLslv, x.MaBaiDang });
-                    table.ForeignKey(
-                        name: "FK_MaBaiDang_CTLV",
-                        column: x => x.MaBaiDang,
-                        principalTable: "BAIDANG",
-                        principalColumn: "MaBaiDang");
+                    table.PrimaryKey("CHITIETLAMVIEC_PK", x => x.MaCTLV);
                     table.ForeignKey(
                         name: "FK_MaLSLV_CTLV",
-                        column: x => x.MaLslv,
+                        column: x => x.MaLSLV,
                         principalTable: "LICHSULAMVIEC",
                         principalColumn: "MaLSLV");
                 });
@@ -367,9 +353,9 @@ namespace JobRecommendationWeb.Migrations
                 column: "MaTaiKhoan");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CHITIETLAMVIEC_MaBaiDang",
+                name: "IX_CHITIETLAMVIEC_MaLSLV",
                 table: "CHITIETLAMVIEC",
-                column: "MaBaiDang");
+                column: "MaLSLV");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CV_MaUngVien",
@@ -410,11 +396,6 @@ namespace JobRecommendationWeb.Migrations
                 name: "IX_TAIKHOAN_MaChucVu",
                 table: "TAIKHOAN",
                 column: "MaChucVu");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TAIKHOAN_MaNhanVien",
-                table: "TAIKHOAN",
-                column: "MaNhanVien");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UNGTUYEN_MaBaiDang",
@@ -472,9 +453,6 @@ namespace JobRecommendationWeb.Migrations
 
             migrationBuilder.DropTable(
                 name: "CHUCVU");
-
-            migrationBuilder.DropTable(
-                name: "NHANVIEN");
         }
     }
 }

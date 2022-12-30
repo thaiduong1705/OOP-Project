@@ -34,86 +34,63 @@ namespace JobRecommendationWeb.Controllers
             }
             else
             {
+                var listUngVien = new List<Ungvien>();
                 switch (form["UngVien"])
                 {
                     case "":
                         {
-                            var listUngVien = new List<Ungvien>();
-
                             listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.Ten.Contains(searchInput)
                             || x.Tuoi.ToString() == searchInput
                             || x.DiaChi.Contains(searchInput)
                             || x.Email.Contains(searchInput)
-                            || x.Sdt.Contains(searchInput) ).ToList();
-
-                            return View(listUngVien);
+                            || x.Sdt.Contains(searchInput)).ToList();
+                            break;
                         }
 
                     case "TenUngVien":
                         {
-                            var listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.Ten.Contains(searchInput)).ToList();
-                            if (listUngVien.Count == 0)
-                            {
-                                return View(new List<Ungvien>());
-                            }
-                            return View(listUngVien);
+                            listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.Ten.Contains(searchInput)).ToList();
+
+                            break;
                         }
                     case "Tuoi":
                         {
-                            var listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.Tuoi.ToString() == searchInput).ToList();
-                            if (listUngVien.Count == 0)
-                            {
-                                return View(new List<Ungvien>());
-                            }
-                            return View(listUngVien);
+                            listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.Tuoi.ToString() == searchInput).ToList();
+
+                            break;
                         }
                     case "DiaChi":
                         {
-                            var listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.DiaChi.Contains(searchInput)).ToList();
-                            if (listUngVien.Count == 0)
-                            {
-                                return View(new List<Ungvien>());
-                            }
-                            return View(listUngVien);
+                            listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.DiaChi.Contains(searchInput)).ToList();
+
+                            break;
                         }
                     case "Email":
                         {
-                            var listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.Email.Contains(searchInput)).ToList();
-                            if (listUngVien.Count == 0)
-                            {
-                                return View(new List<Ungvien>());
-                            }
-                            return View(listUngVien);
+                            listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.Email.Contains(searchInput)).ToList();
+
+                            break;
                         }
                     case "Sdt":
                         {
-                            var listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.Sdt.Contains(searchInput)).ToList();
-                            if (listUngVien.Count == 0)
-                            {
-                                return View(new List<Ungvien>());
-                            }
-                            return View(listUngVien);
+                            listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.Sdt.Contains(searchInput)).ToList();
+
+                            break;
                         }
                     case "ThamNien":
                         {
-                            int tuoi = 0;
-                            var listUngVien = new List<Ungvien>();
-                            if (int.TryParse(searchInput, out tuoi))
+                            int thamnien = 0;
+                            listUngVien = new List<Ungvien>();
+                            if (int.TryParse(searchInput, out thamnien))
                             {
-                                listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.ThamNien >= tuoi).ToList();
-                                if (listUngVien.Count == 0)
-                                {
-                                    return View(new List<Ungvien>());
-                                }
+                                listUngVien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.ThamNien >= thamnien).ToList();
+
                             }
-                            return View(listUngVien);
-                        }
-                    default:
-                        {
-                            var listUngVien = new List<Ungvien>();
-                            return View(listUngVien);
+                            break;
                         }
                 }
+                listUngVien = listUngVien.Where(x => x.IsDeleted == false).ToList();
+                return View(listUngVien);
             }
         }
 
@@ -138,7 +115,7 @@ namespace JobRecommendationWeb.Controllers
                 ungvien.Tuoi = Convert.ToInt32(form["Tuoi"]);
 
                 List<Kinang> listkinang = new List<Kinang>();
-                foreach(var k in form["Kinang"])
+                foreach (var k in form["Kinang"])
                 {
                     var kinang = _context.Kinangs.FirstOrDefault(x => x.MaKiNang == int.Parse(k));
                     if (kinang != null)
@@ -165,7 +142,7 @@ namespace JobRecommendationWeb.Controllers
                 TempData["sucsess"] = "Tạo thành công!";
                 return RedirectToAction(nameof(Index));
             }
-            else {            }
+            else { }
             TempData["success"] = "Tạo thành công";
             return View(form);
         }
@@ -185,7 +162,7 @@ namespace JobRecommendationWeb.Controllers
         public async Task<IActionResult> Edit(IFormCollection form)
         {
             int id = Convert.ToInt32(form["MaUngVien"]);
-            Ungvien ungvien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.MaUngVien == id).FirstOrDefault();
+            Ungvien ungvien = _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.MaUngVien == id && x.IsDeleted == false).FirstOrDefault();
 
             if (ungvien == null)
             {
@@ -240,41 +217,43 @@ namespace JobRecommendationWeb.Controllers
                 return NotFound();
             }
 
-            var ungvien = _context.Ungviens.Include(x => x.MaKiNangs).Include(x => x.Cvs).FirstOrDefault(x => x.MaUngVien == id);
+            var ungvien = _context.Ungviens.FirstOrDefault(x => x.MaUngVien == id);
 
             if (ungvien == null) return NotFound();
 
-            /////Xoa ki nang cua ungvien
-            foreach (var makn in ungvien.MaKiNangs)
-            {
-                var kinang = _context.Kinangs.FirstOrDefault(x => x.MaKiNang == makn.MaKiNang);
-                var listknuv = new List<Ungvien>(kinang.MaUngViens);
-                listknuv.Remove(ungvien);
-                kinang.MaUngViens = listknuv;
-            }
+            ungvien.IsDeleted = true;
 
-            ///Xoa ung tuyen cua ung vien
-            var dsUngtuyen = _context.Ungtuyens.Where(x => x.MaUngVien == ungvien.MaUngVien).ToList();
-            foreach (var ungtuyen in dsUngtuyen)
-            {
-                var baidang = _context.Baidangs.FirstOrDefault(x => x.MaBaiDang == ungtuyen.MaBaiDang);
-                if (baidang != null)
-                {
-                    var listUngtuyen = new List<Ungtuyen>(baidang.Ungtuyens);
-                    listUngtuyen.Remove(ungtuyen);
-                    baidang.Ungtuyens = listUngtuyen;
-                }
-                _context.Ungtuyens.Remove(ungtuyen);
-            }
+            ///////Xoa ki nang cua ungvien
+            //foreach (var makn in ungvien.MaKiNangs)
+            //{
+            //    var kinang = _context.Kinangs.FirstOrDefault(x => x.MaKiNang == makn.MaKiNang);
+            //    var listknuv = new List<Ungvien>(kinang.MaUngViens);
+            //    listknuv.Remove(ungvien);
+            //    kinang.MaUngViens = listknuv;
+            //}
 
-            /////Xoa CV
-            foreach (var macv in ungvien.Cvs)
-            {
-                var cv = _context.Cvs.FirstOrDefault(x => x.MaCv == macv.MaCv);
-                if (cv != null) _context.Cvs.Remove(cv);
-            }
+            /////Xoa ung tuyen cua ung vien
+            //var dsUngtuyen = _context.Ungtuyens.Where(x => x.MaUngVien == ungvien.MaUngVien).ToList();
+            //foreach (var ungtuyen in dsUngtuyen)
+            //{
+            //    var baidang = _context.Baidangs.FirstOrDefault(x => x.MaBaiDang == ungtuyen.MaBaiDang);
+            //    if (baidang != null)
+            //    {
+            //        var listUngtuyen = new List<Ungtuyen>(baidang.Ungtuyens);
+            //        listUngtuyen.Remove(ungtuyen);
+            //        baidang.Ungtuyens = listUngtuyen;
+            //    }
+            //    _context.Ungtuyens.Remove(ungtuyen);
+            //}
 
-            _context.Ungviens.Remove(ungvien);
+            ///////Xoa CV
+            //foreach (var macv in ungvien.Cvs)
+            //{
+            //    var cv = _context.Cvs.FirstOrDefault(x => x.MaCv == macv.MaCv);
+            //    if (cv != null) _context.Cvs.Remove(cv);
+            //}
+
+            //_context.Ungviens.Remove(ungvien);
             _context.SaveChanges();
 
             TempData["success"] = "Xoá thành công!";

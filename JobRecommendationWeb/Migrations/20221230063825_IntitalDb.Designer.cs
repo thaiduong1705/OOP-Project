@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace JobRecommendationWeb.Migrations
 {
     [DbContext(typeof(JobRecommendationContext))]
-    [Migration("20221228195309_InitDb")]
-    partial class InitDb
+    [Migration("20221230063825_IntitalDb")]
+    partial class IntitalDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,22 +25,6 @@ namespace JobRecommendationWeb.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Chitietlamviec", b =>
-                {
-                    b.Property<int>("MaLslv")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MaBaiDang")
-                        .HasColumnType("int");
-
-                    b.HasKey("MaLslv", "MaBaiDang")
-                        .HasName("CHITIETLAMVIEC_PK");
-
-                    b.HasIndex("MaBaiDang");
-
-                    b.ToTable("CHITIETLAMVIEC", (string)null);
-                });
-
             modelBuilder.Entity("JobRecommendationWeb.Models.Baidang", b =>
                 {
                     b.Property<int>("MaBaiDang")
@@ -51,6 +35,11 @@ namespace JobRecommendationWeb.Migrations
 
                     b.Property<string>("GhiChu")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValueSql("((0))");
 
                     b.Property<int?>("LuongMax")
                         .HasColumnType("int");
@@ -87,6 +76,36 @@ namespace JobRecommendationWeb.Migrations
                     b.HasIndex("MaTaiKhoan");
 
                     b.ToTable("BAIDANG", (string)null);
+                });
+
+            modelBuilder.Entity("JobRecommendationWeb.Models.Chitietlamviec", b =>
+                {
+                    b.Property<int>("MaCtlv")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("MaCTLV");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaCtlv"));
+
+                    b.Property<string>("HoatDong")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("MaBaiDang")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MaLslv")
+                        .HasColumnType("int")
+                        .HasColumnName("MaLSLV");
+
+                    b.Property<DateTime?>("ThoiGian")
+                        .HasColumnType("datetime");
+
+                    b.HasKey("MaCtlv")
+                        .HasName("CHITIETLAMVIEC_PK");
+
+                    b.HasIndex("MaLslv");
+
+                    b.ToTable("CHITIETLAMVIEC", (string)null);
                 });
 
             modelBuilder.Entity("JobRecommendationWeb.Models.Chucvu", b =>
@@ -147,6 +166,11 @@ namespace JobRecommendationWeb.Migrations
                     b.Property<string>("DiaChi")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool?>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValueSql("((0))");
+
                     b.Property<string>("MoTaThem")
                         .HasColumnType("nvarchar(max)");
 
@@ -191,9 +215,6 @@ namespace JobRecommendationWeb.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaLslv"));
 
-                    b.Property<string>("CaLamViec")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int?>("MaTaiKhoan")
                         .HasColumnType("int");
 
@@ -206,36 +227,6 @@ namespace JobRecommendationWeb.Migrations
                     b.HasIndex("MaTaiKhoan");
 
                     b.ToTable("LICHSULAMVIEC", (string)null);
-                });
-
-            modelBuilder.Entity("JobRecommendationWeb.Models.Nhanvien", b =>
-                {
-                    b.Property<int>("MaNhanVien")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaNhanVien"));
-
-                    b.Property<string>("Email")
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(max)");
-
-                    b.Property<string>("Sdt")
-                        .HasMaxLength(10)
-                        .IsUnicode(false)
-                        .HasColumnType("varchar(10)")
-                        .HasColumnName("SDT");
-
-                    b.Property<string>("TenNhanVien")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("Tuoi")
-                        .HasColumnType("int");
-
-                    b.HasKey("MaNhanVien")
-                        .HasName("NHANVIEN_PK");
-
-                    b.ToTable("NHANVIEN", (string)null);
                 });
 
             modelBuilder.Entity("JobRecommendationWeb.Models.Phieuphat", b =>
@@ -307,26 +298,48 @@ namespace JobRecommendationWeb.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaTaiKhoan"));
 
-                    b.Property<int?>("MaChucVu")
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(max)");
+
+                    b.Property<int?>("GioiTinh")
                         .HasColumnType("int");
 
-                    b.Property<int?>("MaNhanVien")
+                    b.Property<int?>("MaChucVu")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("MatKhau")
+                        .IsRequired()
                         .IsUnicode(false)
                         .HasColumnType("varchar(max)");
 
-                    b.Property<string>("TenDangNhap")
+                    b.Property<string>("Sdt")
+                        .IsRequired()
+                        .HasMaxLength(10)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(max)");
+                        .HasColumnType("varchar(10)")
+                        .HasColumnName("SDT");
+
+                    b.Property<string>("TenDangNhap")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(20)");
+
+                    b.Property<string>("TenNhanVien")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Tuoi")
+                        .IsRequired()
+                        .HasColumnType("int");
 
                     b.HasKey("MaTaiKhoan")
                         .HasName("TAIKHOAN_PK");
 
                     b.HasIndex("MaChucVu");
-
-                    b.HasIndex("MaNhanVien");
 
                     b.ToTable("TAIKHOAN", (string)null);
                 });
@@ -419,6 +432,14 @@ namespace JobRecommendationWeb.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("GioiTinh")
+                        .HasColumnType("int");
+
+                    b.Property<bool?>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValueSql("((0))");
+
                     b.Property<string>("Sdt")
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("SDT");
@@ -470,21 +491,6 @@ namespace JobRecommendationWeb.Migrations
                     b.ToTable("KINANG_UNGVIEN", (string)null);
                 });
 
-            modelBuilder.Entity("Chitietlamviec", b =>
-                {
-                    b.HasOne("JobRecommendationWeb.Models.Baidang", null)
-                        .WithMany()
-                        .HasForeignKey("MaBaiDang")
-                        .IsRequired()
-                        .HasConstraintName("FK_MaBaiDang_CTLV");
-
-                    b.HasOne("JobRecommendationWeb.Models.Lichsulamviec", null)
-                        .WithMany()
-                        .HasForeignKey("MaLslv")
-                        .IsRequired()
-                        .HasConstraintName("FK_MaLSLV_CTLV");
-                });
-
             modelBuilder.Entity("JobRecommendationWeb.Models.Baidang", b =>
                 {
                     b.HasOne("JobRecommendationWeb.Models.Hosocongty", "MaCongTyNavigation")
@@ -500,6 +506,16 @@ namespace JobRecommendationWeb.Migrations
                     b.Navigation("MaCongTyNavigation");
 
                     b.Navigation("MaTaiKhoanNavigation");
+                });
+
+            modelBuilder.Entity("JobRecommendationWeb.Models.Chitietlamviec", b =>
+                {
+                    b.HasOne("JobRecommendationWeb.Models.Lichsulamviec", "MaLslvNavigation")
+                        .WithMany("Chitietlamviecs")
+                        .HasForeignKey("MaLslv")
+                        .HasConstraintName("FK_MaLSLV_CTLV");
+
+                    b.Navigation("MaLslvNavigation");
                 });
 
             modelBuilder.Entity("JobRecommendationWeb.Models.Cv", b =>
@@ -554,16 +570,11 @@ namespace JobRecommendationWeb.Migrations
                     b.HasOne("JobRecommendationWeb.Models.Chucvu", "MaChucVuNavigation")
                         .WithMany("Taikhoans")
                         .HasForeignKey("MaChucVu")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
                         .HasConstraintName("FK_ChucVu_TK");
 
-                    b.HasOne("JobRecommendationWeb.Models.Nhanvien", "MaNhanVienNavigation")
-                        .WithMany("Taikhoans")
-                        .HasForeignKey("MaNhanVien")
-                        .HasConstraintName("FK_MaNhanVien_TK");
-
                     b.Navigation("MaChucVuNavigation");
-
-                    b.Navigation("MaNhanVienNavigation");
                 });
 
             modelBuilder.Entity("JobRecommendationWeb.Models.Ungtuyen", b =>
@@ -632,9 +643,9 @@ namespace JobRecommendationWeb.Migrations
                     b.Navigation("Baidangs");
                 });
 
-            modelBuilder.Entity("JobRecommendationWeb.Models.Nhanvien", b =>
+            modelBuilder.Entity("JobRecommendationWeb.Models.Lichsulamviec", b =>
                 {
-                    b.Navigation("Taikhoans");
+                    b.Navigation("Chitietlamviecs");
                 });
 
             modelBuilder.Entity("JobRecommendationWeb.Models.Phieutocao", b =>

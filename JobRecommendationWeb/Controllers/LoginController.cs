@@ -32,6 +32,20 @@ namespace JobRecommendationWeb.Controllers
 
             // Bind tai khoan va nhan vien
             UsingAccount.Instance.Taikhoan = taikhoan;
+
+            Lichsulamviec lslv = _context.Lichsulamviecs.FirstOrDefault(x => x.MaTaiKhoan == taikhoan.MaTaiKhoan && x.NgayLamViec == DateTime.Today);
+            if (lslv == null)
+            {
+                lslv = new Lichsulamviec()
+                {
+                    MaTaiKhoan = taikhoan.MaTaiKhoan,
+                    MaTaiKhoanNavigation = taikhoan
+                };
+            }
+
+            _context.Lichsulamviecs.Add(lslv);
+            _context.SaveChanges();
+
             TempData["success"] = "Đăng nhập thành công";
             return RedirectToAction("Index", "Home");
         }

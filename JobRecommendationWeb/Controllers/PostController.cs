@@ -24,7 +24,7 @@ namespace JobRecommendationWeb.Controllers
         }
         public IActionResult Index()
         {
-            var listBaiDang = _context.Baidangs.ToList();
+            var listBaiDang = _context.Baidangs.Where(x => x.IsDeleted == false).ToList();
             return View(listBaiDang);
         }
 
@@ -33,10 +33,11 @@ namespace JobRecommendationWeb.Controllers
         public async Task<IActionResult> Index(IFormCollection? form)
         {
             string searchInput = form["input"];
+            var listBaiDang = new List<Baidang>();
+
             if (string.IsNullOrEmpty(searchInput))
             {
-                var listBaiDang = _context.Baidangs.ToList();
-                return View(listBaiDang);
+                listBaiDang = _context.Baidangs.ToList();
             }
             else
             {
@@ -44,91 +45,63 @@ namespace JobRecommendationWeb.Controllers
                 {
                     case "":
                         {
-                            var listBaiDang = new List<Baidang>();
-
                             listBaiDang = _context.Baidangs.Where(x => x.MaCongTyNavigation.TenCongTy.Contains(searchInput)
                                 || x.TenCongViec.Contains(searchInput)
                                 || x.MoTa.Contains(searchInput)).ToList();
+                            break;
 
-                            return View(listBaiDang);
                         }
                     case "TenCongTy":
                         {
-                            var congty = _context.Hosocongties.Where(x => x.TenCongTy.Contains(form["input"])).ToList();
-                            if (congty == null)
-                            {
-                                return View(new List<Baidang>());
-                            } else
-                            {
-                                var listBaiDang = new List<Baidang>();
-                                foreach (var item in congty)
-                                {
-                                    listBaiDang.AddRange(_context.Baidangs.Where(x => x.MaCongTy == item.MaCongTy).ToList());
-                                }
-                                if (listBaiDang.Count == 0)
-                                {
-                                    return View(new List<Baidang>());
-                                }
-                                return View(listBaiDang);
-                            }
+                            listBaiDang = _context.Baidangs.Where(x => x.MaCongTyNavigation.TenCongTy.Contains(searchInput)).ToList();
+                            break;
                         }
                     case "TenCongViec":
                         {
-                            var listBaiDang = _context.Baidangs.Where(x => x.TenCongViec.Contains(form["input"])).ToList();
-                            if (listBaiDang.Count == 0)
-                            {
-                                return View(new List<Baidang>());
-                            }
-                            return View(listBaiDang);
+                            listBaiDang = _context.Baidangs.Where(x => x.TenCongViec.Contains(searchInput)).ToList();
+                            break;
                         }
-                   
+
                     case "LuongMax":
                         {
                             int luongMax;
-                            var listBaiDang = new List<Baidang>();
                             if (int.TryParse(form["input"], out luongMax))
                             {
                                 listBaiDang = _context.Baidangs.Where(x => x.LuongMax >= luongMax).ToList();
                             }
-                            return View(listBaiDang);
-
+                            break;
 
                         }
 
                     case "LuongMin":
                         {
                             int luongMin;
-                            var listBaiDang = new List<Baidang>();
                             if (int.TryParse(form["input"], out luongMin))
                             {
                                 listBaiDang = _context.Baidangs.Where(x => x.LuongMin >= luongMin).ToList();
                             }
-                            return View(listBaiDang);
+                            break;
                         }
 
                     case "ThamNien":
                         {
                             int thamNien;
-                            var listBaiDang = new List<Baidang>();
                             if (int.TryParse(form["input"], out thamNien))
                             {
                                 listBaiDang = _context.Baidangs.Where(x => x.LuongMin <= thamNien).ToList();
                             }
-                            return View(listBaiDang);
-                        }
-                    default:
-                        {
-                            var listBaiDang = new List<Baidang>();
-                            return View(listBaiDang);
+                            break;
                         }
                 }
             }
+            listBaiDang = listBaiDang.Where(x => x.IsDeleted == false).ToList();
+            return View(listBaiDang);
         }
 
 
         public IActionResult Create()
         {
-            List<Hosocongty> companylist = _context.Hosocongties.ToList();
+            List<Hosocongty> companylist = _context.Hosocongties.Where(x => x.IsDeleted == false).ToList();
             List<Kinang> kinangList = _context.Kinangs.ToList();
             ViewBag.kinangList = kinangList;
             ViewBag.companylist = companylist;
@@ -154,25 +127,16 @@ namespace JobRecommendationWeb.Controllers
                 _context.Baidangs.Add(value);
                 await _context.SaveChangesAsync();
 
-                Lichsulamviec lichsu = new Lichsulamviec();
+                var chitietlamviec = new Chitietlamviec();
                 var date = DateTime.Now;
-                if (date.Hour > 12)
-                {
-                    lichsu.MaBaiDangs.Add(value);
-                    lichsu.MaTaiKhoan = UsingAccount.Instance.Taikhoan.MaTaiKhoan;
-                    lichsu.NgayLamViec = date.Date;
-                    lichsu.CaLamViec = "Chiều";
-                }
-                else
-                {
-                    lichsu.MaBaiDangs.Add(value);
-                    lichsu.MaTaiKhoan = UsingAccount.Instance.Taikhoan.MaTaiKhoan;
-                    lichsu.NgayLamViec = date.Date;
-                    lichsu.CaLamViec = "Sáng";
-                }
-                _context.Lichsulamviecs.Add(lichsu);
-                await _context.SaveChangesAsync();
+                var lslv = _context.Lichsulamviecs.FirstOrDefault( x => x.MaTaiKhoan == UsingAccount.Instance.Taikhoan.MaTaiKhoan && x.NgayLamViec == DateTime.Today );
+                
+                chitietlamviec.MaLslv = lslv.MaLslv;
+                chitietlamviec.HoatDong = "Thêm bài đăng " + value.TenCongViec;
+                chitietlamviec.MaBaiDang = value.MaBaiDang;
+                chitietlamviec.ThoiGian = DateTime.Now;
 
+                _context.Chitietlamviecs.Add(chitietlamviec);
                 await _context.SaveChangesAsync();
 
                 TempData["success"] = "Tạo thành công!";
@@ -188,12 +152,12 @@ namespace JobRecommendationWeb.Controllers
                 return NotFound();
             }
 
-            var post = _context.Baidangs.Include(x => x.MaKiNangs).Where(x => x.MaBaiDang == id).FirstOrDefault();
+            var post = _context.Baidangs.Include(x => x.MaKiNangs).Where(x => x.MaBaiDang == id && x.IsDeleted == false).FirstOrDefault();
             if (post == null)
             {
                 return NotFound();
             }
-            var company = _context.Hosocongties.Where(x => x.MaCongTy == post.MaCongTy).FirstOrDefault();
+            var company = _context.Hosocongties.Where(x => x.MaCongTy == post.MaCongTy && x.IsDeleted == false).FirstOrDefault();
             if (company == null)
             {
                 return NotFound();
@@ -211,23 +175,23 @@ namespace JobRecommendationWeb.Controllers
                 return NotFound();
             }
 
-            var post = await _context.Baidangs.FindAsync(id);
+            var post = await _context.Baidangs.FirstOrDefaultAsync(x => x.MaBaiDang == id && x.IsDeleted == false);
             if (post == null)
             {
                 return NotFound();
             }
-            var candidates = _context.Ungviens.ToList();
+            var candidates = _context.Ungviens.Where(x => x.IsDeleted == false).ToList();
 
             ViewBag.post = post;
             ViewBag.candidates = candidates;
 
             return View();
-        } 
+        }
 
         public async Task<IActionResult> CandidateApply(int? candidate, int? post)
         {
-            Ungvien ungvien = await _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.MaUngVien == candidate).FirstOrDefaultAsync();
-            Baidang baidang = await _context.Baidangs.Where(x => x.MaBaiDang == post).FirstOrDefaultAsync();
+            Ungvien ungvien = await _context.Ungviens.Include(x => x.MaKiNangs).Where(x => x.MaUngVien == candidate && x.IsDeleted == false).FirstOrDefaultAsync();
+            Baidang baidang = await _context.Baidangs.Where(x => x.MaBaiDang == post && x.IsDeleted == false).FirstOrDefaultAsync();
 
             Ungtuyen ungtuyen = new Ungtuyen();
             ungtuyen.MaUngVien = ungvien.MaUngVien;
@@ -240,7 +204,7 @@ namespace JobRecommendationWeb.Controllers
             _context.Ungtuyens.Add(ungtuyen);
             await _context.SaveChangesAsync();
             TempData["success"] = "Ứng tuyển thành công!";
-            return RedirectToAction("Detail", new {id = post});
+            return RedirectToAction("Detail", new { id = post });
         }
 
         public async Task<IActionResult> AppliedCandidate(int? id)
@@ -250,7 +214,7 @@ namespace JobRecommendationWeb.Controllers
                 return NotFound();
             }
 
-            var post = await _context.Baidangs.FindAsync(id);
+            var post = await _context.Baidangs.FirstOrDefaultAsync(x => x.MaBaiDang == id && x.IsDeleted == false);
             if (post == null)
             {
                 return NotFound();
@@ -262,7 +226,7 @@ namespace JobRecommendationWeb.Controllers
             {
                 if (item.MaBaiDang == post.MaBaiDang)
                 {
-                    Ungvien? c = await _context.Ungviens.FindAsync(item.MaUngVien);
+                    Ungvien? c = await _context.Ungviens.FirstOrDefaultAsync( x => x.MaUngVien == item.MaUngVien && x.IsDeleted == false);
                     if (c != null)
                         candidates.Add(c);
                 }
@@ -279,9 +243,13 @@ namespace JobRecommendationWeb.Controllers
             {
                 return NotFound();
             }
-            Baidang baidang = _context.Baidangs.Include(x => x.MaKiNangs).Where(x => x.MaBaiDang == id).FirstOrDefault();
+            Baidang baidang = _context.Baidangs.Include(x => x.MaKiNangs).Where(x => x.MaBaiDang == id && x.IsDeleted == false).FirstOrDefault();
+            if (baidang == null)
+            {
+                return NotFound();
+            }
 
-            List<Hosocongty> companyList = _context.Hosocongties.ToList();
+            List<Hosocongty> companyList = _context.Hosocongties.Where(x => x.IsDeleted == false).ToList();
             List<Kinang> kinangList = _context.Kinangs.ToList();
             ViewBag.CompanyList = companyList;
             ViewBag.KinangList = kinangList;
@@ -294,10 +262,10 @@ namespace JobRecommendationWeb.Controllers
         public IActionResult Edit(IFormCollection form)
         {
             int id = Convert.ToInt32(form["MaBaiDang"]);
-            Baidang baidang = _context.Baidangs.Include(x => x.MaKiNangs).Where(x => x.MaBaiDang == id).FirstOrDefault();
+            Baidang baidang = _context.Baidangs.Include(x => x.MaKiNangs).Where(x => x.MaBaiDang == id && x.IsDeleted == false).FirstOrDefault();
 
             foreach (Kinang kinang in baidang.MaKiNangs.ToList())
-            {
+            {   
                 baidang.MaKiNangs.Remove(kinang);
             }
 
@@ -309,7 +277,7 @@ namespace JobRecommendationWeb.Controllers
             baidang.LuongMin = Convert.ToInt32(form["LuongMin"]);
             baidang.LuongMax = Convert.ToInt32(form["LuongMax"]);
             baidang.GhiChu = form["GhiChu"];
-            
+
             List<Kinang> temp = new List<Kinang>();
             foreach (var item in form["KiNang"])
             {
@@ -317,7 +285,7 @@ namespace JobRecommendationWeb.Controllers
                 if (kinang != null)
                 {
                     temp.Add(kinang);
-                }    
+                }
             }
 
             if (temp.Count > 0)
@@ -327,12 +295,26 @@ namespace JobRecommendationWeb.Controllers
 
             _context.Baidangs.Update(baidang);
             _context.SaveChanges();
+
+            var chitietlamviec = new Chitietlamviec();
+            var date = DateTime.Now;
+            var lslv = _context.Lichsulamviecs.FirstOrDefault(x => x.MaTaiKhoan == UsingAccount.Instance.Taikhoan.MaTaiKhoan && x.NgayLamViec == DateTime.Today);
+
+            chitietlamviec.MaLslv = lslv.MaLslv;
+            chitietlamviec.HoatDong = "Sửa bài đăng " + baidang.TenCongViec;
+            chitietlamviec.MaBaiDang = baidang.MaBaiDang;
+            chitietlamviec.ThoiGian = DateTime.Now;
+
+            _context.Chitietlamviecs.Add(chitietlamviec);
+            _context.SaveChangesAsync();
+
+
             TempData["success"] = "Chỉnh sửa thành công!";
-            
-            return RedirectToAction("Detail", new {id = id});
+
+            return RedirectToAction("Detail", new { id = id });
         }
 
-        
+
         public IActionResult Delete(int? id)
         {
             if (id == null || id == 0)
@@ -344,49 +326,65 @@ namespace JobRecommendationWeb.Controllers
 
             if (baidang == null) return NotFound();
 
-            ///Xoa phieu to cao lien quan toi bai dang
-            foreach (var pToCao in baidang.Phieutocaos)
-            {
-                var pPhat = _context.Phieuphats.FirstOrDefault(x => x.MaPhieuToCao == pToCao.MaPhieuToCao);
-                if (pPhat != null) _context.Phieuphats.Remove(pPhat);
-                _context.Phieutocaos.Remove(pToCao);
-            }
+            /////Xoa phieu to cao lien quan toi bai dang
+            //foreach (var pToCao in baidang.Phieutocaos)
+            //{
+            //    var pPhat = _context.Phieuphats.FirstOrDefault(x => x.MaPhieuToCao == pToCao.MaPhieuToCao);
+            //    if (pPhat != null) _context.Phieuphats.Remove(pPhat);
+            //    _context.Phieutocaos.Remove(pToCao);
+            //}
 
-            ///Xoa ki nang cua bai dang
-            foreach (var makn in baidang.MaKiNangs)
-            {
-                var kinang = _context.Kinangs.FirstOrDefault(x => x.MaKiNang == makn.MaKiNang);
-                var listknbd = new List<Baidang>(kinang.MaBaiDangs);
-                listknbd.Remove(baidang);
-                kinang.MaBaiDangs = listknbd;
+            /////Xoa ki nang cua bai dang
+            //foreach (var makn in baidang.MaKiNangs)
+            //{
+            //    var kinang = _context.Kinangs.FirstOrDefault(x => x.MaKiNang == makn.MaKiNang);
+            //    var listknbd = new List<Baidang>(kinang.MaBaiDangs);
+            //    listknbd.Remove(baidang);
+            //    kinang.MaBaiDangs = listknbd;
 
-            }
+            //}
 
-            ///Xoa ung tuyen cua ung vien
-            var dsUngtuyen = _context.Ungtuyens.Where(x => x.MaBaiDang == baidang.MaBaiDang).ToList();
-            foreach (var ungtuyen in dsUngtuyen)
-            {
-                var ungvien = _context.Ungviens.FirstOrDefault(x => x.MaUngVien == ungtuyen.MaUngVien);
-                if (ungvien != null)
-                {
-                    var listUngtuyen = new List<Ungtuyen>(ungvien.Ungtuyens);
-                    listUngtuyen.Remove(ungtuyen);
-                    ungvien.Ungtuyens = listUngtuyen;
-                }
-                _context.Ungtuyens.Remove(ungtuyen);
-            }
+            /////Xoa ung tuyen cua ung vien
+            //var dsUngtuyen = _context.Ungtuyens.Where(x => x.MaBaiDang == baidang.MaBaiDang).ToList();
+            //foreach (var ungtuyen in dsUngtuyen)
+            //{
+            //    var ungvien = _context.Ungviens.FirstOrDefault(x => x.MaUngVien == ungtuyen.MaUngVien);
+            //    if (ungvien != null)
+            //    {
+            //        var listUngtuyen = new List<Ungtuyen>(ungvien.Ungtuyens);
+            //        listUngtuyen.Remove(ungtuyen);
+            //        ungvien.Ungtuyens = listUngtuyen;
+            //    }
+            //    _context.Ungtuyens.Remove(ungtuyen);
+            //}
 
-            ///Xoa lich su lam viec cua bai dang
-            var listLsLv = _context.Lichsulamviecs.Where(x => x.MaTaiKhoan == baidang.MaTaiKhoan).ToList();
-            foreach (var lslv in listLsLv)
-            {
-                var listBaiDang = new List<Baidang>(lslv.MaBaiDangs);
-                listBaiDang.Remove(baidang);
-                lslv.MaBaiDangs = listBaiDang;
-            }
+            /////Xoa lich su lam viec cua bai dang
+            //var listLsLv = _context.Lichsulamviecs.Where(x => x.MaTaiKhoan == baidang.MaTaiKhoan).ToList();
+            //foreach (var lslv in listLsLv)
+            //{
+            //    var listBaiDang = new List<Baidang>(lslv.MaBaiDangs);
+            //    listBaiDang.Remove(baidang);
+            //    lslv.MaBaiDangs = listBaiDang;
+            //}
 
-            _context.Baidangs.Remove(baidang);
+            //_context.Baidangs.Remove(baidang);
+
+            baidang.IsDeleted = true;
+
             _context.SaveChanges();
+
+            var chitietlamviec = new Chitietlamviec();
+            var date = DateTime.Now;
+            var lslv = _context.Lichsulamviecs.FirstOrDefault(x => x.MaTaiKhoan == UsingAccount.Instance.Taikhoan.MaTaiKhoan && x.NgayLamViec == DateTime.Today);
+
+            chitietlamviec.MaLslv = lslv.MaLslv;
+            chitietlamviec.HoatDong = "Xóa bài đăng " + baidang.TenCongViec;
+            chitietlamviec.MaBaiDang = baidang.MaBaiDang;
+            chitietlamviec.ThoiGian = DateTime.Now;
+
+            _context.Chitietlamviecs.Add(chitietlamviec);
+            _context.SaveChangesAsync();
+
             TempData["Success"] = "Xoá thành công!";
 
             return RedirectToAction("Index");

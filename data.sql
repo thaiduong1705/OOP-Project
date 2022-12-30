@@ -7,81 +7,46 @@ INSERT INTO [dbo].[CHUCVU] ([TenChucVu]) VALUES ('Admin')
 INSERT INTO [dbo].[CHUCVU] ([TenChucVu]) VALUES ('Staff')
 GO
 
----NHAN VIEN---
-INSERT INTO [dbo].[NHANVIEN]
-           ([TenNhanVien]
-           ,[Tuoi]
-           ,[SDT]
-           ,[Email])
-     VALUES
-           ('Duong Ming Tai'
-           ,17
-           ,'0123584865'
-           ,'thaigae@gmail.com')
-
-INSERT INTO [dbo].[NHANVIEN]
-           ([TenNhanVien]
-           ,[Tuoi]
-           ,[SDT]
-           ,[Email])
-     VALUES
-           ('Nguyen Duy Minh Tan'
-           ,22
-           ,'0986516516'
-           ,'badboy2k@gmail.com')
-
-INSERT INTO [dbo].[NHANVIEN]
-           ([TenNhanVien]
-           ,[Tuoi]
-           ,[SDT]
-           ,[Email])
-     VALUES
-           ('Nguyen Le Khoa'
-           ,20
-           ,'0235156843'
-           ,'khoauithehe@gmail.com')
-
-INSERT INTO [dbo].[NHANVIEN]
-           ([TenNhanVien]
-           ,[Tuoi]
-           ,[SDT]
-           ,[Email])
-     VALUES
-           ('Bill Gates'
-           ,43
-           ,'095231568'
-           ,'windowsbetterthanmac@outlook.com')
+USE [JOB_RECOMMENDATION]
 GO
 
----TAI KHOAN---
 INSERT INTO [dbo].[TAIKHOAN]
            ([TenDangNhap]
            ,[MatKhau]
            ,[MaChucVu]
-           ,[MaNhanVien])
+           ,[TenNhanVien]
+           ,[Tuoi]
+           ,[SDT]
+           ,[Email]
+           ,[GioiTinh])
      VALUES
            ('mingtai'
-           ,'mingtai@'
+           ,'93fabdfe5c28e477fe1ad95fc2c97fc3@'
            ,1
-           ,1)
+           ,'Yang Ming Tai'
+           ,22
+           ,'0159486483'
+           ,'mingtai@gmail.com'
+           ,0)
 
 INSERT INTO [dbo].[TAIKHOAN]
            ([TenDangNhap]
            ,[MatKhau]
-           ,[MaChucVu])
-     VALUES
-           ('staff'
-           ,'staff'
-           ,2)
-
-INSERT INTO [dbo].[TAIKHOAN]
-           ([TenDangNhap]
-           ,[MatKhau]
-           ,[MaChucVu], MaNhanVien)
+           ,[MaChucVu]
+           ,[TenNhanVien]
+           ,[Tuoi]
+           ,[SDT]
+           ,[Email]
+           ,[GioiTinh])
      VALUES
            ('admin'
-           ,'admin'
-           ,1, 1)
+           ,'93fabdfe5c28e477fe1ad95fc2c97fc3@'
+           ,1
+           ,N'Quản trị viên'
+           ,22
+           ,'0159486483'
+           ,'chauvinhsinh12@gmail.com'
+           ,0)
 GO
 
 ---CONG TY---
@@ -249,14 +214,16 @@ INSERT INTO [dbo].[UNGVIEN]
            ,[DiaChi]
            ,[Email]
            ,[SDT]
-           ,[ThamNien])
+           ,[ThamNien]
+		   ,[GioiTinh])
      VALUES
            (N'Can Duc Quang'
            ,20
            ,N'324 Hòa Hưng, Phường 13, Quận 10, Thành phố Hồ Chí Minh.'
            ,N'ducquangsama@gmail.com'
            ,N'0915623051'
-           ,4)
+           ,4
+		   ,0)
 
 INSERT INTO [dbo].[UNGVIEN]
            ([Ten]
@@ -264,14 +231,16 @@ INSERT INTO [dbo].[UNGVIEN]
            ,[DiaChi]
            ,[Email]
            ,[SDT]
-           ,[ThamNien])
+           ,[ThamNien]
+		   ,[GioiTinh])
      VALUES
            (N'Nguyen Minh Duy'
            ,22
            ,N'237 Nguyễn Văn Cừ, Phường Nguyễn Cư Trinh, Quận 1, Thành phố Hồ Chí Minh'
            ,N'duy6820@gmail.com'
            ,N'0916584321'
-           ,2)
+           ,2
+		   ,1)
 
 INSERT INTO [dbo].[UNGVIEN]
            ([Ten]
@@ -279,14 +248,16 @@ INSERT INTO [dbo].[UNGVIEN]
            ,[DiaChi]
            ,[Email]
            ,[SDT]
-           ,[ThamNien])
+           ,[ThamNien]
+           ,[GioiTinh])
      VALUES
            (N'Truong Duc Thien'
            ,19
            ,N'741, Phước Hoà, huyện Phú Giáo, tỉnh Bình Dương.'
            ,N'thienboydz2k3@gmail.com'
            ,N'0912648321'
-           ,0)
+           ,0
+		   ,1)
 
 INSERT INTO [dbo].[UNGVIEN]
            ([Ten]
@@ -294,14 +265,16 @@ INSERT INTO [dbo].[UNGVIEN]
            ,[DiaChi]
            ,[Email]
            ,[SDT]
-           ,[ThamNien])
+           ,[ThamNien]
+		   ,[GioiTinh])
      VALUES
            (N'Nguyen Huu Minh Sang'
            ,20
            ,N'258 đường Nguyễn Trãi, quận 1, TP Hồ Chí Minh.'
            ,N'sangbatcandoi@gmail.com'
            ,N'0913548463'
-           ,2)
+           ,2
+		   ,0)
 GO
 
 ---UNG TUYEN---
