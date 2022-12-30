@@ -29,6 +29,7 @@
                         <th>Tuổi</th>
                         <th>Số điện thoại</th>
                         <th>Email</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -39,6 +40,9 @@
                         <td>@item.Tuoi</td>
                         <td>@item.Sdt</td>
                         <td>@item.Email</td>
+                        <td>
+                            <a class="link-info" asp-action="Edit" asp-controller="Staff" asp-route-id="@item.MaTaiKhoan">Chỉnh sửa</a>
+                        </td>
                     </tr>
                 }
             </tbody>

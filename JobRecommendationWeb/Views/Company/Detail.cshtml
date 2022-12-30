@@ -14,50 +14,58 @@
 }
 
 <partial name="_Notification" />
-<div class="container border">
-    <div class="row">
-        <div class="col-8">
-            <div class="row h-100">
-                <div class="col-4">
-                    <img alt="ảnh ở đây" src="@imgSrc" style="object-fit: contain" class="w-100 h-100" />
-                </div>
 
-                <div class="col-8 d-flex align-items-center">
-                    <h2>@Model.TenCongTy</h2>
-                </div>
-            </div>
-        </div>
-        @if (UsingAccount.Instance.Taikhoan != null) {
-            <div class="col-4">
-                <a asp-action="Edit" asp-controller="Company" asp-route-id="@Model.MaCongTy" class="btn btn-info w-100 mb-3">Chỉnh sửa</a>
-                <a asp-action="Delete" asp-controller="Company" asp-route-id="@Model.MaCongTy" class="btn btn-dark w-100">Xoá</a>
-            </div>
-        }
+<div class="container">
+    <div class="my-4">
+        <a asp-action="Index" asp-controller="Company" class="btn btn-info">Trở về</a>
     </div>
-    <div class="py-5"></div>
-    <div class="row">
-        <div class="col-8">
-            <div class="row">
-                <label class="fw-bolder">Mô tả</label>
-                <p class="lh-base">@Model.MoTaThem</p>
+    <div class="container border">
+        <div class="row">
+            <div class="col-8">
+                <div class="row h-100">
+                    <div class="col-4">
+                        <img alt="ảnh ở đây" src="@imgSrc" style="object-fit: contain" class="w-100 h-100" />
+                    </div>
+
+                    <div class="col-8 d-flex align-items-center">
+                        <h2>@Model.TenCongTy</h2>
+                    </div>
+                </div>
             </div>
+            @if (UsingAccount.Instance.Taikhoan != null)
+            {
+                <div class="col-4">
+                    <a asp-action="Edit" asp-controller="Company" asp-route-id="@Model.MaCongTy" class="btn btn-info w-100 mb-3">Chỉnh sửa</a>
+                    <a asp-action="Delete" asp-controller="Company" asp-route-id="@Model.MaCongTy" class="btn btn-dark w-100">Xoá</a>
+                </div>
+            }
         </div>
-        <div class="col-4">
-            <label class="fw-bold mb-4">Website: @Model.Website</label>
+        <div class="py-5"></div>
+        <div class="row">
+            <div class="col-8">
+                <div class="row">
+                    <label class="fw-bolder">Mô tả</label>
+                    <p class="lh-base">@Model.MoTaThem</p>
+                </div>
+            </div>
+            <div class="col-4">
+                <label class="fw-bold mb-4">Website: <a href="@Model.Website" class="link-info">@Model.Website</a></label>
 
-            <div class="mb-4">
-                <span><span class="fw-bold">Địa chỉ: </span> @Model.DiaChi</span>
-            </div>
+                <div class="mb-4">
+                    <span><span class="fw-bold">Địa chỉ: </span> @Model.DiaChi</span>
+                </div>
 
-            <div class="mb-3">
-                <label class="fw-bold mb-4">Quốc gia: @Model.QuocTich</label>
+                <div class="mb-3">
+                    <label class="fw-bold mb-4">Quốc gia: @Model.QuocTich</label>
+                </div>
+
+                <div class="mb-3">
+                    <span class="fw-bold">Chế độ đãi ngộ:</span>
+                    <p>@Model.CheDoDaiNgo</p>
+                </div>
+
             </div>
-            
-            <div class="mb-3">
-                <span class="fw-bold">Chế độ đãi ngộ:</span>
-                <p>@Model.CheDoDaiNgo</p>
-            </div>
-                
         </div>
     </div>
 </div>
+

@@ -10,6 +10,9 @@
         <div class="col-6">
             <h3 class="text-dark">Danh sách bài tuyển dụng</h3>
         </div>
+        <div class="col-6 text-end">
+            
+        </div>
     </div>
     <div class="search row">
         <div class="col-10">
@@ -64,16 +67,17 @@
                         <div class="card-body">
 
                             <h5 class="card-title fw-bolder text-truncate">@item.TenCongViec</h5>
-                            <div class="small-text mb-2">
+                            <div class="small-text mb-3">
                                 <p class="card-text m-0 small">Từ <span class="fw-bold">@String.Format("{0:#,0}", item.LuongMin)</span> đến <span class="fw-bold">@String.Format("{0:#,0}", item.LuongMax)</span> triệu</p>
 
-                                <p class="card-text m-0 small mt-3"> Địa điểm: 
+                                <p class="card-text m-0 small mt-3 text-truncate"> Địa điểm: 
                                     @if (@item.MaCongTyNavigation != null)
                                     {
                                         @item.MaCongTyNavigation.DiaChi
                                     }
                                  </p>
                             </div>
+                            <div class="py-2"></div>
                         </div>
                     </div>
                     <div class="card-footer">

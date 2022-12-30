@@ -295,11 +295,6 @@ namespace JobRecommendationWeb.Controllers
         public IActionResult CvImageDetail(int? id)
         {
 
-            if (UsingAccount.Instance.Taikhoan == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
             Cv cv = _context.Cvs.Where(x => x.MaUngVien == id).FirstOrDefault();
             if (cv == null)
             {

@@ -5,7 +5,7 @@
     
 }
 
-@model JobRecommendationWeb.CustomViewModel.TaikhoanNhanvienViewModel
+@model Taikhoan
 
 @section Styles {
     <link rel="stylesheet" href="@Url.Content("/css/FormStyle.css")" />
@@ -13,8 +13,9 @@
 
     <div class="container">
         <div class="input_container">
-            <form asp-action="Edit" asp-controller="Staff" method="post">
+            <form id="editStaff" asp-action="Edit" asp-controller="Staff" method="post">
                 <div class="row-register">
+                    <input id="MaTaiKhoan" asp-for="@Model.MaTaiKhoan" class="d-none" />
                     <div class="col-register2">
                         <h1>Thông tin nhân viên</h1>
                         <hr>
@@ -24,22 +25,22 @@
                                 <label for="account">Tên đăng nhập</label>
                             </div>
                             <div class="col-register4">
-                                <input disabled type="text" id="account" required autofocus value="@Model.Taikhoan.TenDangNhap" asp-for="@Model.Taikhoan.TenDangNhap">
-                                <span asp-validation-for="@Model.Taikhoan.TenDangNhap" class="text-danger w-100"></span>
+                                <input disabled type="text" id="account" required autofocus asp-for="@Model.TenDangNhap">
+                                <span asp-validation-for="@Model.TenDangNhap" class="text-danger w-100"></span>
                         </div>
                         </div>
                         <br>
-                        <div class="input-row row-register2">
+@*                        <div class="input-row row-register2">
                             <div class="col-register3">
                                 <label for="password">Mật khẩu</label>
                             </div>
                             <div class="col-register4">
-                                <input disabled type="password" required value="@Model.Taikhoan.MatKhau" asp-for="@Model.Taikhoan.MatKhau">
+                                <input disabled type="password" required  asp-for="@Model.Taikhoan.MatKhau">
                                 <span asp-validation-for="@Model.Taikhoan.MatKhau" class="text-danger"></span>
                             </div>
                         </div>
                         <br>
-@*                        <div class="input-row row-register2">
+                        <div class="input-row row-register2">
                             <div class="col-register3">
                                 <label for="password_confirmation">Xác nhận mật khẩu</label>
                             </div>
@@ -54,8 +55,8 @@
                                 <label for="name">Họ Tên</label>
                             </div>
                             <div class="col-register4">
-                                <input type="text" required value="@Model.Taikhoan.TenNhanVien" asp-for="@Model.Taikhoan.TenNhanVien">
-                                <span asp-validation-for="@Model.Taikhoan.TenNhanVien" class="text-danger"></span>
+                                <input type="text" required  asp-for="@Model.TenNhanVien">
+                                <span asp-validation-for="@Model.TenNhanVien" class="text-danger"></span>
                             </div>
                         </div>
                         <br>
@@ -64,8 +65,8 @@
                                 <label for="age">Tuổi</label>
                             </div>
                             <div class="col-register4">
-                                <input type="text" id="age" required value="@Model.Taikhoan.Tuoi" asp-for="@Model.Taikhoan.Tuoi">
-                                <span asp-validation-for="@Model.Taikhoan.Tuoi" class="text-danger"></span>
+                                <input type="text" id="age" required  asp-for="@Model.Tuoi">
+                                <span asp-validation-for="@Model.Tuoi" class="text-danger"></span>
                             </div>
                         </div>
                         <br>
@@ -74,8 +75,8 @@
                                 <label for="phone">Số điện thoại</label>
                             </div>
                             <div class="col-register4">
-                                <input type="text" id="phone" required value="@Model.Taikhoan.Sdt" asp-for="@Model.Taikhoan.Sdt">
-                                <span asp-validation-for="@Model.Taikhoan.Sdt" class="text-danger"></span>
+                                <input type="text" id="phone" required  asp-for="@Model.Sdt">
+                                <span asp-validation-for="@Model.Sdt" class="text-danger"></span>
                             </div>
                         </div>
                         <br>
@@ -84,8 +85,8 @@
                                 <label for="email">Email</label>
                             </div>
                             <div class="col-register4">
-                                <input type="email" id="email" required value="@Model.Taikhoan.Email" asp-for="@Model.Taikhoan.Email">
-                                <span asp-validation-for="@Model.Taikhoan.Email" class="text-danger"></span>
+                                <input type="email" id="email" required  asp-for="@Model.Email">
+                                <span asp-validation-for="@Model.Email" class="text-danger"></span>
                             </div>
                         </div>
                         <br>
@@ -94,10 +95,44 @@
                                 <label for="gender">Giới tính </label>
                             </div>
                             <div class="col-register4">
-                                <input type="radio" id="phone"  value="Nam" asp-for="@Model.Taikhoan.GioiTinh" required> Nam
-                                <input type="radio" id="phone" value="Nữ" asp-for="@Model.Taikhoan.GioiTinh" class="ms-3"> Nữ
-                                <input type="radio" id="phone" value="Khác" asp-for="@Model.Taikhoan.GioiTinh" class="ms-3"> Khác
-                                <span asp-validation-for="@Model.Taikhoan.Sdt" class="text-danger"></span>
+                                @if (Model.GioiTinh == 0)
+                                {
+                                    <label>
+                                        <input type="radio" asp-for="@Model.GioiTinh" value="@Model.GioiTinh" id="nam" checked> Nam
+                                    </label>
+                                }
+                                else
+                                {
+                                    <label>
+                                        <input type="radio" asp-for="@Model.GioiTinh" value="@Model.GioiTinh" id="nam"> Nam
+                                    </label>
+                                }
+                                <br>
+                                @if (Model.GioiTinh == 1)
+                                {
+                                    <label>
+                                        <input type="radio" asp-for="@Model.GioiTinh" value="@Model.GioiTinh" id="nam" checked> Nữ
+                                    </label>
+                                }
+                                else
+                                {
+                                    <label>
+                                        <input type="radio" asp-for="@Model.GioiTinh" value="@Model.GioiTinh" id="nam"> Nữ
+                                    </label>
+                                }
+                                <br>
+                                @if (Model.GioiTinh == 2)
+                                {
+                                    <label>
+                                        <input type="radio" asp-for="@Model.GioiTinh" value="@Model.GioiTinh" id="nam"> Khác
+                                    </label>
+                                }
+                                else
+                                {
+                                    <label>
+                                        <input type="radio" asp-for="@Model.GioiTinh" value="@Model.GioiTinh" id="nam"> Khác
+                                    </label>
+                                }
                             </div>
                         </div>
                         <br>
@@ -106,13 +141,13 @@
                                 <label for="position">Chức vụ</label>
                             </div>
                             <div class="col-register4">
-                                <select id="position" required asp-for="@Model.Taikhoan.MaChucVu">
+                                <select id="position" required asp-for="@Model.MaChucVu">
                                     @foreach (var cvu in listchucvu)
                                 {
                                     <option value="@cvu.MaChucVu">@cvu.TenChucVu</option>
                                 }
                             </select>
-                                <span asp-validation-for="@Model.Taikhoan.MaChucVu" class="text-danger"></span>
+                                <span asp-validation-for="@Model.MaChucVu" class="text-danger"></span>
                         </div>
                     </div>
                     <br>
@@ -121,8 +156,8 @@
             </div>
             <div class="text-center">
                 <!-- <input type="submit" value="Đăng ký"> -->
-                <button type="submit">Lưu</button>
-                <input onclick="resetForm()" type="button" value="LÀM MỚI">
+                <a class="btn btn-info p-2 me-3" asp-action="Index" asp-controller="Staff">Trở về</a>
+                <button type="submit"> Lưu</button>     
             </div>
         </form>
     </div>

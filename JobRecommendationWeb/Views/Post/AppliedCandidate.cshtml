@@ -11,17 +11,11 @@
     </div>
     <div class="search">
         <form class="row my-2 my-lg-0">
-            <div class="col-lg-8">
-                <input class="form-control mr-sm-2 col-lg-8" type="text" placeholder="Search">
-            </div>
-            <div class="col-auto">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </div>
-            <div class="col-auto">
-                <button asp-action="ExportToExcel" asp-controller="Post" asp-route-id="@ViewBag.MaBaiDang" class="btn btn-outline-success"> Xuất file Excel</button>
-            </div>
-            <div class="col-auto text-end">
+            <div class="col-auto text-end justify-content-around">
                 <a asp-action="Detail" asp-controller="Post" asp-route-id="@ViewBag.MaBaiDang" class="btn btn-outline-success my-2 my-sm-0">Trở về</a>
+            </div>
+            <div class="col-auto justify-content-end">
+                <button asp-action="ExportToExcel" asp-controller="Post" asp-route-id="@ViewBag.MaBaiDang" class="btn btn-outline-success"> Xuất file Excel</button>
             </div>
         </form>
     </div>

@@ -60,10 +60,6 @@ namespace JobRecommendationWeb.Controllers
 
         public async Task<IActionResult> Detail(int? id)
         {
-            if (UsingAccount.Instance.Taikhoan == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
 
             if (id == null)
             {

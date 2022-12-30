@@ -131,8 +131,7 @@ namespace JobRecommendationWeb.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            TaikhoanNhanvienViewModel taikhoan = new TaikhoanNhanvienViewModel();
-            taikhoan.Taikhoan = _context.Taikhoans.FirstOrDefault(x => x.MaTaiKhoan == id);
+            Taikhoan taikhoan = _context.Taikhoans.FirstOrDefault(x => x.MaTaiKhoan == id);
 
             ViewBag.Chucvu = _context.Chucvus.ToList();
             return View(taikhoan);
@@ -140,14 +139,21 @@ namespace JobRecommendationWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(TaikhoanNhanvienViewModel taikhoan)
+        public IActionResult Edit(Taikhoan taikhoan)
         {
             if (UsingAccount.Instance.Taikhoan == null)
             {
                 return RedirectToAction("Index", "Home");
             }
 
-            _context.Taikhoans.Update(taikhoan.Taikhoan);
+            var tk = _context.Taikhoans.FirstOrDefault(x => x.MaTaiKhoan == taikhoan.MaTaiKhoan);
+            tk.TenNhanVien = taikhoan.TenNhanVien;
+            tk.MaChucVu = taikhoan.MaChucVu;
+            tk.Tuoi = taikhoan.Tuoi;
+            tk.GioiTinh = taikhoan.GioiTinh;
+            tk.Sdt = taikhoan.Sdt;
+            
+            _context.SaveChanges();
             return RedirectToAction("Index");
         }
     }
