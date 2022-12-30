@@ -28,9 +28,20 @@ namespace JobRecommendationWeb.Controllers
         [HttpPost]
         public IActionResult Create(Kinang obj)
         {
+            List<Kinang> kinangs = _context.Kinangs.ToList();
+            foreach (var item in kinangs)
+            {
+                if (item.TenKiNang.ToLower() == obj.TenKiNang.ToLower())
+                {
+                    ModelState.AddModelError("tenkinang", "Tên kĩ năng không được trùng");
+                    break;
+                }
+            } 
+                
             if (string.IsNullOrEmpty(obj.TenKiNang))
             {
-                ModelState.AddModelError("tenkinang", "Tên kĩ năng không được trùng");
+
+                ModelState.AddModelError("tenkinang", "Tên kĩ năng không được trống");
             }
             if (ModelState.IsValid)
             {
@@ -52,6 +63,15 @@ namespace JobRecommendationWeb.Controllers
         [HttpPost] 
         public IActionResult Edit(Kinang kinang)
         {
+            List<Kinang> kinangs = _context.Kinangs.ToList();
+            foreach (var item in kinangs)
+            {
+                if (item.TenKiNang.ToLower() == kinang.TenKiNang.ToLower())
+                {
+                    ModelState.AddModelError("tenkinang", "Tên kĩ năng không được trùng");
+                    break;
+                }
+            }
             if (string.IsNullOrEmpty(kinang.TenKiNang))
             {
                 ModelState.AddModelError("tenkinang", "Tên kĩ năng không được trùng");

@@ -64,10 +64,15 @@
                             <img alt="ảnh công ty" src="@imgSrc" style="object-fit: contain" class="w-100" />
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title fw-bolder">Tên: @item.TenCongTy</h5>
+                            <h5 class="card-title fw-bolder text-truncate">Tên: @item.TenCongTy</h5>
                             <div class="small-text mb-2">
-                                <p class="card-text m-0 small"> Địa điểm: @item.DiaChi</p>
+                                <p class="card-text m-0 small text-truncate"><span class="fw-bold">Địa điểm:</span> @item.DiaChi</p>
                             </div>
+                            <div class="py-2"></div>
+                            <div class="small-text mb-2">
+                                <p class="card-text m-0 small"><span class="fw-bold">Quốc gia:</span> @item.QuocTich</p>
+                            </div>
+                            <div class="py-3"></div>
                         </div>
                     </div>
                     <div class="card-footer">
