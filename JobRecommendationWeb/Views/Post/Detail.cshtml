@@ -12,9 +12,13 @@
         <div class="col-8">
 
         </div>
-        <div class="col-4 text-end">
-            <a asp-action="AppliedCandidate" asp-controller="Post" asp-route-id="@post.MaBaiDang" class="btn btn-primary">Xem các ứng viên đã nộp</a>
-        </div>
+        @if (UsingAccount.Instance.Taikhoan != null)
+        {
+            <div class="col-4 text-end">
+                <a asp-action="AppliedCandidate" asp-controller="Post" asp-route-id="@post.MaBaiDang" class="btn btn-primary">Xem các ứng viên đã nộp</a>
+            </div>
+        }
+        
     </div>
 </div>
 
