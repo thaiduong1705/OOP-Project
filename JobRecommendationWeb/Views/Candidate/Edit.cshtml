@@ -1,132 +1,153 @@
 ﻿@{
-	ViewData["Title"] = "Chỉnh sửa hồ sơ ứng viên";
+    ViewData["Title"] = "Chỉnh sửa hồ sơ ứng viên";
 
-	Ungvien ungvien = ViewBag.EditingCandidate;
-	List<Kinang> kinangList = ViewBag.kinangList;
+    Ungvien ungvien = ViewBag.EditingCandidate;
+    List<Kinang> kinangList = ViewBag.kinangList;
 
-	List<int> selectedKiNang = ungvien.MaKiNangs.Select(x => x.MaKiNang).ToList();
-	List<SelectListItem> kns = new List<SelectListItem>();
-	foreach(var kinang in kinangList)
-	{
-		kns.Add(new SelectListItem { Text = kinang.TenKiNang, Value = kinang.MaKiNang.ToString() });
-	}
-
-	List<SelectListItem> countryList = new List<SelectListItem>();
+    List<int> selectedKiNang = ungvien.MaKiNangs.Select(x => x.MaKiNang).ToList();
+    List<SelectListItem> kns = new List<SelectListItem>();
+    foreach(var kinang in kinangList)
+    {
+        kns.Add(new SelectListItem { Text = kinang.TenKiNang, Value = kinang.MaKiNang.ToString() });
+    }
+    List<SelectListItem> gender = new List<SelectListItem>()
+    {
+        new SelectListItem() {Text = "Nam", Value = "0" },
+        new SelectListItem() {Text = "Nữ", Value = "1" },
+        new SelectListItem() {Text = "Khác", Value = "2" }
+    };
 }
 
 @section Styles {
-        <link rel="stylesheet" href="@Url.Content("/css/FormStyle.css")"/>
+     <link href="~/css/Form.css" rel="stylesheet"/>
 }
 
-<div class="container">
-    <form id="formCreate" asp-action="Edit" asp-controller="Candidate" method="POST" enctype="multipart/form-data" autocomplete="off">
-		<div class="row-register">
-			<!-- <div class="col-register1">
-				<img src="images/logo.jpg" alt="ảnh" width="200px">
-			</div> -->
-			<div class="col-register2">
-				<h1>Thông tin ứng viên</h1>
-				<hr>
-				<br>
-				<input type="text" name="MaUngVien" value="@ungvien.MaUngVien" class="form-control d-none"/>
-				<div class="row-register2">
-					<div class="col-register3">
-						<label for="candidate_name">Họ Tên</label>
-					</div>
-					<div class="col-register4">
-						<input id="Ten" name="Ten" type="text" value="@ungvien.Ten" autofocus>
-					</div>
-				</div>
-				<br>
-				<div class="row-register2">
-					<div class="col-register3">
-						<label for="candidate_age">Tuổi</label>
-					</div>
-					<div class="col-register4">
-						<input name="Tuoi" id="Tuoi" type="text" value="@ungvien.Tuoi">
-						
-					</div>
-				</div>
-				<br>
-				<div class="row-register2">
-					<div class="col-register3">
-						<label for="candidate_experience">Thâm Niên</label>
-					</div>
-					<div class="col-register4">
-						<input name="ThamNien" id="ThamNien" type="text" value="@ungvien.ThamNien">
-					</div>
-				</div>
-				<br>
-                <div class="row-register2">
-					<div class="col-register3">
-						<label for="candidate_phone">SĐT</label>
-					</div>
-					<div class="col-register4">
-						<input name="Sdt" id="Sdt" type="text" value="@ungvien.Sdt">
-					</div>
-				</div>
+<div class="formView">
+    <div class="input_container">
+        <form id="formCreate" asp-action="Create" asp-controller="Candidate" method="post" enctype="multipart/form-data" autocomplete="off">
+            <div class="row-register">
+                <div class="col-register2">
+                    <h1>Thông tin ứng viên</h1>
+                    <hr>
+                    <br>
+                    <div class="input-row row-register2">
+                        <div class="col-register3">
+                        <label>Họ Tên</label>
+                        </div>
+                        <div class="col-register4">
+                        <input type="text" name="Ten" id="name" value="@ungvien.Ten" autofocus>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="input-row row-register2">
+                    <div class="col-register3">
+                        <label for="age">Tuổi</label>
+                    </div>
+                    <div class="col-register4">
+                        <input type="text" name="Tuoi" value="@ungvien.Tuoi" required>
+                    </div>
+                </div>
                 <br>
-				<div class="row-register2">
-					<div class="col-register3">
-						<label for="email">Email</label>
-					</div>
-					<div class="col-register4">
-						<input type="text" name="Email" id="email" value="@ungvien.Email">
-					</div>
-				</div>
-                <br>
-				<div class="row-register2">
-					<div class="col-register3">
-						<label for="kinang">Kĩ năng</label>
-					</div>
-					<div class="col-register4">
-						<select name="Kinang" id="Kinang" class="form-select chosen-default" multiple>
-							@foreach (var item in kns)
-							{
-								if (selectedKiNang.Contains(int.Parse(item.Value)))
-								{
-									<option selected value="@item.Value">@item.Text</option>
-								}
-								else {
-									<option value="@item.Value">@item.Text</option>
-								}
-							}
-						</select>
-					</div>
-				</div>
-                <br>
-				<div class="row-register2">
-					<div class="col-register3">
-						<label for="CV">CV</label>
-					</div>
-					<div class="col-register4">
-						<input type="file" name="CV" id="CV" accept="image/*">
-					</div>
-				</div>
-				<br>
-				<div class="row-register2">
-					<div class="col-register3">
-						<label for="location">Địa chỉ</label>
-					</div>
-					<div class="col-register4">
-						<input name="DiaChi" id="DiaChi" type="text" value="@ungvien.DiaChi">
+                    <div class="input-row row-register2">
+                        <div class="col-register3">
+                        <label for="phone">Số điện thoại</label>
+                        </div>
+                        <div class="col-register4">
+                        <input type="text" name="Sdt" value="@ungvien.Sdt" id="phone">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="input-row row-register2">
+                        <div class="col-register3">
+                        <label for="email">Email</label>
+                        </div>
+                        <div class="col-register4">
+                        <input type="text" name="Email" value="@ungvien.Email" id="email">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="input-row row-register2">
+                        <div class="col-register3">
+                        <label for="school">Thâm niên</label>
+                        </div>
+                        <div class="col-register4">
+                        <input type="text" name="ThamNien" value="@ungvien.ThamNien" required>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="input-row row-register2">
+                        <div class="col-register3">
+                        <label for="CV">CV</label>
+                        </div>
+                        <div class="col-register4">
+                        <input type="file" name="CV" id="CV" accept="image/*" required>
+                        <!-- <label class="label-file" for="CV">
+                            <ion-icon name="images-outline"></ion-icon> &nbsp;
+                            <b>Chọn ảnh</b>
+                        </label> -->
+                        </div>
+                    </div>
+                    <br>
+                    <div class="input-row row-register2">
+                        <div class="col-register3">
+                        <label for="location">Địa chỉ</label>
+                        </div>
+                        <div class="col-register4">
+                        <input type="text" name="location" id="location" value="@ungvien.DiaChi" required>
                         <br>
                         <span>Ví dụ: 332, Cộng Hòa, 14, Tân Bình</span>
-					</div>
-				</div>	
-				<br>
-                <div class="row-register2">
-					<div class="col-register3">
-						<!-- <label for="firstname">Firstname</label> -->
-					</div>
-					<div class="col-register4">
-						<input type="submit" value="Chỉnh sửa">
-					</div>
-				</div>
-				
-			</div>
-		</div>
-	</form>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row-register2">
+					    <div class="col-register3">
+						    <label for="kinang">Kĩ năng</label>
+					    </div>
+					    <div class="col-register4">
+						    <select name="Kinang" id="Kinang" class="form-select chosen-default" multiple>
+							    @foreach (var item in kns)
+							    {
+                                    if (selectedKiNang.Contains(Convert.ToInt32(item.Value)))
+                                    {
+                                        <option selected value="@item.">@item.Text</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.">@item.Text</option>
+                                    }
+							    }
+						    </select>
+					    </div>
+				    </div>
+                    <br>
+                    <div class="input-row row-register2">
+                        <div class="col-register3">
+                        <label for="nam">Giới tính: </label>
+                        </div>
+                        <div class="col-register4">
+ 
+                        <label>
+                            <input type="radio" name="GioiTinh" value="nam" id="nam" required checked> Nam
+                        </label>
+                        <br>
+                        <label>
+                            <input type="radio" name="GioiTinh" value="nam" id="nam" required > Nam
+                        </label>
+                        <br>
+                        <label>
+                            <input type="radio" name="GioiTinh" value="nam" id="nam" required > Nam
+                        </label>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+            <div class="text-center">
+                <!-- <input type="submit" value="Đăng ký"> -->
+                <button type="submit">ĐĂNG KÝ</button>
+            </div>
+        </form>
+    </div>
 </div>
 @section Scripts {
     <script>

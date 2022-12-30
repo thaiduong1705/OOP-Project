@@ -55,7 +55,7 @@ $("#formCreate").validate({
         Tuoi: {
             required: "Nhập tuổi",
             number: "Chỉ nhập số",
-            range: "Tuổi từ 18 tới 65",
+            range: "Tuổi từ 15 tới 65",
         },
         ThamNien: {
             required: "Nhập thâm niên",
@@ -76,7 +76,7 @@ $("#formCreate").validate({
         },
         Kinang: {
             required: "Vui lòng chọn kĩ năng",
-           
+
         },
         DiaChi: {
             required: "Vui lòng nhập địa chỉ"
@@ -90,3 +90,7 @@ $("#formCreate").validate({
     }
 });
 
+// reset form
+function resetForm() {
+    document.getElementsByTagName('form')[0].reset();
+}

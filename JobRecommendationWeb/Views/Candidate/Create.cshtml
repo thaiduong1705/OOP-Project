@@ -3,113 +3,130 @@
 }
 
 @section Styles {
-        <link rel="stylesheet" href="@Url.Content("/css/FormStyle.css")"/>
+     <link href="~/css/Form.css" rel="stylesheet"/>
 }
 
 @model List<Kinang>
 
-<div class="container">
-    <form id="formCreate" asp-action="Create" asp-controller="Candidate" method="post" enctype="multipart/form-data" autocomplete="off">
-		<div class="row-register">
-			<!-- <div class="col-register1">
-				<img src="images/logo.jpg" alt="ảnh" width="200px">
-			</div> -->
-			<div class="col-register2">
-				<h1>Thông tin ứng viên</h1>
-				<hr>
-				<br>
-				<div class="row-register2">
-					<div class="col-register3">
-						<label for="candidate_name">Họ Tên</label>
-					</div>
-					<div class="col-register4">
-						<input id="Ten" name="Ten" type="text" autofocus>
-					</div>
-				</div>
-				<br>
-				<div class="row-register2">
-					<div class="col-register3">
-						<label for="candidate_age">Tuổi</label>
-					</div>
-					<div class="col-register4">
-						<input name="Tuoi" id="Tuoi" type="text">
-						
-					</div>
-				</div>
-				<br>
-				<div class="row-register2">
-					<div class="col-register3">
-						<label for="candidate_experience">Thâm Niên</label>
-					</div>
-					<div class="col-register4">
-						<input name="ThamNien" id="ThamNien" type="text">
-					</div>
-				</div>
-				<br>
-                <div class="row-register2">
-					<div class="col-register3">
-						<label for="candidate_phone">SĐT</label>
-					</div>
-					<div class="col-register4">
-						<input name="Sdt" id="Sdt" type="text">
-					</div>
-				</div>
+<div class="formView">
+    <div class="input_container">
+        <form id="formCreate" asp-action="Create" asp-controller="Candidate" method="post" enctype="multipart/form-data" autocomplete="off">
+            <div class="row-register">
+                <div class="col-register2">
+                    <h1>Thông tin ứng viên</h1>
+                    <hr>
+                    <br>
+                    <div class="input-row row-register2">
+                        <div class="col-register3">
+                        <label>Họ Tên</label>
+                        </div>
+                        <div class="col-register4">
+                        <input type="text" name="Ten" id="name" autofocus>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="input-row row-register2">
+                    <div class="col-register3">
+                        <label for="age">Tuổi</label>
+                    </div>
+                    <div class="col-register4">
+                        <input type="text" name="Tuoi" required>
+                    </div>
+                </div>
                 <br>
-				<div class="row-register2">
-					<div class="col-register3">
-						<label for="email">Email</label>
-					</div>
-					<div class="col-register4">
-						<input type="text" name="Email" id="email">
-					</div>
-				</div>
-                <br>
-				<div class="row-register2">
-					<div class="col-register3">
-						<label for="kinang">Kĩ năng</label>
-					</div>
-					<div class="col-register4">
-						<select name="Kinang" id="Kinang" class="form-select chosen-default" multiple>
-							@foreach (var item in Model)
-							{
-								<option value="@item.MaKiNang">@item.TenKiNang</option>
-							}
-						</select>
-					</div>
-				</div>
-                <br>
-				<div class="row-register2">
-					<div class="col-register3">
-						<label for="CV">CV</label>
-					</div>
-					<div class="col-register4">
-						<input type="file" name="CV" id="CV" accept="image/*">
-					</div>
-				</div>
-				<br>
-				<div class="row-register2">
-					<div class="col-register3">
-						<label for="location">Địa chỉ</label>
-					</div>
-					<div class="col-register4">
-						<input name="DiaChi" id="DiaChi" type="text">
+                    <div class="input-row row-register2">
+                        <div class="col-register3">
+                        <label for="phone">Số điện thoại</label>
+                        </div>
+                        <div class="col-register4">
+                        <input type="text" name="Sdt" id="phone">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="input-row row-register2">
+                        <div class="col-register3">
+                        <label for="email">Email</label>
+                        </div>
+                        <div class="col-register4">
+                        <input type="text" name="Email" id="email">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="input-row row-register2">
+                        <div class="col-register3">
+                        <label for="school">Thâm niên</label>
+                        </div>
+                        <div class="col-register4">
+                        <input type="text" name="ThamNien" id="school" required>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="input-row row-register2">
+                        <div class="col-register3">
+                        <label for="CV">CV</label>
+                        </div>
+                        <div class="col-register4">
+                        <input type="file" name="CV" id="CV" accept="image/*" required>
+                        <!-- <label class="label-file" for="CV">
+                            <ion-icon name="images-outline"></ion-icon> &nbsp;
+                            <b>Chọn ảnh</b>
+                        </label> -->
+                        </div>
+                    </div>
+                    <br>
+                    <div class="input-row row-register2">
+                        <div class="col-register3">
+                        <label for="location">Địa chỉ</label>
+                        </div>
+                        <div class="col-register4">
+                        <input type="text" name="location" id="location" required>
                         <br>
                         <span>Ví dụ: 332, Cộng Hòa, 14, Tân Bình</span>
-					</div>
-				</div>
-				<br>
-                <div class="row-register2">
-					<div class="col-register3">
-						<!-- <label for="firstname">Firstname</label> -->
-					</div>
-					<div class="col-register4">
-						<button type="submit">Đăng ký</button>
-					</div>
-				</div>
-				
-			</div>
-		</div>
-	</form>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row-register2">
+					    <div class="col-register3">
+						    <label for="kinang">Kĩ năng</label>
+					    </div>
+					    <div class="col-register4">
+						    <select name="Kinang" id="Kinang" class="form-select chosen-default" multiple>
+							    @foreach (var item in Model)
+							    {
+								    <option value="@item.MaKiNang">@item.TenKiNang</option>
+							    }
+						    </select>
+					    </div>
+				    </div>
+                    <br>
+                    <div class="input-row row-register2">
+                        <div class="col-register3">
+                        <label for="nam">Giới tính: </label>
+                        </div>
+                        <div class="col-register4">
+                        <label>
+                        <input type="radio" name="GioiTinh" value="0" id="nam" required checked> Nam
+                        </label>
+                        <br>
+                        <label>
+                        <input type="radio" name="GioiTinh" value="1"> Nữ
+                        </label>
+                        <br>
+                        <label>
+                        <input type="radio" name="GioiTinh" value="2"> Khác
+                        </label>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+            <div class="text-center">
+                <!-- <input type="submit" value="Đăng ký"> -->
+                <button type="submit">ĐĂNG KÝ</button>
+                <input onclick="resetForm()" type="button" value="LÀM MỚI">
+            </div>
+        </form>
+    </div>
 </div>
 @section Scripts {
     <script>
@@ -120,5 +137,5 @@
 	@{
 	<partial name="_ValidationScriptsPartial" />		
 	}
-	<script src=~/js/CandidateValid.js></script>
+	<script src=~/js/CandidateValidate.js></script>
 }

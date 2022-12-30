@@ -94,9 +94,9 @@
                                 <label for="gender">Giới tính </label>
                             </div>
                             <div class="col-register4">
-                                <input type="radio" id="phone"  value="Nam" asp-for="@Model.Taikhoan.GioiTinh" required>
-                                <input type="radio" id="phone" value="Nữ" asp-for="@Model.Taikhoan.GioiTinh"> Nữ
-                                <input type="radio" id="phone" value="Khác" asp-for="@Model.Taikhoan.GioiTinh"> Khác
+                                <input type="radio" id="phone"  value="Nam" asp-for="@Model.Taikhoan.GioiTinh" class="" required> Nam
+                                <input type="radio" id="phone" value="Nữ" asp-for="@Model.Taikhoan.GioiTinh" class="ms-3"> Nữ
+                                <input type="radio" id="phone" value="Khác" asp-for="@Model.Taikhoan.GioiTinh" class="ms-3"> Khác
                                 <span asp-validation-for="@Model.Taikhoan.Sdt" class="text-danger"></span>
                             </div>
                         </div>
@@ -136,5 +136,4 @@
     @{
         <partial name="_ValidationScriptsPartial" />
     }
-    <script src=~/js/CandidateValid.js></script>
 }
