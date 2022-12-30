@@ -1,15 +1,13 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@model List<Kinang>
+﻿@model List<Kinang>
 @{
     ViewData["title"] = "Danh sách kĩ năng";
 }
-
-@if(TempData["success"] != null) {
-    <div asp-validation-summary="All"></div>
+@section Styles {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
 }
-<div class="container-fluid">
+<div id="PlaceHolderHere"></div>
+<div class="container">
     <div class="row">
         <div class="col text-start p-0">
             <h2 class="text-primary">Danh sách kĩ năng</h2>
@@ -17,29 +15,73 @@
         </div>
 
         <div class="col text-end p-0">
-            <a type="button" class="btn btn-primary" asp-controller="Skill" asp-action="Create">Tạo kĩ năng</a>
+            <button type="button" class="btn btn-primary" data-toggle="ajax-modal" data-target="#addSkill" 
+                    data-url="@Url.Action("Create", "Skill")">Tạo kĩ năng</button>
         </div>
     </div>
 </div>
 
+<div class="container py-5">
+    <div class="row">
+        <table id="example" class="table table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <td>Mã kĩ năng</td>
+                    <td>Tên kĩ năng</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var p in Model)
+                {
+                    <tr>
+                        <td width="20%">@p.MaKiNang</td>
+                        <td width="70%">@p.TenKiNang</td>
+                        <td width="10%">
+                            <button type="button" class="btn btn-primary" data-toggle="ajax-modal" data-target="#editSkill"
+                                    data-url="@Url.Action($"Edit/{p.MaKiNang}")">Edit</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
 
-<table class="table table-bordered table-striped w-100">
-    <thead>
-        <tr>
-            <th>STT</th>
-            <th>Tên kĩ năng</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var p in Model)
-        {
-            <tr>
-                <td width="20%">@p.MaKiNang</td>
-                <td width="80%">@p.TenKiNang</td>
-            </tr>
-        }
-    </tbody>
-</table>
 
-@await Html.PartialAsync("_CreateSkillModal", new Kinang())
 
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+    <script src="/js/data-table.js"></script>
+    <script>
+        $(function () {
+            var placeholderElement = $('#PlaceHolderHere');
+            $('button[data-toggle="ajax-modal"]').click(function(event) {
+                var url = $(this).data('url');
+                var decodeUrl = decodeURIComponent(url);
+                $.get(decodeUrl).done(function (data) {
+                    placeholderElement.html(data);
+                    placeholderElement.find('.modal').modal('show');
+                })
+            });
+
+            placeholderElement.on('click', '[data-save="modal"]', function (event) {
+                var form = $(this).parents('.modal').find('form');
+                var actionUrl = "/Skill/" + form.attr('action');
+                var sendData = form.serialize();
+                $.post(actionUrl, sendData).done(function (data) {
+                    placeholderElement.find('.modal').modal('hide');
+                })
+
+            });
+            placeholderElement.on('click', '[data-dismiss="modal"]', function (event) {
+                placeholderElement.find('.modal').modal('hide');
+            });
+        });
+
+    </script>
+}

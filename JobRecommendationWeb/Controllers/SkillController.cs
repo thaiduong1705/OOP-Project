@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using JobRecommendationWeb.Models;
+using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics.Contracts;
 
 namespace JobRecommendationWeb.Controllers
 {
@@ -16,28 +18,52 @@ namespace JobRecommendationWeb.Controllers
             return View(kinangs);
         }
 
+        [HttpGet]
         public IActionResult Create()
         {
-            return View();
+            Kinang kinang = new Kinang();
+            return PartialView("_CreateSkillModal", kinang);
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Create(Kinang obj)
         {
             if (string.IsNullOrEmpty(obj.TenKiNang))
             {
-                ModelState.AddModelError("tenkinang", "test");
-            }    
+                ModelState.AddModelError("tenkinang", "Tên kĩ năng không được trùng");
+            }
             if (ModelState.IsValid)
             {
                 _context.Kinangs.Add(obj);
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(obj);
+            return PartialView("_EditSkillModal", obj);
         }
 
         
+        public IActionResult Edit(int id)
+        {
+            var kinang = _context.Kinangs.Where(x => x.MaKiNang == id).FirstOrDefault();
+
+            return PartialView("_EditSkillModal", kinang);
+        }
+
+        [HttpPost] 
+        public IActionResult Edit(Kinang kinang)
+        {
+            if (string.IsNullOrEmpty(kinang.TenKiNang))
+            {
+                ModelState.AddModelError("tenkinang", "Tên kĩ năng không được trùng");
+            }    
+            if (ModelState.IsValid)
+            {
+                _context.Kinangs.Update(kinang);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return PartialView("_EditSkillModal", kinang);
+        }
+
     }
 }

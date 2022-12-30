@@ -1,13 +1,14 @@
 ﻿@model Kinang
 
-<div class="modal fade" id="addSkill">
+<div class="modal fade" id="editSkill">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Tạo kĩ năng</h4>
                 <button type="button" class="btn-close" data-dismiss="modal"></button>
             </div>
-            <form action="Create" autocomplete="off">
+            <form action="Edit" autocomplete="off">
+                <input type="hidden" asp-for="@Model.MaKiNang" />
                 <div class="modal-body">
                     <label class="form-label">Tên kĩ năng</label>
                     <input type="text" class="form-control" asp-for=TenKiNang>

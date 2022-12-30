@@ -47,6 +47,25 @@ INSERT INTO [dbo].[TAIKHOAN]
            ,'0159486483'
            ,'chauvinhsinh12@gmail.com'
            ,0)
+
+INSERT INTO [dbo].[TAIKHOAN]
+           ([TenDangNhap]
+           ,[MatKhau]
+           ,[MaChucVu]
+           ,[TenNhanVien]
+           ,[Tuoi]
+           ,[SDT]
+           ,[Email]
+           ,[GioiTinh])
+     VALUES
+           ('staff'
+           ,'978aae9bb6bee8fb75de3e4830a1be46'
+           ,2
+           ,N'DMT'
+           ,22
+           ,'0159486483'
+           ,'chauvinhsinh12@gmail.com'
+           ,0)
 GO
 
 ---CONG TY---
