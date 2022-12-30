@@ -125,26 +125,51 @@
                         <label for="nam">Giới tính: </label>
                         </div>
                         <div class="col-register4">
- 
-                        <label>
-                            <input type="radio" name="GioiTinh" value="nam" id="nam" required checked> Nam
-                        </label>
+                        
+                        @if (ungvien.GioiTinh == 0) {
+                            <label>
+                                <input type="radio" name="GioiTinh" value="0" id="nam" checked> Nam
+                            </label>
+                        }
+                        else
+                        {
+                            <label>
+                                <input type="radio" name="GioiTinh" value="0" id="nam"> Nam
+                            </label>
+                        }
                         <br>
-                        <label>
-                            <input type="radio" name="GioiTinh" value="nam" id="nam" required > Nam
-                        </label>
+                        @if (ungvien.GioiTinh == 1) {
+                            <label>
+                                <input type="radio" name="GioiTinh" value="1" id="nam" checked> Nữ
+                            </label>
+                        } 
+                        else
+                        {
+                            <label>
+                                    <input type="radio" name="GioiTinh" value="1" id="nam"> Nữ
+                            </label>
+                        }
                         <br>
-                        <label>
-                            <input type="radio" name="GioiTinh" value="nam" id="nam" required > Nam
-                        </label>
-                        </div>
+                        @if (ungvien.GioiTinh == 2) {
+                            <label>
+                                <input type="radio" name="GioiTinh" value="2" id="nam"> Khác
+                            </label>
+                        }
+                        else
+                        {
+                            <label>
+                                <input type="radio" name="GioiTinh" value="2" id="nam"> Khác
+                            </label>
+                        }
                     </div>
                     <br>
                 </div>
             </div>
             <div class="text-center">
                 <!-- <input type="submit" value="Đăng ký"> -->
+                <a class="btn btn-success" asp-action="Index" asp-controller="Candidate" type="submit">Trở về</a>
                 <button type="submit">ĐĂNG KÝ</button>
+                
             </div>
         </form>
     </div>

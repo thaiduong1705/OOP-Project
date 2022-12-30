@@ -113,9 +113,19 @@ namespace JobRecommendationWeb.Controllers
                 value.LuongMin = Convert.ToInt32(form["LuongMin"]);
                 value.LuongMax = Convert.ToInt32(form["LuongMax"]);
                 value.GhiChu = form["GhiChu"];
+                value.MoTa = form["MoTaThem"];
 
                 _context.Baidangs.Add(value);
                 await _context.SaveChangesAsync();
+
+                List<Kinang> kinangs = new List<Kinang>();
+
+                foreach (var item in form["KiNang"])
+                {
+                    Kinang kinang = _context.Kinangs.Where(x => x.MaKiNang == Convert.ToInt32(item)).FirstOrDefault();
+                    kinangs.Add(kinang);
+                }
+                value.MaKiNangs = kinangs;
 
                 var chitietlamviec = new Chitietlamviec();
                 var date = DateTime.Now;

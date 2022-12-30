@@ -433,7 +433,7 @@ footer .back-to-top {
 
 .card {
     width: 250px;
-    height: 300px;
+    min-height: 300px;
 }
 
 .card-header > img {

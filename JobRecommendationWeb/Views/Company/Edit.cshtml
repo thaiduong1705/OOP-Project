@@ -19,7 +19,7 @@
 }
 <div class="formView">
     <div class="input_container">
-        <form name="formValidation" id="formValidation" action="valid.html">
+        <form id="formCreate" asp-action="Edit" asp-controller="Company" autocomplete="off" enctype="multipart/form-data">
             <div class="row-register">
                 <div class="col-register2">
                     <h1>Thông tin nhà tuyển dụng</h1>
@@ -30,7 +30,7 @@
                             <label for="name">Tên công ty</label>
                         </div>
                         <div class="col-register4">
-                            <input type="text" name="TenCongTy" id="name" value="@Model.TenCongTy" required autofocus>
+                            <input type="text" name="TenCongTy" id="name" value="@Model.TenCongTy" autofocus>
                         </div>
                     </div>
                     <br>
@@ -40,7 +40,7 @@
                             <label for="email">Website</label>
                         </div>
                         <div class="col-register4">
-                            <input type="text" name="Website" id="email" value="@Model.Website" required>
+                            <input type="text" name="Website" id="email" value="@Model.Website">
                         </div>
                     </div>
                     <br>
@@ -50,7 +50,7 @@
                             <label for="location">Địa chỉ</label>
                         </div>
                         <div class="col-register4">
-                            <input type="text" name="DiaChi" id="location" value="@Model.DiaChi" required>
+                            <input type="text" name="DiaChi" id="location" value="@Model.DiaChi">
                             <br>
                             <span>Ví dụ: 332, Cộng Hòa, 14, Tân Bình</span>
                         </div>
@@ -102,7 +102,7 @@
                             <label for="GPKD">Ảnh công ty</label>
                         </div>
                         <div class="col-register4">
-                            <input type="file" name="AnhCongTy" id="GPKD" accept="image/*" required>
+                            <input type="file" name="AnhCongTy" id="GPKD" accept="image/*">
                         </div>
                     </div>
                     <br>

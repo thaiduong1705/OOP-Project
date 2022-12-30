@@ -56,12 +56,12 @@
                 <h4 class="text-danger">Lương: @post.LuongMin VNĐ - @post.LuongMax VNĐ</h4>
             </div>
             <div class="row mb-2">
-                <label class="fw-bolder">Mô tả công việc</label>
-                <p class="lh-base">@post.MoTa</p>
+                <label class="fw-bolder">Mô tả công việc: </label>
+                <p class="lh-base" style="white-space: pre-wrap">@post.MoTa</p>
             </div>
             <div class="row mb-2">
-                <label class="fw-bolder">Yêu cầu công việc</label>
-                <p class="lh-base">@post.GhiChu</p>
+                <label class="fw-bolder">Yêu cầu công việc: </label>
+                <p class="lh-base" style="white-space: pre-wrap">@post.GhiChu</p>
             </div>
 
         </div>
@@ -69,13 +69,13 @@
             <label class="fw-bold mb-4">@company.TenCongTy</label>
 
             <div class="mb-4">
-                <label class="fw-bold mb-4">Địa chỉ: @company.DiaChi</label>
+                <label class="mb-4"><span class="fw-bold">Địa chỉ:</span> @company.DiaChi</label>
             </div>
 
             <label class="fw-bold mb-4">Quốc tịch: @company.QuocTich</label>
 
             <div class="mb-4">
-                <label class="fw-bold mb-4">Kĩ năng</label>
+                <label class="fw-bold mb-4">Kĩ năng: </label>
                 <p class="d-inline-block">
                     @foreach (var item in k)
                     {

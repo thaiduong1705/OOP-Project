@@ -29,8 +29,8 @@
         </div>
         @if (UsingAccount.Instance.Taikhoan != null) {
             <div class="col-4">
-                <a asp-action="Edit" asp-controller="Company" asp-route-id="@Model.MaCongTy" class="btn btn-info w-100 mb-5">Chỉnh sửa</a>
-                <a asp-action="Delete" asp-controller="Company" asp-route-id="@Model.MaCongTy" class="btn btn-dark w-100 mt-5">Xoá</a>
+                <a asp-action="Edit" asp-controller="Company" asp-route-id="@Model.MaCongTy" class="btn btn-info w-100 mb-3">Chỉnh sửa</a>
+                <a asp-action="Delete" asp-controller="Company" asp-route-id="@Model.MaCongTy" class="btn btn-dark w-100">Xoá</a>
             </div>
         }
     </div>
@@ -46,20 +46,18 @@
             <label class="fw-bold mb-4">Website: @Model.Website</label>
 
             <div class="mb-4">
-                <label class="fw-bold mb-4">Địa điểm</label>
-                <p class="">
-                    @Model.DiaChi
-                </p>
+                <span><span class="fw-bold">Địa chỉ: </span> @Model.DiaChi</span>
             </div>
 
-            <label class="fw-bold mb-4">Quóc tịch: @Model.QuocTich</label>
-
-            <div class="mb-4">
-                <label class="fw-bold mb-4">Địa điểm</label>
-                <p class="">
-                    @Model.QuocTich
-                </p>
+            <div class="mb-3">
+                <label class="fw-bold mb-4">Quốc gia: @Model.QuocTich</label>
             </div>
+            
+            <div class="mb-3">
+                <span class="fw-bold">Chế độ đãi ngộ:</span>
+                <p>@Model.CheDoDaiNgo</p>
+            </div>
+                
         </div>
     </div>
 </div>

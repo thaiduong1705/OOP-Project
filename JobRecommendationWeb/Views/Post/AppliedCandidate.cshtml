@@ -18,7 +18,10 @@
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </div>
             <div class="col-auto">
-                <button asp-action="ExportToExcel" asp-controller="Post" asp-route-id="@ViewBag.MaBaiDang" > Xuất file Excel</button>
+                <button asp-action="ExportToExcel" asp-controller="Post" asp-route-id="@ViewBag.MaBaiDang" class="btn btn-outline-success"> Xuất file Excel</button>
+            </div>
+            <div class="col-auto text-end">
+                <a asp-action="Detail" asp-controller="Post" asp-route-id="@ViewBag.MaBaiDang" class="btn btn-outline-success my-2 my-sm-0">Trở về</a>
             </div>
         </form>
     </div>

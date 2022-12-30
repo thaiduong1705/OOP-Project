@@ -113,7 +113,7 @@ namespace JobRecommendationWeb.Controllers
                 ungvien.ThamNien = Convert.ToInt32(form["ThamNien"]);
                 ungvien.Sdt = form["Sdt"];
                 ungvien.Tuoi = Convert.ToInt32(form["Tuoi"]);
-                ungvien.GioiTinh = Convert.ToInt32(form["Gender"]);
+                ungvien.GioiTinh = Convert.ToInt32(form["GioiTinh"]);
 
                 List<Kinang> listkinang = new List<Kinang>();
                 foreach (var k in form["Kinang"])
@@ -181,7 +181,7 @@ namespace JobRecommendationWeb.Controllers
             ungvien.ThamNien = Convert.ToInt32(form["ThamNien"]);
             ungvien.Sdt = form["Sdt"];
             ungvien.Tuoi = Convert.ToInt32(form["Tuoi"]);
-            ungvien.GioiTinh = Convert.ToInt32(form["Gender"]);
+            ungvien.GioiTinh = Convert.ToInt32(form["GioiTinh"]);
 
             List<Kinang> listkinang = new List<Kinang>();
             foreach (var k in form["Kinang"])

@@ -8,7 +8,7 @@
 }
 <div class="formView">
     <div class="input_container">
-        <form name="formValidation" id="formValidation" action="valid.html">
+            <form name="formCreate" id="formCreate" asp-action="Create" asp-controller="Company" autocomplete="off" enctype="multipart/form-data">
             <div class="row-register">
                 <div class="col-register2">
                     <h1>Thông tin nhà tuyển dụng</h1>
@@ -19,27 +19,27 @@
                             <label for="name">Tên công ty</label>
                         </div>
                         <div class="col-register4">
-                            <input type="text" name="TenCongTy" id="name" required autofocus>
+                            <input type="text" name="TenCongTy" id="name" autofocus>
                         </div>
                     </div>
                     <br>
-                    
+
                     <div class="input-row row-register2">
                         <div class="col-register3">
                             <label for="email">Website</label>
                         </div>
                         <div class="col-register4">
-                            <input type="text" name="Website" id="email" required>
+                            <input type="text" name="Website" id="email">
                         </div>
                     </div>
                     <br>
-                    
+
                     <div class="input-row row-register2">
                         <div class="col-register3">
                             <label for="location">Địa chỉ</label>
                         </div>
                         <div class="col-register4">
-                            <input type="text" name="DiaChi" id="location" required>
+                            <input type="text" name="DiaChi" id="location">
                             <br>
                             <span>Ví dụ: 332, Cộng Hòa, 14, Tân Bình</span>
                         </div>
@@ -50,17 +50,16 @@
                             <label for="country">Quốc gia</label>
                         </div>
                         <div class="col-register4">
-                            <select name="country" id="country" required>
-                                <option value=""></option>
-                                <option value="vn">Việt Nam</option>
-                                <option value="lao">Lào</option>
-                                <option value="cam">Campuchia</option>
-                                <option value="kor">Hàn Quốc</option>
-                                <option value="ger">Đức</option>
-                                <option value="jap">Nhật Bản</option>
-                                <option value="tha">Thái Lan</option>
-                                <option value="USA">Mỹ</option>
-                                <option value="sin">Singapore</option>
+                            <select name="country" id="country">
+                                    <option selected value="Việt Nam">Việt Nam</option>
+                                    <option value="Lào">Lào</option>
+                                    <option value="Campuchia">Campuchia</option>
+                                    <option value="Hàn Quốc">Hàn Quốc</option>
+                                    <option value="Đức">Đức</option>
+                                    <option value="Nhật Bản">Nhật Bản</option>
+                                    <option value="Thái Lan">Thái Lan</option>
+                                    <option value="Mỹ">Mỹ</option>
+                                    <option value="Singapore">Singapore</option>
                             </select>
                         </div>
                     </div>
@@ -70,17 +69,17 @@
                             <label for="compensation">Chế độ đãi ngộ</label>
                         </div>
                         <div class="col-register4">
-                            <textarea id="compensation" name="CheDoDaiNgo" rows="4" cols="50" required></textarea>
+                            <textarea id="compensation" name="CheDoDaiNgo" rows="4" cols="50"></textarea>
                             <!-- <input type="text-area" name="compensation" id="compensation" required> -->
                         </div>
                     </div>
                     <br>
                     <div class="input-row row-register2">
                         <div class="col-register3">
-                            <label for="describe">Mô tả công ty</label>
+                            <label>Mô tả công ty</label>
                         </div>
                         <div class="col-register4">
-                            <textarea  id="describe" name="MoTaThem" rows="4" cols="50" required></textarea>
+                            <textarea name="MoTaThem" rows="4" cols="50"></textarea>
                             <!-- <input type="text-area" name="describe" id="describe" required> -->
                         </div>
                     </div>
@@ -90,7 +89,7 @@
                             <label for="GPKD">Ảnh công ty</label>
                         </div>
                         <div class="col-register4">
-                            <input type="file" name="AnhCongTy" id="GPKD" accept="image/*" required>
+                            <input type="file" name="AnhCongTy" accept="image/*">
                         </div>
                     </div>
                     <br>
@@ -98,6 +97,7 @@
             </div>
             <div class="text-center">
                 <button>ĐĂNG KÝ</button>
+
                 <input onclick="resetForm()" type="button" value="LÀM MỚI">
             </div>
         </form>
@@ -105,7 +105,7 @@
 </div>
 @section Scripts {
 	@{
-    <partial name="_ValidationScriptsPartial" />
+        <partial name="_ValidationScriptsPartial" />
 	}
-<script src="~/js/CompanyValid.js"></script>
+    <script src="~/js/CompanyValidate.js"></script>
 }

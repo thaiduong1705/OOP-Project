@@ -13,11 +13,8 @@
         country: {
             required: true,
         },
-        logo: {
+        AnhCongTy: {
             required: true,
-        },
-        CheDoDaiNgo: {
-            required: true
         },
     },
     messages: {
@@ -34,11 +31,8 @@
         country: {
             required: "Vui lòng chọn quốc gia"
         },
-        logo: {
+        AnhCongTy: {
             required: "Vui lòng chọn ảnh logo"
-        },
-        CheDoDaiNgo: {
-            required: "Vui lòng nhập"
         },
     },
     submitHandler: function (form) {

@@ -47,21 +47,37 @@
     <ul class="displayCard w-100">
         @foreach (Baidang item in Model)
         {
-            <li class="d-inline-block m-4">
-                <div class="card position-relative">
-                    <a asp-action="Detail" asp-controller="Post" asp-route-id="@item.MaBaiDang" class=" position-absolute top-0 left-0 w-100 h-100"></a>
-                    <div class="card-header d-flex justify-content-center align-items-center">
-                        <img alt="ảnh công ty" />
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title fw-bolder">@item.TenCongViec</h5>
-                        <div class="small-text mb-2">
-                            <p class="card-text m-0 small">Từ @item.LuongMin đến @item.LuongMax</p>
+            string imgSrc = "";
+            if (item.MaCongTyNavigation.AnhCongTy != null)
+            {
+                var base64 = Convert.ToBase64String(item.MaCongTyNavigation.AnhCongTy);
 
-                            <p class="card-text m-0 small"> Địa điểm: @if (@item.MaCongTyNavigation != null) { @item.MaCongTyNavigation.DiaChi}</p>
- 
-                            <p class="card-text text-truncate">@item.GhiChu</p>
+                imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+            }
+            <li class="d-inline-block m-4">
+                <div class="card">
+                    <div class="position-relative">
+                        <a asp-action="Detail" asp-controller="Post" asp-route-id="@item.MaBaiDang" class=" position-absolute top-0 left-0 w-100 h-100"></a>
+                        <div class="card-header d-flex justify-content-center align-items-center">
+                            <img alt="ảnh công ty" src="@imgSrc" />
                         </div>
+                        <div class="card-body">
+
+                            <h5 class="card-title fw-bolder text-truncate">@item.TenCongViec</h5>
+                            <div class="small-text mb-2">
+                                <p class="card-text m-0 small">Từ <span class="fw-bold">@String.Format("{0:#,0}", item.LuongMin)</span> đến <span class="fw-bold">@String.Format("{0:#,0}", item.LuongMax)</span> triệu</p>
+
+                                <p class="card-text m-0 small mt-3"> Địa điểm: 
+                                    @if (@item.MaCongTyNavigation != null)
+                                    {
+                                        @item.MaCongTyNavigation.DiaChi
+                                    }
+                                 </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a href="@item.WebsiteBaiGoc" target="_blank">Đi tới website bài gốc</a>
                     </div>
                 </div>
             </li>

@@ -56,15 +56,17 @@
 					<div class="card-body">
 						<h5 class="card-title fw-bolder">@item.Ten</h5>
 						<div class="mb-2">
-							<p class="card-text m-0 small"> @item.Tuoi tuổi</p>
-							<p class="card-text m-0 small mt-2"><span class="fw-bold">Năm kinh nghiệm:</span> @item.ThamNien</p>
-							<p class="card-text m-0 small fw-bold mt-2"> Kĩ năng:</p>
-							<p class="card-text m-0 small">
+							<p class="card-text small"> @item.Tuoi tuổi</p>
+							<p class="card-text small mt-2"><span class="fw-bold">Năm kinh nghiệm:</span> @item.ThamNien</p>
+							<p class="card-text small mt-2">
+								<span class="fw-bold">Kĩ năng: </span>
 								@foreach (var c in item.MaKiNangs)
 								{
 									<text>@c.TenKiNang, </text>
 								}
 							</p>
+							<p class="card-text m-0 small"><span class="fw-bold">Email: </span>@item.Email</p>
+							<p class="card-text m-0 small"><span class="fw-bold">Sđt: </span>@item.Sdt</p>
 						</div>
 					</div>
 					<div class="card-footer">

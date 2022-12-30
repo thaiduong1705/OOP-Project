@@ -57,15 +57,17 @@
             }
             
             <li class="d-inline-block m-4">
-                <div class="card position-relative">
-                    <a asp-action="Detail" asp-controller="Company" asp-route-id="@item.MaCongTy" class=" position-absolute top-0 left-0 w-100 h-100"></a>
-                    <div class="card-header d-flex justify-content-center align-items-center">
-                        <img alt="ảnh công ty" src="@imgSrc" style="object-fit: contain" class="w-100"/>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title fw-bolder">Tên: @item.TenCongTy</h5>
-                        <div class="small-text mb-2">
-                            <p class="card-text m-0 small"> Địa điểm: @item.DiaChi</p>
+                <div class="card">
+                    <div class="position-relative">
+                        <a asp-action="Detail" asp-controller="Company" asp-route-id="@item.MaCongTy" class=" position-absolute top-0 left-0 w-100 h-100"></a>
+                        <div class="card-header d-flex justify-content-center align-items-center">
+                            <img alt="ảnh công ty" src="@imgSrc" style="object-fit: contain" class="w-100" />
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title fw-bolder">Tên: @item.TenCongTy</h5>
+                            <div class="small-text mb-2">
+                                <p class="card-text m-0 small"> Địa điểm: @item.DiaChi</p>
+                            </div>
                         </div>
                     </div>
                     <div class="card-footer">
