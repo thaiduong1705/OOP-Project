@@ -13,56 +13,42 @@
             <a class="btn btn-primary" asp-action="Create" asp-controller="Staff">Tạo nhân viên</a>
         </div>
     </div>
+</div>
 
-    <div class="search">
-        <form asp-action="Index" asp-controller="Staff" method="POST" enctype="multipart/form-data" class="row my-2 my-lg-0" autocomplete="off">
-            <div class="col-lg-8">
-				<div class="input-group mb-3">
-					<input class="form-control mr-sm-2 col-lg-8" type="text" name="input" placeholder="Search">
-					<select name="NhanVien" style="border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-color: #6c757d;">
-								   <option value="">Chọn tất cả</option>
-								   <option value="TenNhanVien">Tên</option>
-								   <option value="Tuoi">Tuổi</option>
-								   <option value="Email">Email</option>
-								   <option value="Sdt">SDT</option>
-					</select>
-				</div>
-			</div>
-            <div class="col-4">
-                <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Search">
-            </div>
-        </form>
+@section Styles {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
+}
+
+    <div class="container py-5">
+        <div class="row">
+            <table id="example" class="table table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Tên nhân viên</th>
+                        <th>Tuổi</th>
+                        <th>Số điện thoại</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (Taikhoan item in listNV)
+                {
+                    <tr>
+                        <td>@item.TenNhanVien</td>
+                        <td>@item.Tuoi</td>
+                        <td>@item.Sdt</td>
+                        <td>@item.Email</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
 </div>
 
-<div class="container">
-    <table class="dsnv">
-        <thead>
-            <tr>
-                <th>Mã NV</th>
-                <th>Họ Tên</th>
-                <th>Tuổi</th>
-                <th>SĐT</th>
-                <th>Email</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @{
-                for(int i = 0; i < listNV.Count; i++)
-                {
-                        <tr>
-                            <td>@(i+1)</td>
-                            <td>@listNV[i].TenNhanVien</td>
-                            <td>@listNV[i].Tuoi</td>
-                            <td>@listNV[i].Sdt</td>
-                            <td>@listNV[i].Email</td>
-                            <td>
-                            <a asp-action="Edit" asp-controller="Staff" asp-route-id="@listNV[i].MaTaiKhoan">Chỉnh sửa</a>
-                            </td>
-                        </tr>
-                }
-            }
-        </tbody>
-    </table>
-</div>
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+    <script src="/js/data-table.js"></script>
+}

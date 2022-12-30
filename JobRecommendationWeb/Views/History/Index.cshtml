@@ -1,120 +1,88 @@
-﻿@*
+﻿@model List<Chitietlamviec>
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    List<Taikhoan> tk = ViewBag.taikhoan;
     ViewData["Title"] = "Lịch sử làm việc";
 }
-
+@section Styles {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
+}
 <div class="container mb-5">
     <div class="row">
         <div class="col-6">
             <h3 class="text-dark">Lịch sử làm việc</h3>
         </div>
     </div>
+</div>
 
-    <div class="search text-end">
-        <form class="row my-2 my-lg-0">
-            <div class="col-lg-10">
-                <input class="form-control mr-sm-2 col-lg-8" type="text" placeholder="Search">
-            </div>
-			<div class="col-2">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </div>
-			
-        </form>
+    <div class="container py-5">
+        <form asp-action="Index" asp-controller="History" method="POST" enctype="multipart/form-data" class="row my-2 my-lg-0" autocomplete="off">
+        <div class="row">
+            <table id="example" class="table table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Tài khoản</th>
+                        <th>Ngày làm việc</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (Lichsulamviec item in ViewBag.lichsulamviec)
+                {
+                    <tr>
+                        <td>@tk.Where(x => x.MaTaiKhoan == item.MaTaiKhoan).FirstOrDefault().TenNhanVien</td>
+                        <td>@item.NgayLamViec</td>
+                            <td>
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" value="@item.MaLslv" name="lslv">
+                                Xem chi tiết
+                        </button></td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </form>
     </div>
-</div>
 
-<div class="container">
-    <table class="dsnv">
-        <thead>
-            <tr>
-                <th>STT</th>
-                <th>Mã NV</th>
-                <th>Họ Tên</th>
-				<th>SĐT</th>
-                <th>Email</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>1</td>
-                <td>A</td>
-				<td>1</td>
-                <td>A</td>
-                <td>A</td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>A</td>
-				<td>1</td>
-                <td>A</td>
-                <td>A</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>A</td>
-				<td>1</td>
-                <td>A</td>
-                <td>A</td>
-            </tr>
-			<tr>
-                <td>4</td>
-                <td>A</td>
-				<td>1</td>
-                <td>A</td>
-                <td>A</td>
-            </tr>
-			<tr>
-                <td>5</td>
-                <td>A</td>
-				<td>1</td>
-                <td>A</td>
-                <td>A</td>
-            </tr>
-			<tr>
-                <td>6</td>
-                <td>A</td>
-				<td>1</td>
-                <td>A</td>
-                <td>A</td>
-            </tr>
-			<tr>
-                <td>7</td>
-                <td>A</td>
-				<td>1</td>
-                <td>A</td>
-                <td>A</td>
-            </tr>
-			<tr>
-                <td>8</td>
-                <td>A</td>
-				<td>1</td>
-                <td>A</td>
-                <td>A</td>
-            </tr>
-			<tr>
-                <td>9</td>
-                <td>A</td>
-				<td>1</td>
-                <td>A</td>
-                <td>A</td>
-            </tr>
-			<tr>
-                <td>10</td>
-                <td>A</td>
-				<td>1</td>
-                <td>A</td>
-                <td>A</td>
-            </tr>
-			<tr>
-                <td>11</td>
-                <td>A</td>
-				<td>1</td>
-                <td>A</td>
-                <td>A</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+@if (Model != null && Model.Count != 0)
+    {
+    <div class="container mb-5">
+        <div class="row">
+            <div class="col-6">
+                <h3 class="text-dark">Chi tiết làm việc</h3>
+            </div>
+        </div>
+    </div>
 
+    <div class="container py-5">
+        <div class="row">
+            <table id="example" class="table table-striped" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Hoạt động</th>
+                        <th>Thời gian</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Chitietlamviec k in Model)
+                    {
+                        <tr>
+                            <td>@k.HoatDong</td>
+                            <td>@k.ThoiGian</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    }
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+    <script src="/js/data-table.js"></script>
+}

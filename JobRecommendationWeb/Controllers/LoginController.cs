@@ -42,10 +42,10 @@ namespace JobRecommendationWeb.Controllers
                     MaTaiKhoanNavigation = taikhoan,
                     NgayLamViec = DateTime.Today
                 };
-            }
 
-            _context.Lichsulamviecs.Add(lslv);
-            _context.SaveChanges();
+                _context.Lichsulamviecs.Add(lslv);
+                _context.SaveChanges();
+            }
 
             TempData["success"] = "Đăng nhập thành công";
             return RedirectToAction("Index", "Home");

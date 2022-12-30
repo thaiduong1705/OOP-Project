@@ -21,7 +21,7 @@ INSERT INTO [dbo].[TAIKHOAN]
            ,[GioiTinh])
      VALUES
            ('mingtai'
-           ,'93fabdfe5c28e477fe1ad95fc2c97fc3@'
+           ,'93fabdfe5c28e477fe1ad95fc2c97fc3'
            ,1
            ,'Yang Ming Tai'
            ,22
@@ -40,7 +40,7 @@ INSERT INTO [dbo].[TAIKHOAN]
            ,[GioiTinh])
      VALUES
            ('admin'
-           ,'93fabdfe5c28e477fe1ad95fc2c97fc3@'
+           ,'db69fc039dcbd2962cb4d28f5891aae1'
            ,1
            ,N'Quản trị viên'
            ,22
