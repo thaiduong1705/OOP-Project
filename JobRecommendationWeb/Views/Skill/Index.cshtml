@@ -75,8 +75,9 @@
                 var sendData = form.serialize();
                 $.post(actionUrl, sendData).done(function (data) {
                     placeholderElement.find('.modal').modal('hide');
+                    location.reload(true);
                 })
-
+                
             });
             placeholderElement.on('click', '[data-dismiss="modal"]', function (event) {
                 placeholderElement.find('.modal').modal('hide');
