@@ -39,7 +39,8 @@ namespace JobRecommendationWeb.Controllers
                 lslv = new Lichsulamviec()
                 {
                     MaTaiKhoan = taikhoan.MaTaiKhoan,
-                    MaTaiKhoanNavigation = taikhoan
+                    MaTaiKhoanNavigation = taikhoan,
+                    NgayLamViec = DateTime.Today
                 };
             }
 
