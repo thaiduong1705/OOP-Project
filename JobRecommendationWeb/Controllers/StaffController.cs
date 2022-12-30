@@ -104,7 +104,20 @@ namespace JobRecommendationWeb.Controllers
 
         public IActionResult Edit(int? id)
         {
-            return View(id);
+            TaikhoanNhanvienViewModel taikhoan = new TaikhoanNhanvienViewModel();
+            taikhoan.Taikhoan = _context.Taikhoans.FirstOrDefault(x => x.MaTaiKhoan == id);
+
+            ViewBag.Chucvu = _context.Chucvus.ToList();
+            return View(taikhoan);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(TaikhoanNhanvienViewModel taikhoan)
+        {
+
+            _context.Taikhoans.Update(taikhoan.Taikhoan);
+            return RedirectToAction("Index");
         }
     }
 }

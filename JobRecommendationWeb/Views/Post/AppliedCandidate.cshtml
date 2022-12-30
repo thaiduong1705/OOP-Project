@@ -6,7 +6,7 @@
 <div class="container mb-5">
     <div class="row">
         <div class="col-6">
-            <h3 class="text-dark">Danh sách ứng viên</h3>
+            <h3 class="text-dark">Danh sách ứng viên đã ứng tuyền vào bài đăng</h3>
         </div>
     </div>
     <div class="search">
@@ -17,33 +17,39 @@
             <div class="col-auto">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </div>
+            <div class="col-auto">
+                <button asp-action="ExportToExcel" asp-controller="Post" asp-route-id="@ViewBag.MaBaiDang" > Xuất file Excel</button>
+            </div>
         </form>
     </div>
 </div>
 
 <div class="container me-auto">
     <!-- chỗ này binding ra danh các việc làm nè-->
-	<ul class="displayCard w-100">
-		@foreach (var item in c)	
-		{
-			<li class="d-inline-block m-4">
-				<div class="card">
-					<div class="card-body">
-						<h5 class="card-title fw-bolder">@item.Ten</h5>
-						<div class="mb-2">
-							<p class="card-text m-0 small"> @item.Tuoi tuổi</p>
-							<p class="card-text m-0 small mt-2"><span class="fw-bold">Năm kinh nghiệm:</span> @item.ThamNien</p>
-							<p class="card-text m-0 small fw-bold mt-2"> Kĩ năng:</p>
-							<p class="card-text m-0 small">
-								@foreach (var k in item.MaKiNangs)
-								{
-									<text>@k.TenKiNang, </text>
-								}
-							</p>
-						</div>
-					</div>
-				</div>
-			</li>
-		}
-	</ul>
+    <ul class="displayCard w-100">
+        @foreach (var item in c)
+        {
+            <li class="d-inline-block m-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bolder">@item.Ten</h5>
+                        <div class="mb-2">
+                            <p class="card-text m-0 small"> @item.Tuoi tuổi</p>
+                            <p class="card-text m-0 small mt-2"><span class="fw-bold">Năm kinh nghiệm:</span> @item.ThamNien</p>
+                            <p class="card-text m-0 small fw-bold mt-2"> Kĩ năng:</p>
+                            <p class="card-text m-0 small">
+                                @foreach (var k in item.MaKiNangs)
+                                {
+                                    <text>@k.TenKiNang, </text>
+                                }
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a class="link-info" asp-action="CvImageDetail" asp-controller="Candidate" asp-route-id="@item.MaUngVien">Xem ảnh CV</a>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
 </div>

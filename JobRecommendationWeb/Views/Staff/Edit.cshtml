@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Tạo nhân viên";
+    ViewData["Title"] = "Chỉnh sửa nhân viên";
 
     List<Chucvu> listchucvu = ViewBag.Chucvu;
     
@@ -13,7 +13,7 @@
 
     <div class="container">
         <div class="input_container">
-            <form asp-action="Create" asp-controller="Staff" method="post">
+            <form asp-action="Edit" asp-controller="Staff" method="post">
                 <div class="row-register">
                     <div class="col-register2">
                         <h1>Thông tin nhân viên</h1>
@@ -24,7 +24,7 @@
                                 <label for="account">Tên đăng nhập</label>
                             </div>
                             <div class="col-register4">
-                                <input type="text" id="account" required autofocus value="@Model.Taikhoan.TenDangNhap" asp-for="@Model.Taikhoan.TenDangNhap">
+                                <input disabled type="text" id="account" required autofocus value="@Model.Taikhoan.TenDangNhap" asp-for="@Model.Taikhoan.TenDangNhap">
                                 <span asp-validation-for="@Model.Taikhoan.TenDangNhap" class="text-danger w-100"></span>
                         </div>
                         </div>
@@ -34,12 +34,12 @@
                                 <label for="password">Mật khẩu</label>
                             </div>
                             <div class="col-register4">
-                                <input type="password" required value="@Model.Taikhoan.MatKhau" asp-for="@Model.Taikhoan.MatKhau">
+                                <input disabled type="password" required value="@Model.Taikhoan.MatKhau" asp-for="@Model.Taikhoan.MatKhau">
                                 <span asp-validation-for="@Model.Taikhoan.MatKhau" class="text-danger"></span>
                             </div>
                         </div>
                         <br>
-                        <div class="input-row row-register2">
+@*                        <div class="input-row row-register2">
                             <div class="col-register3">
                                 <label for="password_confirmation">Xác nhận mật khẩu</label>
                             </div>
@@ -48,7 +48,7 @@
                                 <span asp-validation-for="@Model.RePassword" class="text-danger"></span>
                             </div>
                         </div>
-                        <br>
+                        <br>*@
                         <div class="input-row row-register2">
                             <div class="col-register3">
                                 <label for="name">Họ Tên</label>
@@ -121,7 +121,7 @@
             </div>
             <div class="text-center">
                 <!-- <input type="submit" value="Đăng ký"> -->
-                <button type="submit">ĐĂNG KÝ</button>
+                <button type="submit">Lưu</button>
                 <input onclick="resetForm()" type="button" value="LÀM MỚI">
             </div>
         </form>

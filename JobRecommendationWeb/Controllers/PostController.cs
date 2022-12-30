@@ -12,6 +12,7 @@ using System.Security.Cryptography;
 using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json.Linq;
 using JobRecommendationWeb.AddingClasses;
+using ClosedXML.Excel;
 
 namespace JobRecommendationWeb.Controllers
 {
@@ -233,6 +234,7 @@ namespace JobRecommendationWeb.Controllers
             }
 
             ViewBag.candidates = candidates;
+            ViewBag.MaBaiDang = id;
             return View();
         }
 
@@ -389,6 +391,80 @@ namespace JobRecommendationWeb.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public IActionResult ExportToExcel(int? id)
+        {
+
+            Baidang post = _context.Baidangs.FirstOrDefault(x => x.MaBaiDang == id && x.IsDeleted == false);
+
+            List<Ungvien> candidates = new List<Ungvien>();
+            List<Ungtuyen> u = _context.Ungtuyens.ToList();
+
+            foreach (var item in u)
+            {
+                if (item.MaBaiDang == post.MaBaiDang)
+                {
+                    Ungvien? c = _context.Ungviens.Include(x => x.MaKiNangs).FirstOrDefault(x => x.MaUngVien == item.MaUngVien && x.IsDeleted == false);
+                    if (c != null)
+                        candidates.Add(c);
+                }
+            }
+
+            using (var workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add("Users");
+                var currentRow = 1;
+                worksheet.Cell(currentRow, 1).Value = "Mã ứng viên";
+                worksheet.Cell(currentRow, 2).Value = "Tên ứng viên";
+                worksheet.Cell(currentRow, 3).Value = "Tuổi";
+                worksheet.Cell(currentRow, 4).Value = "Kĩ năng";
+                worksheet.Cell(currentRow, 5).Value = "Địa chỉ";
+                worksheet.Cell(currentRow, 6).Value = "Email";
+                worksheet.Cell(currentRow, 7).Value = "Số điện thoại";
+                worksheet.Cell(currentRow, 8).Value = "Thâm niên";
+                worksheet.Cell(currentRow, 9).Value = "Giới tính";
+
+                foreach (var user in candidates)
+                {
+                    string kinang = "";
+                    foreach (var item in user.MaKiNangs)
+                    {
+                        if (kinang == "")
+                        {
+                            kinang = item.TenKiNang;
+                        }
+                        else
+                        {
+                            kinang = kinang + ", " + item.TenKiNang;
+                        }
+                    }
+
+                    currentRow++;
+                    worksheet.Cell(currentRow, 1).Value = user.MaUngVien;
+                    worksheet.Cell(currentRow, 2).Value = user.Ten;
+                    worksheet.Cell(currentRow, 3).Value = user.Tuoi.ToString();
+                    worksheet.Cell(currentRow, 4).Value = kinang;
+                    worksheet.Cell(currentRow, 5).Value = user.DiaChi;
+                    worksheet.Cell(currentRow, 6).Value = user.Email;
+                    worksheet.Cell(currentRow, 7).Value = user.Sdt;
+                    worksheet.Cell(currentRow, 8).Value = user.ThamNien + " năm";
+                    worksheet.Cell(currentRow, 9).Value = (user.GioiTinh == 0)? "Nam" : (user.GioiTinh == 1)? "Nữ" : "Khác";
+                }
+
+                using (var stream = new MemoryStream())
+                {
+                    workbook.SaveAs(stream);
+                    var content = stream.ToArray();
+
+                    return File(
+                        content,
+                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                        "danhsachungtuyen.xlsx");
+                }
+            }
+        }
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
