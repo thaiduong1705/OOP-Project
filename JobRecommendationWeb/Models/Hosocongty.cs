@@ -21,5 +21,7 @@ public partial class Hosocongty
 
     public byte[]? AnhCongTy { get; set; }
 
+    public bool? IsDeleted { get; set; }
+
     public virtual ICollection<Baidang> Baidangs { get; } = new List<Baidang>();
 }

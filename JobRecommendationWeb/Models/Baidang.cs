@@ -27,6 +27,8 @@ public partial class Baidang
 
     public int? MaTaiKhoan { get; set; }
 
+    public bool? IsDeleted { get; set; }
+
     public virtual Hosocongty? MaCongTyNavigation { get; set; }
 
     public virtual Taikhoan? MaTaiKhoanNavigation { get; set; }
@@ -36,6 +38,4 @@ public partial class Baidang
     public virtual ICollection<Ungtuyen> Ungtuyens { get; set; } = new List<Ungtuyen>();
 
     public virtual ICollection<Kinang> MaKiNangs { get; set; } = new List<Kinang>();
-
-    public virtual ICollection<Lichsulamviec> MaLslvs { get; set; } = new List<Lichsulamviec>();
 }

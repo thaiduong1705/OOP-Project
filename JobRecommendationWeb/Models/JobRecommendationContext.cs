@@ -17,6 +17,8 @@ public partial class JobRecommendationContext : DbContext
 
     public virtual DbSet<Baidang> Baidangs { get; set; }
 
+    public virtual DbSet<Chitietlamviec> Chitietlamviecs { get; set; }
+
     public virtual DbSet<Chucvu> Chucvus { get; set; }
 
     public virtual DbSet<Cv> Cvs { get; set; }
@@ -26,8 +28,6 @@ public partial class JobRecommendationContext : DbContext
     public virtual DbSet<Kinang> Kinangs { get; set; }
 
     public virtual DbSet<Lichsulamviec> Lichsulamviecs { get; set; }
-
-    public virtual DbSet<Nhanvien> Nhanviens { get; set; }
 
     public virtual DbSet<Phieuphat> Phieuphats { get; set; }
 
@@ -51,6 +51,7 @@ public partial class JobRecommendationContext : DbContext
 
             entity.ToTable("BAIDANG");
 
+            entity.Property(e => e.IsDeleted).HasDefaultValueSql("((0))");
             entity.Property(e => e.NgayDangBai).HasColumnType("datetime");
 
             entity.HasOne(d => d.MaCongTyNavigation).WithMany(p => p.Baidangs)
@@ -60,6 +61,21 @@ public partial class JobRecommendationContext : DbContext
             entity.HasOne(d => d.MaTaiKhoanNavigation).WithMany(p => p.Baidangs)
                 .HasForeignKey(d => d.MaTaiKhoan)
                 .HasConstraintName("FK_MaTaiKhoan_BD");
+        });
+
+        modelBuilder.Entity<Chitietlamviec>(entity =>
+        {
+            entity.HasKey(e => e.MaCtlv).HasName("CHITIETLAMVIEC_PK");
+
+            entity.ToTable("CHITIETLAMVIEC");
+
+            entity.Property(e => e.MaCtlv).HasColumnName("MaCTLV");
+            entity.Property(e => e.MaLslv).HasColumnName("MaLSLV");
+            entity.Property(e => e.ThoiGian).HasColumnType("datetime");
+
+            entity.HasOne(d => d.MaLslvNavigation).WithMany(p => p.Chitietlamviecs)
+                .HasForeignKey(d => d.MaLslv)
+                .HasConstraintName("FK_MaLSLV_CTLV");
         });
 
         modelBuilder.Entity<Chucvu>(entity =>
@@ -88,6 +104,8 @@ public partial class JobRecommendationContext : DbContext
             entity.HasKey(e => e.MaCongTy).HasName("HOSOCONGTY_PK");
 
             entity.ToTable("HOSOCONGTY");
+
+            entity.Property(e => e.IsDeleted).HasDefaultValueSql("((0))");
         });
 
         modelBuilder.Entity<Kinang>(entity =>
@@ -143,36 +161,6 @@ public partial class JobRecommendationContext : DbContext
             entity.HasOne(d => d.MaTaiKhoanNavigation).WithMany(p => p.Lichsulamviecs)
                 .HasForeignKey(d => d.MaTaiKhoan)
                 .HasConstraintName("FK_MaTaiKhoan_LSLV");
-
-            entity.HasMany(d => d.MaBaiDangs).WithMany(p => p.MaLslvs)
-                .UsingEntity<Dictionary<string, object>>(
-                    "Chitietlamviec",
-                    r => r.HasOne<Baidang>().WithMany()
-                        .HasForeignKey("MaBaiDang")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK_MaBaiDang_CTLV"),
-                    l => l.HasOne<Lichsulamviec>().WithMany()
-                        .HasForeignKey("MaLslv")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK_MaLSLV_CTLV"),
-                    j =>
-                    {
-                        j.HasKey("MaLslv", "MaBaiDang").HasName("CHITIETLAMVIEC_PK");
-                        j.ToTable("CHITIETLAMVIEC");
-                    });
-        });
-
-        modelBuilder.Entity<Nhanvien>(entity =>
-        {
-            entity.HasKey(e => e.MaNhanVien).HasName("NHANVIEN_PK");
-
-            entity.ToTable("NHANVIEN");
-
-            entity.Property(e => e.Email).IsUnicode(false);
-            entity.Property(e => e.Sdt)
-                .HasMaxLength(10)
-                .IsUnicode(false)
-                .HasColumnName("SDT");
         });
 
         modelBuilder.Entity<Phieuphat>(entity =>
@@ -211,16 +199,17 @@ public partial class JobRecommendationContext : DbContext
 
             entity.ToTable("TAIKHOAN");
 
+            entity.Property(e => e.Email).IsUnicode(false);
             entity.Property(e => e.MatKhau).IsUnicode(false);
+            entity.Property(e => e.Sdt)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("SDT");
             entity.Property(e => e.TenDangNhap).IsUnicode(false);
 
             entity.HasOne(d => d.MaChucVuNavigation).WithMany(p => p.Taikhoans)
                 .HasForeignKey(d => d.MaChucVu)
                 .HasConstraintName("FK_ChucVu_TK");
-
-            entity.HasOne(d => d.MaNhanVienNavigation).WithMany(p => p.Taikhoans)
-                .HasForeignKey(d => d.MaNhanVien)
-                .HasConstraintName("FK_MaNhanVien_TK");
         });
 
         modelBuilder.Entity<Thongke>(entity =>
@@ -268,6 +257,7 @@ public partial class JobRecommendationContext : DbContext
 
             entity.ToTable("UNGVIEN");
 
+            entity.Property(e => e.IsDeleted).HasDefaultValueSql("((0))");
             entity.Property(e => e.Sdt).HasColumnName("SDT");
         });
 

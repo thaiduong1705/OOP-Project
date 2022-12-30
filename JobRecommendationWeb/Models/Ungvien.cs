@@ -19,7 +19,11 @@ public partial class Ungvien
 
     public int? ThamNien { get; set; }
 
-    public virtual ICollection<Cv> Cvs { get; set; } = new List<Cv>();
+    public int? GioiTinh { get; set; }
+
+    public bool? IsDeleted { get; set; }
+
+    public virtual ICollection<Cv> Cvs { get; } = new List<Cv>();
 
     public virtual ICollection<Ungtuyen> Ungtuyens { get; set; } = new List<Ungtuyen>();
 

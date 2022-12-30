@@ -14,6 +14,7 @@ CREATE TABLE BAIDANG (
 	NgayDangBai DateTime,
 	GhiChu NVARCHAR(MAX),
 	MaTaiKhoan INT,
+	IsDeleted BIT
 
 	CONSTRAINT BAIDANG_PK PRIMARY KEY (MaBaiDang)
 )

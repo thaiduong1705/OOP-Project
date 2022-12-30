@@ -9,11 +9,9 @@ public partial class Lichsulamviec
 
     public int? MaTaiKhoan { get; set; }
 
-    public string? CaLamViec { get; set; }
-
     public DateTime? NgayLamViec { get; set; }
 
-    public virtual Taikhoan? MaTaiKhoanNavigation { get; set; }
+    public virtual ICollection<Chitietlamviec> Chitietlamviecs { get; } = new List<Chitietlamviec>();
 
-    public virtual ICollection<Baidang> MaBaiDangs { get; set; } = new List<Baidang>();
+    public virtual Taikhoan? MaTaiKhoanNavigation { get; set; }
 }
