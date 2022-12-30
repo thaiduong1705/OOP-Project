@@ -17,52 +17,53 @@
 @section Styles {
     <link rel="stylesheet" href="@Url.Content("/css/Form.css")" />
 }
-<div class="formView">
-    <div class="input_container">
-        <form id="formCreate" asp-action="Edit" asp-controller="Company" autocomplete="off" enctype="multipart/form-data">
-            <div class="row-register">
-                <div class="col-register2">
-                    <h1>Thông tin nhà tuyển dụng</h1>
-                    <hr>
-                    <br>
-                    <div class="input-row row-register2">
-                        <div class="col-register3">
-                            <label for="name">Tên công ty</label>
+    <div class="formView">
+        <div class="input_container">
+            <form id="formCreate" asp-action="Edit" asp-controller="Company" autocomplete="off" enctype="multipart/form-data">
+                <div class="row-register">
+                    <div class="col-register2">
+                        <h1>Thông tin nhà tuyển dụng</h1>
+                        <hr>
+                        <br>
+                        <div class="input-row row-register2">
+                            <input name="MaCongTy" id="MaCongTy" value="@Model.MaCongTy" class="d-none"></input>
+                            <div class="col-register3">
+                                <label for="name">Tên công ty</label>
+                            </div>
+                            <div class="col-register4">
+                                <input type="text" name="TenCongTy" id="name" value="@Model.TenCongTy" autofocus>
+                            </div>
                         </div>
-                        <div class="col-register4">
-                            <input type="text" name="TenCongTy" id="name" value="@Model.TenCongTy" autofocus>
+                        <br>
+
+                        <div class="input-row row-register2">
+                            <div class="col-register3">
+                                <label for="email">Website</label>
+                            </div>
+                            <div class="col-register4">
+                                <input type="text" name="Website" id="email" value="@Model.Website">
+                            </div>
                         </div>
-                    </div>
-                    <br>
-                    
-                    <div class="input-row row-register2">
-                        <div class="col-register3">
-                            <label for="email">Website</label>
+                        <br>
+
+                        <div class="input-row row-register2">
+                            <div class="col-register3">
+                                <label for="location">Địa chỉ</label>
+                            </div>
+                            <div class="col-register4">
+                                <input type="text" name="DiaChi" id="location" value="@Model.DiaChi">
+                                <br>
+                                <span>Ví dụ: 332, Cộng Hòa, 14, Tân Bình</span>
+                            </div>
                         </div>
-                        <div class="col-register4">
-                            <input type="text" name="Website" id="email" value="@Model.Website">
-                        </div>
-                    </div>
-                    <br>
-                    
-                    <div class="input-row row-register2">
-                        <div class="col-register3">
-                            <label for="location">Địa chỉ</label>
-                        </div>
-                        <div class="col-register4">
-                            <input type="text" name="DiaChi" id="location" value="@Model.DiaChi">
-                            <br>
-                            <span>Ví dụ: 332, Cộng Hòa, 14, Tân Bình</span>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="input-row row-register2">
-                        <div class="col-register3">
-                            <label for="country">Quốc gia</label>
-                        </div>
-                        <div class="col-register4">
-                            <select name="country" id="country" required>
-                                @foreach (var item in items)
+                        <br>
+                        <div class="input-row row-register2">
+                            <div class="col-register3">
+                                <label for="country">Quốc gia</label>
+                            </div>
+                            <div class="col-register4">
+                                <select name="country" id="country" required>
+                                    @foreach (var item in items)
                                 {
                                     if (item.Value == Model.QuocTich)
                                     {
@@ -92,7 +93,7 @@
                             <label for="describe">Mô tả công ty</label>
                         </div>
                         <div class="col-register4">
-                            <textarea  id="describe" name="MoTaThem" rows="4" cols="50" required>@Model.MoTaThem</textarea>
+                            <textarea id="describe" name="MoTaThem" rows="4" cols="50" required>@Model.MoTaThem</textarea>
                             <!-- <input type="text-area" name="describe" id="describe" required> -->
                         </div>
                     </div>

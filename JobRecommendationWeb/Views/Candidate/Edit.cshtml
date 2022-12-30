@@ -24,7 +24,8 @@
 
 <div class="formView">
     <div class="input_container">
-        <form id="formCreate" asp-action="Create" asp-controller="Candidate" method="post" enctype="multipart/form-data" autocomplete="off">
+        <form id="formCreate" asp-action="Edit" asp-controller="Candidate" method="post" enctype="multipart/form-data" autocomplete="off">
+            <input name="MaUngVien" value="@ungvien.MaUngVien" class="d-none" />
             <div class="row-register">
                 <div class="col-register2">
                     <h1>Thông tin ứng viên</h1>
@@ -93,7 +94,7 @@
                         <label for="location">Địa chỉ</label>
                         </div>
                         <div class="col-register4">
-                        <input type="text" name="location" id="location" value="@ungvien.DiaChi" required>
+                        <input type="text" name="DiaChi" id="DiaChi" value="@ungvien.DiaChi" required>
                         <br>
                         <span>Ví dụ: 332, Cộng Hòa, 14, Tân Bình</span>
                         </div>
@@ -109,11 +110,11 @@
 							    {
                                     if (selectedKiNang.Contains(Convert.ToInt32(item.Value)))
                                     {
-                                        <option selected value="@item.">@item.Text</option>
+                                        <option selected value="@item.Value">@item.Text</option>
                                     }
                                     else
                                     {
-                                        <option value="@item.">@item.Text</option>
+                                        <option value="@item.Value">@item.Text</option>
                                     }
 							    }
 						    </select>
@@ -164,6 +165,7 @@
                     </div>
                     <br>
                 </div>
+            </div>
             </div>
             <div class="text-center">
                 <!-- <input type="submit" value="Đăng ký"> -->
