@@ -467,3 +467,50 @@ label.error {
     color: #f00;
     font-size: 14px;
 }
+
+.cardBox {
+    position: relative;
+    background-color: #16a086;
+    width: 100%;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    grid-gap: 20px;
+    margin: auto;
+}
+
+    .cardBox .card2 {
+        position: relative;
+        background: #fff;
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        cursor: pointer;
+        box-shadow: 0 7px 25px #888;
+        border-radius: 10px;
+    }
+
+        .cardBox .card2 .numbers {
+            position: relative;
+            /*font-size: 2em;*/
+            font-weight: 500;
+        }
+
+        .cardBox .card2 .cardName {
+            color: #999;
+        }
+
+        .cardBox .card2 .iconBox {
+            /*font-size: 2.5em;*/
+            color: #1bbc9b;
+        }
+
+        .cardBox .card2:hover {
+            background-color: #1bbc9b;
+        }
+
+            .cardBox .card2:hover .numbers,
+            .cardBox .card2:hover .cardName,
+            .cardBox .card2:hover .iconBox {
+                color: #fff;
+            }
