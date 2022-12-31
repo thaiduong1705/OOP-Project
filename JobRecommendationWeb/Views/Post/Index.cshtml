@@ -77,6 +77,24 @@
                                     }
                                  </p>
                             </div>
+                            <div class="mb-3">
+                                <p class="card-text small">
+                                    <span class="fw-bold">Kĩ năng: </span>
+                                    @{
+                                        var temp = item.MaKiNangs.ToList();
+                                        for (int i = 0; i < temp.Count; i++) {
+                                            if (i == temp.Count - 1)
+                                            {                                               
+                                                 <text>@temp[i].TenKiNang</text>
+                                            }
+                                            else {
+                                                <text>@temp[i].TenKiNang, </text>
+                                            }
+                                        }
+                                    }
+                                    
+                                </p>
+                            </div>
                             <div class="py-2"></div>
                         </div>
                     </div>

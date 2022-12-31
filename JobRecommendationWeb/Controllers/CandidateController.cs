@@ -156,7 +156,7 @@ namespace JobRecommendationWeb.Controllers
                 return RedirectToAction(nameof(Index));
             }
             else { }
-            TempData["success"] = "Tạo thành công";
+            TempData["error"] = "Tạo thất bại";
             return View(form);
         }
 

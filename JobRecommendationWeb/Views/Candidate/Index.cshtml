@@ -60,10 +60,20 @@
 							<p class="card-text small mt-2"><span class="fw-bold">Năm kinh nghiệm:</span> @item.ThamNien</p>
 							<p class="card-text small mt-2">
 								<span class="fw-bold">Kĩ năng: </span>
-								@foreach (var c in item.MaKiNangs)
-								{
-									<text>@c.TenKiNang, </text>
-								}
+                                @{
+                                    var temp = item.MaKiNangs.ToList();
+                                    for (int i = 0; i < temp.Count; i++)
+                                    {
+                                        if (i == temp.Count - 1)
+                                        {
+                                            <text>@temp[i].TenKiNang</text>
+                                        }
+                                        else
+                                        {
+                                            <text>@temp[i].TenKiNang, </text>
+                                        }
+                                    }
+                                }
 							</p>
 							<p class="card-text m-0 small text-truncate"><span class="fw-bold">Email: </span>@item.Email</p>
 							<p class="card-text m-0 small"><span class="fw-bold">Sđt: </span>@item.Sdt</p>

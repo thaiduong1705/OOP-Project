@@ -15,7 +15,7 @@ namespace JobRecommendationWeb.Controllers
         }
         public IActionResult Index()
         {
-            var listBaiDang = _context.Baidangs.Include(x => x.MaCongTyNavigation).Where(x => x.IsDeleted == false).ToList();
+            var listBaiDang = _context.Baidangs.Include(x => x.MaCongTyNavigation).Include(x => x.MaKiNangs).Where(x => x.IsDeleted == false).ToList();
             return View(listBaiDang);
         }
 
